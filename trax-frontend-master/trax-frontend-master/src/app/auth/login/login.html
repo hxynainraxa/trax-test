@@ -1,0 +1,188 @@
+<div class="flex min-h-screen w-full items-center justify-center bg-gray-50 px-4 py-6 font-inter">
+  <div class="w-full max-w-[384px]">
+    <div
+      class="w-full rounded-[12px] border border-gray-200 bg-white
+             px-7 pb-7 pt-7"
+    >
+      <!-- Logo -->
+      <div class="mb-5">
+        <img
+          src="/images/trax-logo.png"
+          alt="Trax"
+          class="h-[38px] w-[99px] object-contain"
+        />
+      </div>
+
+      <!-- Heading -->
+      <div>
+        <h1
+          class="font-inter text-[24px] font-semibold leading-[32px]
+                 tracking-[-0.6px] text-[#3A3735]"
+        >
+          Sign in to Trax
+        </h1>
+
+        <p
+          class="mt-1 font-inter text-[14px] font-normal leading-[20px]
+                 tracking-[0px] text-[#667085]"
+        >
+          Use the Unique ID issued by your relationship manager.
+        </p>
+      </div>
+
+      <!-- Warning / Error -->
+      @if (errorMessage) {
+        <div
+          class="mt-7 flex w-full items-start gap-3 rounded-lg
+                 border border-primary-200 bg-primary-50
+                 px-3 py-3 text-primary-700"
+          role="alert"
+        >
+          <!-- Warning Icon -->
+          <svg
+            class="mt-[1px] h-4 w-4 shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M10.29 3.86L1.82 18A2 2 0 0 0 3.53 21H20.47A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <path
+              d="M12 9V13"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+
+            <path
+              d="M12 17H12.01"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
+          <p class="text-[12px] font-normal leading-[18px]">
+            {{ errorMessage }}
+          </p>
+        </div>
+      }
+
+      <!-- Login Form -->
+      <form
+        class="mt-5"
+        (ngSubmit)="onLogin()"
+        novalidate
+      >
+        <!-- Unique ID -->
+        <div class="flex flex-col">
+          <label
+            for="uniqueId"
+            class="mb-1.5 font-inter text-[12px] font-medium
+                   leading-[18px] text-gray-700"
+          >
+            Unique ID
+          </label>
+
+          <input
+            id="uniqueId"
+            name="uniqueId"
+            type="text"
+            [(ngModel)]="uniqueId"
+            [disabled]="isLoading"
+            autocomplete="username"
+            placeholder="TRX-100234"
+            class="h-[39px] w-full rounded-lg border border-gray-300
+                   bg-white px-3 font-inter text-[14px] font-normal
+                   text-gray-700 outline-none transition
+                   placeholder:text-gray-500
+                   focus:border-primary-400
+                   focus:ring-2 focus:ring-primary-100
+                   disabled:cursor-not-allowed
+                   disabled:bg-gray-100
+                   disabled:text-gray-500"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mt-[17px] flex flex-col">
+          <label
+            for="password"
+            class="mb-1.5 font-inter text-[12px] font-medium
+                   leading-[18px] text-gray-700"
+          >
+            Password
+          </label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            [(ngModel)]="password"
+            [disabled]="isLoading"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            class="h-[39px] w-full rounded-lg border border-gray-300
+                   bg-white px-3 font-inter text-[14px] font-normal
+                   text-gray-700 outline-none transition
+                   placeholder:text-gray-400
+                   focus:border-primary-400
+                   focus:ring-2 focus:ring-primary-100
+                   disabled:cursor-not-allowed
+                   disabled:bg-gray-100
+                   disabled:text-gray-500"
+          />
+        </div>
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          [disabled]="isLoading"
+          class="mt-[26px] flex h-[39px] w-full items-center
+                 justify-center rounded-lg bg-primary-500 px-4
+                 font-inter text-[14px] font-semibold text-white
+                 transition-colors duration-200
+                 hover:bg-primary-600
+                 focus:outline-none
+                 focus:ring-4 focus:ring-primary-100
+                 disabled:cursor-not-allowed
+                 disabled:bg-primary-300"
+        >
+          @if (isLoading) {
+            <svg
+              class="h-5 w-5 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4Z"
+              />
+            </svg>
+          } @else {
+            <span>Login</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

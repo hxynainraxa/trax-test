@@ -1,0 +1,551 @@
+<aside
+  class="sidebar"
+  (mouseleave)="closeFlyouts()"
+>
+
+  <!-- =============================================
+       LOGO
+       ============================================= -->
+
+  <div class="sidebar__header">
+
+    <img
+      src="/images/trax-logo-white.png"
+      alt="Trax"
+      class="sidebar__logo-image"
+    />
+
+  </div>
+
+
+  <!-- =============================================
+       MAIN NAVIGATION
+       ============================================= -->
+
+  <nav class="sidebar__navigation">
+
+    <ul class="sidebar__menu">
+
+      @for (
+        item of menuItems;
+        track item.id
+      ) {
+
+        <li
+          class="sidebar__menu-item"
+
+          [class.sidebar__menu-item--active]="
+            isMenuItemActive(item)
+          "
+
+          [class.sidebar__menu-item--open]="
+            isFlyoutOpen(
+              item.id,
+              0
+            )
+          "
+
+          [class.sidebar__menu-item--disabled]="
+            item.disabled
+          "
+
+          (mouseenter)="
+            onRootItemEnter(item)
+          "
+        >
+
+          <!-- =====================================
+               MAIN ITEM WITH ROUTE
+               ===================================== -->
+
+          @if (item.route) {
+
+            <a
+              [routerLink]="item.route"
+
+              class="sidebar__menu-link"
+
+              [attr.aria-label]="
+                item.label
+              "
+
+              [attr.title]="
+                item.label
+              "
+
+              [attr.aria-haspopup]="
+                item.children?.length
+                  ? 'menu'
+                  : null
+              "
+
+              [attr.aria-expanded]="
+                item.children?.length
+                  ? isFlyoutOpen(
+                      item.id,
+                      0
+                    )
+                  : null
+              "
+
+              (click)="closeFlyouts()"
+            >
+
+              <!-- MAIN SIDEBAR ICON -->
+
+              <span
+                class="sidebar__menu-icon-box"
+              >
+
+                <svg
+                  [lucideIcon]="item.icon"
+                  [size]="24"
+                  [strokeWidth]="1.7"
+                  class="sidebar__menu-icon"
+                  aria-hidden="true"
+                ></svg>
+
+              </span>
+
+
+              <!-- MAIN SIDEBAR LABEL -->
+
+              <span
+                class="sidebar__menu-label"
+              >
+                {{ item.label }}
+              </span>
+
+            </a>
+
+          }
+
+
+          <!-- =====================================
+               MAIN ITEM WITH CHILDREN ONLY
+               ===================================== -->
+
+          @if (
+            !item.route &&
+            item.children?.length
+          ) {
+
+            <button
+              type="button"
+
+              class="sidebar__menu-link"
+
+              [attr.aria-label]="
+                item.label
+              "
+
+              [attr.title]="
+                item.label
+              "
+
+              aria-haspopup="menu"
+
+              [attr.aria-expanded]="
+                isFlyoutOpen(
+                  item.id,
+                  0
+                )
+              "
+
+              (click)="
+                toggleFlyout(
+                  item.id,
+                  0,
+                  $event
+                )
+              "
+            >
+
+              <!-- MAIN SIDEBAR ICON -->
+
+              <span
+                class="sidebar__menu-icon-box"
+              >
+
+                <svg
+                  [lucideIcon]="item.icon"
+                  [size]="24"
+                  [strokeWidth]="1.7"
+                  class="sidebar__menu-icon"
+                  aria-hidden="true"
+                ></svg>
+
+              </span>
+
+
+              <!-- MAIN SIDEBAR LABEL -->
+
+              <span
+                class="sidebar__menu-label"
+              >
+                {{ item.label }}
+              </span>
+
+            </button>
+
+          }
+
+
+          <!-- =====================================
+               FIRST FLYOUT
+               ===================================== -->
+
+          @if (
+            item.children?.length
+          ) {
+
+            <div
+              class="sidebar__flyout"
+
+              [class.sidebar__flyout--open]="
+                isFlyoutOpen(
+                  item.id,
+                  0
+                )
+              "
+            >
+
+              <ng-container
+                [ngTemplateOutlet]="
+                  submenuTemplate
+                "
+
+                [ngTemplateOutletContext]="{
+                  $implicit:
+                    item.children,
+
+                  depth: 1
+                }"
+              >
+              </ng-container>
+
+            </div>
+
+          }
+
+        </li>
+
+      }
+
+    </ul>
+
+  </nav>
+
+
+  <!-- =============================================
+       LOGOUT
+       ============================================= -->
+
+  <div class="sidebar__footer">
+
+    <button
+      type="button"
+
+      class="sidebar__logout"
+
+      aria-label="Logout"
+
+      (click)="logout()"
+    >
+
+      <svg
+        [lucideIcon]="logoutIcon"
+        [size]="24"
+        [strokeWidth]="1.8"
+        aria-hidden="true"
+      ></svg>
+
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- =================================================
+     RECURSIVE NESTED FLYOUT TEMPLATE
+     ================================================= -->
+
+<ng-template
+  #submenuTemplate
+  let-items
+  let-depth="depth"
+>
+
+  <ul class="sidebar__flyout-list">
+
+    @for (
+      child of items;
+      track child.id
+    ) {
+
+      <li
+        class="sidebar__flyout-item"
+
+        [class.sidebar__flyout-item--active]="
+          isMenuItemActive(child)
+        "
+
+        [class.sidebar__flyout-item--open]="
+          isFlyoutOpen(
+            child.id,
+            depth
+          )
+        "
+
+        (mouseenter)="
+          onNestedItemEnter(
+            child,
+            depth
+          )
+        "
+      >
+
+        <!-- =======================================
+             CHILD WITH ANOTHER SUBMENU
+             ======================================= -->
+
+        @if (
+          child.children?.length
+        ) {
+
+          <!-- =====================================
+               CHILD HAS BOTH:
+               ROUTE + CHILDREN
+
+               Example:
+               List Management
+               -> click = open List page
+               -> hover = show nested links
+               ===================================== -->
+
+          @if (child.route) {
+
+            <a
+              [routerLink]="child.route"
+
+              class="sidebar__flyout-link"
+
+              [attr.title]="
+                child.label
+              "
+
+              aria-haspopup="menu"
+
+              [attr.aria-expanded]="
+                isFlyoutOpen(
+                  child.id,
+                  depth
+                )
+              "
+
+              (click)="closeFlyouts()"
+            >
+
+              <!-- NO CIRCLE ICON -->
+
+              <span
+                class="sidebar__flyout-label"
+              >
+                {{ child.label }}
+              </span>
+
+
+              <svg
+                [lucideIcon]="
+                  chevronRightIcon
+                "
+
+                [size]="16"
+
+                [strokeWidth]="1.8"
+
+                class="sidebar__flyout-chevron"
+
+                aria-hidden="true"
+              ></svg>
+
+            </a>
+
+          }
+
+
+          <!-- =====================================
+               CHILD HAS CHILDREN
+               BUT NO DIRECT ROUTE
+               ===================================== -->
+
+          @else {
+
+            <button
+              type="button"
+
+              class="sidebar__flyout-link"
+
+              [attr.title]="
+                child.label
+              "
+
+              aria-haspopup="menu"
+
+              [attr.aria-expanded]="
+                isFlyoutOpen(
+                  child.id,
+                  depth
+                )
+              "
+
+              (click)="
+                toggleFlyout(
+                  child.id,
+                  depth,
+                  $event
+                )
+              "
+            >
+
+              <!-- NO CIRCLE ICON -->
+
+              <span
+                class="sidebar__flyout-label"
+              >
+                {{ child.label }}
+              </span>
+
+
+              <svg
+                [lucideIcon]="
+                  chevronRightIcon
+                "
+
+                [size]="16"
+
+                [strokeWidth]="1.8"
+
+                class="sidebar__flyout-chevron"
+
+                aria-hidden="true"
+              ></svg>
+
+            </button>
+
+          }
+
+
+          <!-- =====================================
+               NEXT NESTED LEVEL
+               ===================================== -->
+
+          <div
+            class="sidebar__nested-flyout"
+
+            [class.sidebar__nested-flyout--open]="
+              isFlyoutOpen(
+                child.id,
+                depth
+              )
+            "
+
+            [class.sidebar__nested-flyout--fit-up]="
+              child.id === 'user-management'
+            "
+          >
+
+            <ng-container
+              [ngTemplateOutlet]="
+                submenuTemplate
+              "
+
+              [ngTemplateOutletContext]="{
+                $implicit:
+                  child.children,
+
+                depth:
+                  depth + 1
+              }"
+            >
+            </ng-container>
+
+          </div>
+
+        }
+
+
+        <!-- =======================================
+             NESTED ROUTE WITHOUT CHILDREN
+
+             Example:
+             Dashboard
+             Name Screening
+             Service Monitor
+             List
+             ======================================= -->
+
+        @else if (child.route) {
+
+          <a
+            [routerLink]="child.route"
+
+            class="sidebar__flyout-link"
+
+            [attr.title]="
+              child.label
+            "
+
+            (click)="closeFlyouts()"
+          >
+
+            <!-- NO CIRCLE ICON -->
+
+            <span
+              class="sidebar__flyout-label"
+            >
+              {{ child.label }}
+            </span>
+
+          </a>
+
+        }
+
+
+        <!-- =======================================
+             PAGE NOT ROUTED YET
+             ======================================= -->
+
+        @else {
+
+          <span
+            class="
+              sidebar__flyout-link
+              sidebar__flyout-link--placeholder
+            "
+
+            [attr.title]="
+              child.label
+            "
+          >
+
+            <!-- NO CIRCLE ICON -->
+
+            <span
+              class="sidebar__flyout-label"
+            >
+              {{ child.label }}
+            </span>
+
+          </span>
+
+        }
+
+      </li>
+
+    }
+
+  </ul>
+
+</ng-template>

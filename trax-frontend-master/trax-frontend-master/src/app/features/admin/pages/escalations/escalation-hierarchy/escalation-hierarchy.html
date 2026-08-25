@@ -1,0 +1,605 @@
+<div class="escalation-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+
+  <div class="escalation-header">
+
+    <div class="escalation-header__content">
+
+      <h1 class="escalation-title">
+        Escalation Hierarchy
+      </h1>
+
+      <p class="escalation-description">
+        Configure and search escalation hierarchy modules for AML operations.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+       ===================================================== -->
+
+  <section class="escalation-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="escalation-tabs">
+
+      <button
+        type="button"
+        class="escalation-tab"
+
+        [class.escalation-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="escalation-tab"
+
+        [class.escalation-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="escalation-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="escalation-fields">
+
+          <!-- DEPARTMENT -->
+
+          <div class="escalation-field">
+
+            <label
+              for="add-department"
+              class="escalation-field__label"
+            >
+              Department
+
+              <span class="escalation-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="add-department"
+              name="department"
+
+              class="
+                escalation-field__control
+                escalation-field__select
+              "
+
+              [(ngModel)]="
+                addForm.department
+              "
+            >
+
+              @for (
+                option of departments;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- MODULE -->
+
+          <div class="escalation-field">
+
+            <label
+              for="add-module"
+              class="escalation-field__label"
+            >
+              Module
+
+              <span class="escalation-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="add-module"
+              name="module"
+
+              class="
+                escalation-field__control
+                escalation-field__select
+              "
+
+              [(ngModel)]="
+                addForm.module
+              "
+            >
+
+              @for (
+                option of modules;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTIONS
+             =============================================== -->
+
+        <div class="escalation-actions">
+
+          <button
+            type="button"
+
+            class="
+              escalation-button
+              escalation-button--secondary
+            "
+
+            (click)="clearAdd()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              escalation-button
+              escalation-button--delete
+            "
+
+            (click)="deleteHierarchy()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Delete
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              escalation-button
+              escalation-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="escalation-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="escalation-fields">
+
+          <!-- DEPARTMENT -->
+
+          <div class="escalation-field">
+
+            <label
+              for="search-department"
+              class="escalation-field__label"
+            >
+              Department
+
+              <span class="escalation-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="search-department"
+              name="searchDepartment"
+
+              class="
+                escalation-field__control
+                escalation-field__select
+              "
+
+              [(ngModel)]="
+                searchFilters.department
+              "
+            >
+
+              <option value="">
+                --Select--
+              </option>
+
+
+              @for (
+                option of departments;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- MODULE -->
+
+          <div class="escalation-field">
+
+            <label
+              for="search-module"
+              class="escalation-field__label"
+            >
+              Module
+
+              <span class="escalation-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="search-module"
+              name="searchModule"
+
+              class="
+                escalation-field__control
+                escalation-field__select
+              "
+
+              [(ngModel)]="
+                searchFilters.module
+              "
+            >
+
+              @for (
+                option of modules;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTIONS
+             =============================================== -->
+
+        <div class="escalation-actions">
+
+          <button
+            type="button"
+
+            class="
+              escalation-button
+              escalation-button--secondary
+            "
+
+            (click)="clearSearch()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              escalation-button
+              escalation-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="escalation-results">
+
+      <div class="escalation-results__header">
+
+        <div>
+
+          <h2 class="escalation-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="escalation-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'hierarchy'
+                : 'hierarchies'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="escalation-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No escalation hierarchy found"
+
+        emptyMessage="No escalation hierarchy matched the selected Department and Module."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="escalation-toast"
+
+      [class.escalation-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.escalation-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="escalation-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="escalation-toast__content">
+
+        <span class="escalation-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="escalation-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="escalation-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

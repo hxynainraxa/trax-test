@@ -1,0 +1,701 @@
+<div class="role-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="role-header">
+
+    <div class="role-header__content">
+
+      <h1 class="role-title">
+        Role
+      </h1>
+
+      <p class="role-description">
+        Create, update, delete and search system roles.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="role-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="role-tabs">
+
+      <button
+        type="button"
+        class="role-tab"
+
+        [class.role-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="role-tab"
+
+        [class.role-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="role-tab"
+
+        [class.role-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="role-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="role-fields">
+
+          <!-- ROLE -->
+
+          <div class="role-field">
+
+            <label
+              for="add-role"
+              class="role-field__label"
+            >
+              Role
+
+              <span class="role-required">
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="add-role"
+
+              name="role"
+
+              type="text"
+
+              class="role-field__control"
+
+              placeholder="Enter role"
+
+              [(ngModel)]="
+                addForm.role
+              "
+            />
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="role-field">
+
+            <label
+              for="add-description"
+              class="role-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="add-description"
+
+              name="description"
+
+              type="text"
+
+              class="role-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                addForm.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="role-actions">
+
+          <button
+            type="button"
+
+            class="
+              role-button
+              role-button--secondary
+            "
+
+            (click)="clearAdd()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              role-button
+              role-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="role-form"
+        (ngSubmit)="update()"
+      >
+
+        <div class="role-fields">
+
+          <!-- ROLE SELECT -->
+
+          <div class="role-field">
+
+            <label
+              for="edit-role-select"
+              class="role-field__label"
+            >
+              Role
+
+              <span class="role-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="edit-role-select"
+
+              name="selectedRole"
+
+              class="
+                role-field__control
+                role-field__select
+              "
+
+              [ngModel]="
+                selectedRoleId
+              "
+
+              (ngModelChange)="
+                onRoleSelected(
+                  $event
+                )
+              "
+            >
+
+              <option
+                [ngValue]="null"
+              >
+                --Select--
+              </option>
+
+
+              @for (
+                option of roleOptions();
+                track option.value
+              ) {
+
+                <option
+                  [ngValue]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="role-field">
+
+            <label
+              for="edit-description"
+              class="role-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="edit-description"
+
+              name="editDescription"
+
+              type="text"
+
+              class="role-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                editForm.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="role-actions">
+
+          <button
+            type="button"
+
+            class="
+              role-button
+              role-button--secondary
+            "
+
+            (click)="clearEdit()"
+          >
+            Clear
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              role-button
+              role-button--delete
+            "
+
+            [disabled]="
+              selectedRoleId === null
+            "
+
+            (click)="deleteRole()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Delete
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              role-button
+              role-button--primary
+            "
+
+            [disabled]="
+              selectedRoleId === null
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Update
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="role-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="role-fields">
+
+          <!-- ROLE -->
+
+          <div class="role-field">
+
+            <label
+              for="search-role"
+              class="role-field__label"
+            >
+              Role
+            </label>
+
+
+            <input
+              id="search-role"
+
+              name="searchRole"
+
+              type="text"
+
+              class="role-field__control"
+
+              placeholder="Enter role"
+
+              [(ngModel)]="
+                searchFilters.role
+              "
+            />
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="role-field">
+
+            <label
+              for="search-description"
+              class="role-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="search-description"
+
+              name="searchDescription"
+
+              type="text"
+
+              class="role-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                searchFilters.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="role-actions">
+
+          <button
+            type="button"
+
+            class="
+              role-button
+              role-button--secondary
+            "
+
+            (click)="resetSearch()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Reset
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              role-button
+              role-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="role-results">
+
+      <div class="role-results__header">
+
+        <div>
+
+          <h2 class="role-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="role-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'role'
+                : 'roles'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="role-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="role-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No roles found"
+
+          emptyMessage="No roles matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="role-toast"
+
+      [class.role-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.role-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="role-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="role-toast__content">
+
+        <span class="role-toast__title">
+
+          {{
+            toast()?.type === 'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="role-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="role-toast__close"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

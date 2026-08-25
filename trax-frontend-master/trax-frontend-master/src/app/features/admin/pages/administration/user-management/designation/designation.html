@@ -1,0 +1,1033 @@
+<div class="designation-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="designation-header">
+
+    <div class="designation-header__content">
+
+      <h1 class="designation-title">
+        Designation
+      </h1>
+
+      <p class="designation-description">
+        Create, update and search user designations by department.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+       ===================================================== -->
+
+  <section class="designation-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="designation-tabs">
+
+      <button
+        type="button"
+        class="designation-tab"
+
+        [class.designation-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="designation-tab"
+
+        [class.designation-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="designation-tab"
+
+        [class.designation-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="designation-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="designation-grid">
+
+          <!-- =============================================
+               LEFT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- DESIGNATION CODE -->
+
+            <div class="designation-field">
+
+              <label
+                for="add-designation-code"
+                class="designation-field__label"
+              >
+                Designation Code
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <input
+                id="add-designation-code"
+
+                name="designationCode"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter designation code"
+
+                [(ngModel)]="
+                  addForm.code
+                "
+              />
+
+            </div>
+
+
+            <!-- DESIGNATION NAME -->
+
+            <div class="designation-field">
+
+              <label
+                for="add-designation-name"
+                class="designation-field__label"
+              >
+                Designation Name
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <input
+                id="add-designation-name"
+
+                name="designationName"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter designation name"
+
+                [(ngModel)]="
+                  addForm.name
+                "
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- DEPARTMENT -->
+
+            <div class="designation-field">
+
+              <label
+                for="add-department"
+                class="designation-field__label"
+              >
+                Department
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <select
+                id="add-department"
+
+                name="department"
+
+                class="
+                  designation-field__control
+                  designation-field__select
+                "
+
+                [(ngModel)]="
+                  addForm.departmentCode
+                "
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="designation-field">
+
+              <label
+                for="add-description"
+                class="designation-field__label"
+              >
+                Description
+              </label>
+
+
+              <input
+                id="add-description"
+
+                name="description"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter description"
+
+                [(ngModel)]="
+                  addForm.description
+                "
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTIONS
+             =============================================== -->
+
+        <div class="designation-actions">
+
+          <button
+            type="button"
+
+            class="
+              designation-button
+              designation-button--secondary
+            "
+
+            (click)="clearAdd()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              designation-button
+              designation-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="designation-form"
+        (ngSubmit)="update()"
+      >
+
+        <div class="designation-grid">
+
+          <!-- =============================================
+               LEFT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- DESIGNATION CODE -->
+
+            <div class="designation-field">
+
+              <label
+                for="edit-designation-code"
+                class="designation-field__label"
+              >
+                Designation Code
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <select
+                id="edit-designation-code"
+
+                name="selectedDesignation"
+
+                class="
+                  designation-field__control
+                  designation-field__select
+                "
+
+                [ngModel]="
+                  selectedDesignationId
+                "
+
+                (ngModelChange)="
+                  onDesignationSelected(
+                    $event
+                  )
+                "
+              >
+
+                <option [ngValue]="null">
+                  --Select--
+                </option>
+
+
+                @for (
+                  option of designationOptions();
+                  track option.value
+                ) {
+
+                  <option
+                    [ngValue]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- NAME -->
+
+            <div class="designation-field">
+
+              <label
+                for="edit-designation-name"
+                class="designation-field__label"
+              >
+                Designation Name
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <input
+                id="edit-designation-name"
+
+                name="editDesignationName"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter designation name"
+
+                [(ngModel)]="
+                  editForm.name
+                "
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- DEPARTMENT -->
+
+            <div class="designation-field">
+
+              <label
+                for="edit-department"
+                class="designation-field__label"
+              >
+                Department
+
+                <span class="designation-required">
+                  *
+                </span>
+              </label>
+
+
+              <select
+                id="edit-department"
+
+                name="editDepartment"
+
+                class="
+                  designation-field__control
+                  designation-field__select
+                "
+
+                [(ngModel)]="
+                  editForm.departmentCode
+                "
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="designation-field">
+
+              <label
+                for="edit-description"
+                class="designation-field__label"
+              >
+                Description
+              </label>
+
+
+              <input
+                id="edit-description"
+
+                name="editDescription"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter description"
+
+                [(ngModel)]="
+                  editForm.description
+                "
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTIONS
+             =============================================== -->
+
+        <div class="designation-actions">
+
+          <button
+            type="button"
+
+            class="
+              designation-button
+              designation-button--secondary
+            "
+
+            (click)="clearEdit()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              designation-button
+              designation-button--delete
+            "
+
+            [disabled]="
+              selectedDesignationId === null
+            "
+
+            (click)="deleteDesignation()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Delete
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              designation-button
+              designation-button--primary
+            "
+
+            [disabled]="
+              selectedDesignationId === null
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Update
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="designation-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="designation-grid">
+
+          <!-- =============================================
+               LEFT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- CODE -->
+
+            <div class="designation-field">
+
+              <label
+                for="search-designation-code"
+                class="designation-field__label"
+              >
+                Designation Code
+              </label>
+
+
+              <input
+                id="search-designation-code"
+
+                name="searchDesignationCode"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter designation code"
+
+                [(ngModel)]="
+                  searchFilters.code
+                "
+              />
+
+            </div>
+
+
+            <!-- NAME -->
+
+            <div class="designation-field">
+
+              <label
+                for="search-designation-name"
+                class="designation-field__label"
+              >
+                Designation Name
+              </label>
+
+
+              <input
+                id="search-designation-name"
+
+                name="searchDesignationName"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter designation name"
+
+                [(ngModel)]="
+                  searchFilters.name
+                "
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT
+               ============================================= -->
+
+          <div class="designation-column">
+
+            <!-- DEPARTMENT -->
+
+            <div class="designation-field">
+
+              <label
+                for="search-department"
+                class="designation-field__label"
+              >
+                Department
+              </label>
+
+
+              <select
+                id="search-department"
+
+                name="searchDepartment"
+
+                class="
+                  designation-field__control
+                  designation-field__select
+                "
+
+                [(ngModel)]="
+                  searchFilters.departmentCode
+                "
+              >
+
+                <option value="all">
+                  All
+                </option>
+
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="designation-field">
+
+              <label
+                for="search-description"
+                class="designation-field__label"
+              >
+                Description
+              </label>
+
+
+              <input
+                id="search-description"
+
+                name="searchDescription"
+
+                type="text"
+
+                class="designation-field__control"
+
+                placeholder="Enter description"
+
+                [(ngModel)]="
+                  searchFilters.description
+                "
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTIONS
+             =============================================== -->
+
+        <div class="designation-actions">
+
+          <button
+            type="button"
+
+            class="
+              designation-button
+              designation-button--secondary
+            "
+
+            (click)="resetSearch()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Reset
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              designation-button
+              designation-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="designation-results">
+
+      <div class="designation-results__header">
+
+        <div>
+
+          <h2 class="designation-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="designation-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'designation'
+                : 'designations'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="designation-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="designation-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No designations found"
+
+          emptyMessage="No designations matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="designation-toast"
+
+      [class.designation-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.designation-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="designation-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="designation-toast__content">
+
+        <span class="designation-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="designation-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="designation-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

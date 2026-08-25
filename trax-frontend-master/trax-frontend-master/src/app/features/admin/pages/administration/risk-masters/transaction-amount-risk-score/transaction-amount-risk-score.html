@@ -1,0 +1,646 @@
+
+<div class="risk-page">
+
+  <!-- =============================================
+       HEADER
+       ============================================= -->
+
+  <div class="risk-header">
+
+    <h1>
+      Transaction Amount Risk Score
+    </h1>
+
+    <p>
+      Configure and search transaction amount risk scoring.
+    </p>
+
+  </div>
+
+
+  <!-- =============================================
+       CARD
+       ============================================= -->
+
+  <section class="frequency-card">
+
+    <!-- TABS -->
+
+    <div class="frequency-tabs">
+
+      @for (
+        tab of ['add', 'edit', 'search'];
+        track tab
+      ) {
+
+        <button
+          type="button"
+
+          class="frequency-tab"
+
+          [class.frequency-tab--active]="
+            activeTab === tab
+          "
+
+          (click)="
+            setTab($any(tab))
+          "
+        >
+          {{ tab }}
+        </button>
+
+      }
+
+    </div>
+
+
+    <!-- ==================================================
+         ADD
+         ================================================== -->
+
+    @if (
+      activeTab === 'add'
+    ) {
+
+      <form
+        (ngSubmit)="save()"
+      >
+
+        <div class="frequency-grid">
+
+          <!-- LEFT -->
+
+          <div class="frequency-column">
+
+            <label class="risk-field">
+
+              <span>
+                Transaction Type
+              </span>
+
+              <select
+                name="transactionType"
+
+                [(ngModel)]="
+                  form.transactionType
+                "
+              >
+
+                @for (
+                  item of transactionTypes;
+                  track item
+                ) {
+
+                  <option [value]="item">
+                    {{ item }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Low Amount From
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="lowFrom"
+
+                [(ngModel)]="
+                  form.lowFrom
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium Amount From
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="mediumFrom"
+
+                [(ngModel)]="
+                  form.mediumFrom
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium High Amount From
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="mediumHighFrom"
+
+                [(ngModel)]="
+                  form.mediumHighFrom
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                High Amount From
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="highFrom"
+
+                [(ngModel)]="
+                  form.highFrom
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Low Score
+              </span>
+
+              <input
+                type="number"
+
+                name="lowScore"
+
+                [(ngModel)]="
+                  form.lowScore
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium Score
+              </span>
+
+              <input
+                type="number"
+
+                name="mediumScore"
+
+                [(ngModel)]="
+                  form.mediumScore
+                "
+              />
+
+            </label>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="frequency-column">
+
+            <label class="risk-field">
+
+              <span>
+                Customer Type
+              </span>
+
+              <select
+                name="customerType"
+
+                [(ngModel)]="
+                  form.customerType
+                "
+              >
+
+                @for (
+                  item of customerTypes;
+                  track item
+                ) {
+
+                  <option [value]="item">
+                    {{ item }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Low Amount To
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="lowTo"
+
+                [(ngModel)]="
+                  form.lowTo
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium Amount To
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="mediumTo"
+
+                [(ngModel)]="
+                  form.mediumTo
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium High Amount To
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="mediumHighTo"
+
+                [(ngModel)]="
+                  form.mediumHighTo
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                High Amount To
+              </span>
+
+              <input
+                type="number"
+                step="0.01"
+
+                name="highTo"
+
+                [(ngModel)]="
+                  form.highTo
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                Medium High Score
+              </span>
+
+              <input
+                type="number"
+
+                name="mediumHighScore"
+
+                [(ngModel)]="
+                  form.mediumHighScore
+                "
+              />
+
+            </label>
+
+
+            <label class="risk-field">
+
+              <span>
+                High Score
+              </span>
+
+              <input
+                type="number"
+
+                name="highScore"
+
+                [(ngModel)]="
+                  form.highScore
+                "
+              />
+
+            </label>
+
+
+            <!-- STATUS -->
+
+            <div class="risk-field">
+
+              <span>
+                Status
+              </span>
+
+              <label class="frequency-check">
+
+                <input
+                  type="checkbox"
+
+                  name="active"
+
+                  [(ngModel)]="
+                    form.active
+                  "
+                />
+
+                Active
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="risk-actions">
+
+          <button
+            type="submit"
+
+            class="
+              risk-btn
+              risk-btn--primary
+            "
+          >
+            Save
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              risk-btn
+              risk-btn--secondary
+            "
+
+            (click)="reset()"
+          >
+            Clear
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ==================================================
+         EDIT + SEARCH
+         SAME FORM
+         ================================================== -->
+
+    @else {
+
+      <form
+        (ngSubmit)="search()"
+      >
+
+        <div
+          class="
+            frequency-grid
+            frequency-grid--compact
+          "
+        >
+
+          <!-- LEFT -->
+
+          <div class="frequency-column">
+
+            <label class="risk-field">
+
+              <span>
+                Transaction Type
+              </span>
+
+              <select
+                name="transactionType"
+
+                [(ngModel)]="
+                  form.transactionType
+                "
+              >
+
+                @for (
+                  item of transactionTypes;
+                  track item
+                ) {
+
+                  <option [value]="item">
+                    {{ item }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="frequency-column">
+
+            <label class="risk-field">
+
+              <span>
+                Customer Type
+              </span>
+
+              <select
+                name="customerType"
+
+                [(ngModel)]="
+                  form.customerType
+                "
+              >
+
+                @for (
+                  item of customerTypes;
+                  track item
+                ) {
+
+                  <option [value]="item">
+                    {{ item }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <div class="risk-field">
+
+              <span>
+                Status
+              </span>
+
+              <label class="frequency-check">
+
+                <input
+                  type="checkbox"
+
+                  name="active"
+
+                  [(ngModel)]="
+                    form.active
+                  "
+                />
+
+                Active
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="risk-actions">
+
+          <button
+            type="submit"
+
+            class="
+              risk-btn
+              risk-btn--primary
+            "
+          >
+            Search
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              risk-btn
+              risk-btn--secondary
+            "
+
+            (click)="reset()"
+          >
+            Reset
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =============================================
+       RESULTS
+       ============================================= -->
+
+  @if (
+    activeTab !== 'add' &&
+    results.length > 0
+  ) {
+
+    <div class="frequency-results">
+
+      @for (
+        item of results;
+        track item.id
+      ) {
+
+        <button
+          type="button"
+
+          (click)="
+            editRecord(item)
+          "
+        >
+          {{ item.transactionType }}
+
+          ·
+
+          {{ item.customerType }}
+        </button>
+
+      }
+
+    </div>
+
+  }
+
+
+  <!-- TOAST -->
+
+  @if (
+    message()
+  ) {
+
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

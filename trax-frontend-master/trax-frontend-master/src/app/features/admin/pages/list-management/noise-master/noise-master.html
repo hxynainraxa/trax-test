@@ -1,0 +1,789 @@
+<!-- <p>noise-master works!</p> -->
+<div class="noise-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="noise-header">
+
+    <div class="noise-header__content">
+
+      <h1 class="noise-title">
+        Noise Master
+      </h1>
+
+      <p class="noise-description">
+        Create, update and search Noise Master records.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="noise-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="noise-tabs">
+
+      <button
+        type="button"
+
+        class="noise-tab"
+
+        [class.noise-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+
+        class="noise-tab"
+
+        [class.noise-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+
+        class="noise-tab"
+
+        [class.noise-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         FORM
+         =================================================== -->
+
+    <form
+      class="noise-form"
+
+      (ngSubmit)="
+        activeTab() === 'add'
+          ? save()
+          : activeTab() === 'edit' &&
+            editingId !== null
+            ? update()
+            : search()
+      "
+    >
+
+      <div
+        class="noise-form-columns"
+
+        [class.noise-form-columns--single]="
+          activeTab() === 'add'
+        "
+      >
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="noise-column">
+
+          <!-- ===============================================
+               NOISE CODE
+               =============================================== -->
+
+          <div class="noise-field">
+
+            <label
+              for="noise-code"
+
+              class="noise-field__label"
+            >
+              Noise Code
+
+              @if (
+                activeTab() === 'add' ||
+                editingId !== null
+              ) {
+
+                <span class="noise-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="noise-field__body">
+
+              <input
+                id="noise-code"
+
+                name="noiseCode"
+
+                type="text"
+
+                class="noise-field__control"
+
+                [class.noise-field__control--error]="
+                  !!getFieldError(
+                    'noiseCode'
+                  )
+                "
+
+                placeholder="Enter noise code"
+
+                [(ngModel)]="
+                  form.noiseCode
+                "
+
+                (ngModelChange)="
+                  clearFieldError(
+                    'noiseCode'
+                  )
+                "
+              />
+
+
+              @if (
+                getFieldError(
+                  'noiseCode'
+                )
+              ) {
+
+                <span
+                  class="noise-field__error"
+                >
+                  {{
+                    getFieldError(
+                      'noiseCode'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- ===============================================
+               DESCRIPTION
+               =============================================== -->
+
+          <div class="noise-field">
+
+            <label
+              for="noise-description"
+
+              class="noise-field__label"
+            >
+              Description
+
+              @if (
+                activeTab() === 'add' ||
+                editingId !== null
+              ) {
+
+                <span class="noise-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="noise-field__body">
+
+              <input
+                id="noise-description"
+
+                name="description"
+
+                type="text"
+
+                class="noise-field__control"
+
+                [class.noise-field__control--error]="
+                  !!getFieldError(
+                    'description'
+                  )
+                "
+
+                placeholder="Enter description"
+
+                [(ngModel)]="
+                  form.description
+                "
+
+                (ngModelChange)="
+                  clearFieldError(
+                    'description'
+                  )
+                "
+              />
+
+
+              @if (
+                getFieldError(
+                  'description'
+                )
+              ) {
+
+                <span
+                  class="noise-field__error"
+                >
+                  {{
+                    getFieldError(
+                      'description'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- ===============================================
+               STATUS
+               =============================================== -->
+
+          <div class="noise-field">
+
+            <span class="noise-field__label">
+              Status
+            </span>
+
+
+            <div class="noise-radio-group">
+
+              <label class="noise-radio">
+
+                <input
+                  type="radio"
+
+                  name="status"
+
+                  value="active"
+
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+
+                <span
+                  class="noise-radio__indicator"
+                ></span>
+
+
+                <span>
+                  Active
+                </span>
+
+              </label>
+
+
+              <label class="noise-radio">
+
+                <input
+                  type="radio"
+
+                  name="status"
+
+                  value="inactive"
+
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+
+                <span
+                  class="noise-radio__indicator"
+                ></span>
+
+
+                <span>
+                  InActive
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             EDIT + SEARCH
+             ================================================= -->
+
+        @if (
+          activeTab() !== 'add'
+        ) {
+
+          <div class="noise-column">
+
+            <!-- CREATED BY -->
+
+            <div class="noise-field">
+
+              <label
+                for="noise-created-by"
+
+                class="noise-field__label"
+              >
+                Created By
+              </label>
+
+
+              <input
+                id="noise-created-by"
+
+                name="createdBy"
+
+                type="text"
+
+                class="noise-field__control"
+
+                placeholder="Enter created by"
+
+                [(ngModel)]="
+                  form.createdBy
+                "
+              />
+
+            </div>
+
+
+            <!-- CREATED DATE -->
+
+            <div class="noise-field">
+
+              <label
+                for="noise-created-date"
+
+                class="noise-field__label"
+              >
+                Created Date
+              </label>
+
+
+              <input
+                id="noise-created-date"
+
+                name="createdDate"
+
+                type="date"
+
+                class="noise-field__control"
+
+                [(ngModel)]="
+                  form.createdDate
+                "
+              />
+
+            </div>
+
+
+            <!-- MODIFIED BY -->
+
+            <div class="noise-field">
+
+              <label
+                for="noise-modified-by"
+
+                class="noise-field__label"
+              >
+                Modified By
+              </label>
+
+
+              <input
+                id="noise-modified-by"
+
+                name="modifiedBy"
+
+                type="text"
+
+                class="noise-field__control"
+
+                placeholder="Enter modified by"
+
+                [(ngModel)]="
+                  form.modifiedBy
+                "
+              />
+
+            </div>
+
+
+            <!-- MODIFIED DATE -->
+
+            <div class="noise-field">
+
+              <label
+                for="noise-modified-date"
+
+                class="noise-field__label"
+              >
+                Modified Date
+              </label>
+
+
+              <input
+                id="noise-modified-date"
+
+                name="modifiedDate"
+
+                type="date"
+
+                class="noise-field__control"
+
+                [(ngModel)]="
+                  form.modifiedDate
+                "
+              />
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="noise-actions">
+
+        <button
+          type="button"
+
+          class="
+            noise-button
+            noise-button--secondary
+          "
+
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            {{
+              activeTab() === 'add'
+                ? 'Clear'
+                : 'Reset'
+            }}
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            noise-button
+            noise-button--primary
+          "
+        >
+
+          @if (
+            activeTab() === 'add' ||
+            (
+              activeTab() === 'edit' &&
+              editingId !== null
+            )
+          ) {
+
+            <svg
+              [lucideIcon]="saveIcon"
+
+              [size]="16"
+
+              [strokeWidth]="1.8"
+
+              aria-hidden="true"
+            ></svg>
+
+          }
+
+          @else {
+
+            <svg
+              [lucideIcon]="searchIcon"
+
+              [size]="16"
+
+              [strokeWidth]="1.8"
+
+              aria-hidden="true"
+            ></svg>
+
+          }
+
+
+          <span>
+
+            @if (
+              activeTab() === 'add'
+            ) {
+
+              Save
+
+            }
+
+            @else if (
+              activeTab() === 'edit' &&
+              editingId !== null
+            ) {
+
+              Update
+
+            }
+
+            @else {
+
+              Search
+
+            }
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="noise-results">
+
+      <div class="noise-results__header">
+
+        <div>
+
+          <h2 class="noise-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="noise-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'record'
+                : 'records'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="noise-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No Noise Master records found"
+
+        emptyMessage="No records matched the selected search criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (toast()) {
+
+    <div
+      class="noise-toast"
+
+      [class.noise-toast--success]="
+        toast()?.type ===
+        'success'
+      "
+
+      [class.noise-toast--error]="
+        toast()?.type ===
+        'error'
+      "
+    >
+
+      <span class="noise-toast__icon">
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+
+            [size]="20"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+
+            [size]="20"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="noise-toast__content">
+
+        <span class="noise-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="noise-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="noise-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+
+          [size]="16"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,262 @@
+<div class="master-page">
+
+  <!-- HEADER -->
+
+  <div class="master-header">
+    <h1>Banks / Agents</h1>
+
+    <p>
+      Search bank and agent information.
+    </p>
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="master-card bank-card">
+
+    <div class="bank-tab">
+      Search
+    </div>
+
+
+    <form
+      class="bank-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Bank/Agent Code</span>
+
+            <input
+              name="code"
+              [(ngModel)]="form.code"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Bank/Agent Name</span>
+
+            <input
+              name="name"
+              [(ngModel)]="form.name"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Address 1</span>
+
+            <input
+              name="address1"
+              [(ngModel)]="form.address1"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Address 2</span>
+
+            <input
+              name="address2"
+              [(ngModel)]="form.address2"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Post Box Num</span>
+
+            <input
+              name="postBoxNumber"
+              [(ngModel)]="form.postBoxNumber"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>City</span>
+
+            <input
+              name="city"
+              [(ngModel)]="form.city"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>State</span>
+
+            <input
+              name="state"
+              [(ngModel)]="form.state"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Country</span>
+
+            <select
+              name="country"
+              [(ngModel)]="form.country"
+            >
+
+              @for (
+                country of countries;
+                track country
+              ) {
+                <option [value]="country">
+                  {{ country }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+
+          <label class="master-field">
+            <span>Phone Num.</span>
+
+            <input
+              name="phoneNumber"
+              [(ngModel)]="form.phoneNumber"
+            />
+          </label>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Fax Num.</span>
+
+            <input
+              name="faxNumber"
+              [(ngModel)]="form.faxNumber"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Email Id</span>
+
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="form.email"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Region Name</span>
+
+            <input
+              name="regionName"
+              [(ngModel)]="form.regionName"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Bank Short Code</span>
+
+            <input
+              name="bankShortCode"
+              [(ngModel)]="form.bankShortCode"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Bank EFT Code</span>
+
+            <input
+              name="bankEftCode"
+              [(ngModel)]="form.bankEftCode"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Swift Code</span>
+
+            <input
+              name="swiftCode"
+              [(ngModel)]="form.swiftCode"
+            />
+          </label>
+
+
+          <!-- ACTIVE -->
+
+          <div class="master-field bank-active">
+
+            <span>Active</span>
+
+            <label class="bank-checkbox">
+
+              <input
+                type="checkbox"
+                name="active"
+                [(ngModel)]="form.active"
+              />
+
+              <span>Yes</span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="master-actions">
+
+        <button
+          type="submit"
+          class="master-btn master-btn--primary"
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="master-btn master-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+  }
+
+</div>

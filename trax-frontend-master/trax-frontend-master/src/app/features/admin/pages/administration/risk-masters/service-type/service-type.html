@@ -1,0 +1,171 @@
+<div class="risk-page">
+
+  <!-- HEADER -->
+
+  <div class="risk-header">
+
+    <h1>
+      Service Type
+    </h1>
+
+    <p>
+      Search service type risk information.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="country-card">
+
+    <form (ngSubmit)="search()">
+
+      <div class="country-grid">
+
+        <!-- LEFT -->
+
+        <div class="country-column">
+
+          <label class="risk-field">
+
+            <span>
+              Service Type
+            </span>
+
+            <input
+              type="text"
+              name="serviceType"
+              [(ngModel)]="
+                form.serviceType
+              "
+            />
+
+          </label>
+
+
+          <div class="risk-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="country-status service-status">
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                Active
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                InActive
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="country-column">
+
+          <label class="risk-field">
+
+            <span>
+              Risk Rating
+            </span>
+
+            <select
+              name="riskRating"
+              [(ngModel)]="
+                form.riskRating
+              "
+            >
+
+              @for (
+                rating of riskRatings;
+                track rating
+              ) {
+
+                <option [value]="rating">
+                  {{ rating }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="risk-actions">
+
+        <button
+          type="submit"
+          class="
+            risk-btn
+            risk-btn--primary
+          "
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="
+            risk-btn
+            risk-btn--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

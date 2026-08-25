@@ -1,0 +1,824 @@
+// ==================================================
+// PAGE
+// ==================================================
+
+.daily-violation-page {
+  width: 100%;
+
+  min-width: 0;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.daily-violation-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+
+  margin-bottom: 18px;
+}
+
+
+.daily-violation-header__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+.daily-violation-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 100%;
+}
+
+
+.daily-violation-description {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.daily-violation-card {
+  width: 100%;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// FORM
+// ==================================================
+
+.daily-violation-form {
+  width: 100%;
+
+  padding:
+    20px
+    22px
+    22px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// FORM GRID
+// ==================================================
+
+.daily-violation-grid {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  align-items: start;
+
+  gap: 54px;
+}
+
+
+// ==================================================
+// COLUMN
+// ==================================================
+
+.daily-violation-column {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 12px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.daily-field {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    135px
+    minmax(
+      0,
+      1fr
+    );
+
+  align-items: center;
+
+  column-gap: 12px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// LABEL
+// ==================================================
+
+.daily-field__label {
+  display: flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  color: #344054;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// CONTROL
+// ==================================================
+
+.daily-field__control {
+  width: 100%;
+  height: 38px;
+
+  min-width: 0;
+
+  padding:
+    8px
+    11px;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #101828;
+
+  background: #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+
+.daily-field__control::placeholder {
+  color:
+    #98a2b3;
+}
+
+
+.daily-field__control:hover {
+  border-color:
+    #b8bdc5;
+}
+
+
+.daily-field__control:focus {
+  border-color:
+    #e7651c;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// STANDARD TRAX DROPDOWN
+//
+// Same visual treatment used in Create Rule,
+// Entry To List and White List.
+// ==================================================
+
+.daily-field__select {
+  appearance: none;
+
+  -webkit-appearance:
+    none;
+
+  -moz-appearance:
+    none;
+
+  width: 100%;
+  height: 38px;
+
+  min-width: 0;
+
+  padding:
+    8px
+    38px
+    8px
+    11px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #344054;
+
+  background-color:
+    #ffffff;
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+    );
+
+  background-repeat:
+    no-repeat;
+
+  background-position:
+    right 11px center;
+
+  background-size:
+    15px;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+
+  cursor: pointer;
+
+  box-sizing:
+    border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+
+// ==================================================
+// DROPDOWN HOVER
+// ==================================================
+
+.daily-field__select:hover {
+  border-color:
+    #e0a179;
+
+  background-color:
+    #fffdfb;
+}
+
+
+// ==================================================
+// DROPDOWN FOCUS
+// ==================================================
+
+.daily-field__select:focus {
+  border-color:
+    #e7651c;
+
+  background-color:
+    #ffffff;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// OPTIONS
+// ==================================================
+
+.daily-field__select option {
+  min-height: 34px;
+
+  padding:
+    8px
+    12px;
+
+  color:
+    #344054;
+
+  background:
+    #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+.daily-field__select option:checked {
+  color:
+    #d65312;
+
+  background:
+    #fff0e7;
+
+  font-weight:
+    600;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.daily-violation-actions {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+
+// ==================================================
+// BUTTON
+// ==================================================
+
+.daily-button {
+  display: inline-flex;
+
+  min-width: 96px;
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    8px
+    16px;
+
+  border-radius: 8px;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+
+// ==================================================
+// PRIMARY
+// ==================================================
+
+.daily-button--primary {
+  border:
+    1px solid
+    #e7651c;
+
+  color:
+    #ffffff;
+
+  background:
+    #e7651c;
+}
+
+
+.daily-button--primary:hover {
+  border-color:
+    #d65312;
+
+  background:
+    #d65312;
+}
+
+
+// ==================================================
+// SECONDARY
+// ==================================================
+
+.daily-button--secondary {
+  border:
+    1px solid
+    #d0d5dd;
+
+  color:
+    #344054;
+
+  background:
+    #ffffff;
+}
+
+
+.daily-button--secondary:hover {
+  border-color:
+    #e7651c;
+
+  color:
+    #e7651c;
+
+  background:
+    #fff7ed;
+}
+
+
+// ==================================================
+// RESULTS
+// ==================================================
+
+.daily-violation-results {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding:
+    16px
+    14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 12px;
+
+  background:
+    #ffffff;
+
+  box-sizing:
+    border-box;
+}
+
+
+// ==================================================
+// RESULTS HEADER
+// ==================================================
+
+.daily-violation-results__header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 12px;
+}
+
+
+.daily-violation-results__title {
+  margin: 0;
+
+  color: #344054;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 20px;
+}
+
+
+.daily-violation-results__description {
+  margin:
+    2px
+    0
+    0;
+
+  color:
+    #667085;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 16px;
+}
+
+
+.daily-violation-results__count {
+  display: inline-flex;
+
+  min-height: 24px;
+
+  flex:
+    0
+    0
+    auto;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    3px
+    9px;
+
+  border-radius:
+    999px;
+
+  color:
+    #d65312;
+
+  background:
+    #fff0e7;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// TABLE
+// ==================================================
+
+.daily-violation-results__table {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+}
+
+
+.daily-violation-results__table::-webkit-scrollbar {
+  height: 5px;
+}
+
+
+.daily-violation-results__table::-webkit-scrollbar-track {
+  background:
+    transparent;
+}
+
+
+.daily-violation-results__table::-webkit-scrollbar-thumb {
+  border-radius:
+    999px;
+
+  background:
+    #d0d5dd;
+}
+
+
+.daily-violation-results__table
+theme-table {
+  display: block;
+
+  min-width: 1180px;
+}
+
+
+// ==================================================
+// TABLET
+// ==================================================
+
+@media (
+  max-width: 1000px
+) {
+
+  .daily-violation-grid {
+    gap: 28px;
+  }
+
+
+  .daily-field {
+    grid-template-columns:
+      115px
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+}
+
+
+// ==================================================
+// SMALL TABLET
+// ==================================================
+
+@media (
+  max-width: 800px
+) {
+
+  .daily-violation-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .daily-violation-column {
+    gap: 12px;
+  }
+
+}
+
+
+// ==================================================
+// MOBILE
+// ==================================================
+
+@media (
+  max-width: 600px
+) {
+
+  .daily-violation-title {
+    font-size: 22px;
+
+    line-height: 28px;
+  }
+
+
+  .daily-violation-description {
+    font-size: 13px;
+  }
+
+
+  .daily-violation-form {
+    padding:
+      16px
+      12px;
+  }
+
+
+  .daily-field {
+    grid-template-columns:
+      1fr;
+
+    row-gap:
+      5px;
+  }
+
+
+  .daily-field__label {
+    min-height:
+      auto;
+  }
+
+
+  .daily-violation-actions {
+    flex-direction:
+      column-reverse;
+
+    align-items:
+      stretch;
+  }
+
+
+  .daily-button {
+    width: 100%;
+  }
+
+
+  .daily-violation-results {
+    padding: 12px;
+  }
+
+
+  .daily-violation-results__header {
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+}

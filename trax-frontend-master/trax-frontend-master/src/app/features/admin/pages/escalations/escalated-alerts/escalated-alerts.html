@@ -1,0 +1,424 @@
+<div class="escalated-alerts-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="escalated-alerts-header">
+
+    <div class="escalated-alerts-header__content">
+
+      <h1 class="escalated-alerts-title">
+        Escalated Alerts
+      </h1>
+
+      <p class="escalated-alerts-description">
+        Search escalated AML alerts by module, transaction type,
+        reference number and escalation period.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section class="escalated-alerts-card">
+
+    <form
+      class="escalated-alerts-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="escalated-alerts-grid">
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="escalated-alerts-column">
+
+          <!-- MODULE -->
+
+          <div class="escalated-alert-field">
+
+            <label
+              for="alert-module"
+              class="escalated-alert-field__label"
+            >
+              Module
+
+              <span class="escalated-alert-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="alert-module"
+              name="module"
+
+              class="
+                escalated-alert-field__control
+                escalated-alert-field__select
+              "
+
+              [(ngModel)]="
+                filters.module
+              "
+            >
+
+              @for (
+                option of modules;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- PERIOD FROM -->
+
+          <div class="escalated-alert-field">
+
+            <label
+              for="alert-period-from"
+              class="escalated-alert-field__label"
+            >
+              Period From
+            </label>
+
+
+            <input
+              id="alert-period-from"
+              name="periodFrom"
+
+              type="date"
+
+              class="escalated-alert-field__control"
+
+              [(ngModel)]="
+                filters.periodFrom
+              "
+            />
+
+          </div>
+
+
+          <!-- REFERENCE NUMBER -->
+
+          <div class="escalated-alert-field">
+
+            <label
+              for="alert-reference"
+              class="escalated-alert-field__label"
+            >
+              Reference Number
+            </label>
+
+
+            <input
+              id="alert-reference"
+              name="referenceNumber"
+
+              type="text"
+
+              class="escalated-alert-field__control"
+
+              placeholder="Enter reference number"
+
+              [(ngModel)]="
+                filters.referenceNumber
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div class="escalated-alerts-column">
+
+          <!-- TRANSACTION TYPE -->
+
+          <div class="escalated-alert-field">
+
+            <label
+              for="alert-transaction-type"
+              class="escalated-alert-field__label"
+            >
+              Transaction Type
+            </label>
+
+
+            <select
+              id="alert-transaction-type"
+              name="transactionType"
+
+              class="
+                escalated-alert-field__control
+                escalated-alert-field__select
+              "
+
+              [(ngModel)]="
+                filters.transactionType
+              "
+            >
+
+              @for (
+                option of transactionTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- PERIOD TO -->
+
+          <div class="escalated-alert-field">
+
+            <label
+              for="alert-period-to"
+              class="escalated-alert-field__label"
+            >
+              Period To
+            </label>
+
+
+            <input
+              id="alert-period-to"
+              name="periodTo"
+
+              type="date"
+
+              class="escalated-alert-field__control"
+
+              [(ngModel)]="
+                filters.periodTo
+              "
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DATE ERROR
+           ================================================= -->
+
+      @if (
+        dateError
+      ) {
+
+        <div class="escalated-alerts-error">
+          {{ dateError }}
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           ACTION
+           ================================================= -->
+
+      <div class="escalated-alerts-actions">
+
+        <button
+          type="submit"
+
+          class="
+            escalated-alert-button
+            escalated-alert-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section class="escalated-alerts-results">
+
+      <div class="escalated-alerts-results__header">
+
+        <div>
+
+          <h2 class="escalated-alerts-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="escalated-alerts-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'alert'
+                : 'alerts'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="escalated-alerts-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="escalated-alerts-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No escalated alerts found"
+
+          emptyMessage="No escalated alerts matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       ERROR TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div class="escalated-alert-toast">
+
+      <span class="escalated-alert-toast__icon">
+
+        <svg
+          [lucideIcon]="errorIcon"
+          [size]="20"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </span>
+
+
+      <div class="escalated-alert-toast__content">
+
+        <span class="escalated-alert-toast__title">
+          Unable to continue
+        </span>
+
+
+        <span class="escalated-alert-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="escalated-alert-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

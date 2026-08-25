@@ -1,0 +1,960 @@
+<div class="individual-risk-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+
+  <div class="individual-risk-header">
+
+    <div class="individual-risk-header__content">
+
+      <h1 class="individual-risk-title">
+        Individual Risk Ratings
+      </h1>
+
+      <p class="individual-risk-description">
+        Configure individual AML risk parameter weightages across onboarding,
+        transaction and profile risk.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+       ===================================================== -->
+
+  <section class="individual-risk-card">
+
+
+    <!-- ===================================================
+         1. TOTAL AML RISK RATING
+         =================================================== -->
+
+    <div
+      class="risk-accordion"
+
+      [class.risk-accordion--open]="
+        isOpen('total')
+      "
+    >
+
+      <!-- ACCORDION HEADER -->
+
+      <button
+        type="button"
+
+        class="risk-accordion__trigger"
+
+        (click)="toggleSection('total')"
+      >
+
+        <span>
+          Total AML Risk Rating - Individual
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('total')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      <!-- CONTENT -->
+
+      @if (
+        isOpen('total')
+      ) {
+
+        <div class="risk-accordion__content">
+
+          <p class="risk-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="risk-table-wrapper">
+
+            <table
+              class="
+                risk-table
+                risk-table--total
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="risk-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th class="risk-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.total;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td class="risk-table__serial">
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="risk-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="risk-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <!-- TOTAL -->
+
+                <tr class="risk-table__total-row">
+
+                  <td></td>
+
+
+                  <td>
+                    Final Risk Rating
+                  </td>
+
+
+                  <td>
+                    {{ getTotalRiskWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         2. ONBOARDING RISK
+         =================================================== -->
+
+    <div
+      class="risk-accordion"
+
+      [class.risk-accordion--open]="
+        isOpen('onboarding')
+      "
+    >
+
+      <!-- ACCORDION HEADER -->
+
+      <button
+        type="button"
+
+        class="risk-accordion__trigger"
+
+        (click)="toggleSection('onboarding')"
+      >
+
+        <span>
+          Onboarding (Business Intelligence) Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('onboarding')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      <!-- CONTENT -->
+
+      @if (
+        isOpen('onboarding')
+      ) {
+
+        <div class="risk-accordion__content">
+
+          <p class="risk-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="risk-table-wrapper">
+
+            <table class="risk-table">
+
+              <thead>
+
+                <tr>
+
+                  <th class="risk-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="risk-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.onboarding;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td class="risk-table__serial">
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="risk-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        [class.risk-reference]="
+                          row.reference
+                        "
+                      >
+                        {{ row.rating }}
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="risk-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="risk-table__total-row">
+
+                  <td></td>
+
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+
+                  <td></td>
+
+
+                  <td>
+                    {{ getOnboardingWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         3. TRANSACTION RISK
+         =================================================== -->
+
+    <div
+      class="risk-accordion"
+
+      [class.risk-accordion--open]="
+        isOpen('transaction')
+      "
+    >
+
+      <!-- ACCORDION HEADER -->
+
+      <button
+        type="button"
+
+        class="risk-accordion__trigger"
+
+        (click)="toggleSection('transaction')"
+      >
+
+        <span>
+          Transaction Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('transaction')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      <!-- CONTENT -->
+
+      @if (
+        isOpen('transaction')
+      ) {
+
+        <div class="risk-accordion__content">
+
+          <p class="risk-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="risk-table-wrapper">
+
+            <table
+              class="
+                risk-table
+                risk-table--transaction
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="risk-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="risk-table__weight">
+                    Weightage
+                  </th>
+
+                  <th class="risk-table__type">
+                    Type
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.transaction;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td class="risk-table__serial">
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="risk-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        [class.risk-reference]="
+                          row.reference
+                        "
+                      >
+                        {{ row.rating }}
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="risk-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+
+                    <td>
+                      {{ row.type }}
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="risk-table__total-row">
+
+                  <td></td>
+
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+
+                  <td></td>
+
+
+                  <td>
+                    {{ getTransactionWeight() }}
+                  </td>
+
+
+                  <td></td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         4. PROFILE RISK
+         =================================================== -->
+
+    <div
+      class="risk-accordion"
+
+      [class.risk-accordion--open]="
+        isOpen('profile')
+      "
+    >
+
+      <!-- ACCORDION HEADER -->
+
+      <button
+        type="button"
+
+        class="risk-accordion__trigger"
+
+        (click)="toggleSection('profile')"
+      >
+
+        <span>
+          Profile Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('profile')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      <!-- CONTENT -->
+
+      @if (
+        isOpen('profile')
+      ) {
+
+        <div class="risk-accordion__content">
+
+          <p class="risk-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="risk-table-wrapper">
+
+            <table
+              class="
+                risk-table
+                risk-table--profile
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="risk-table__serial">
+                    Sl No.
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rule
+                  </th>
+
+                  <th class="risk-table__type">
+                    Type
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="risk-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.profile;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td class="risk-table__serial">
+
+                      <span class="risk-serial-pill">
+                        {{ row.id }}
+                      </span>
+
+                    </td>
+
+
+                    <td class="risk-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+                      {{ row.rule }}
+                    </td>
+
+
+                    <td>
+                      {{ row.type }}
+                    </td>
+
+
+                    <td>
+                      {{ row.rating }}
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="risk-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="risk-table__total-row">
+
+                  <td></td>
+
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+
+                  <td></td>
+
+
+                  <td></td>
+
+
+                  <td></td>
+
+
+                  <td>
+                    {{ getProfileWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         ACTIONS
+         =================================================== -->
+
+    <div class="individual-risk-actions">
+
+      <button
+        type="button"
+
+        class="
+          individual-risk-button
+          individual-risk-button--secondary
+        "
+
+        (click)="clearChanges()"
+      >
+
+        <svg
+          [lucideIcon]="clearIcon"
+
+          [size]="16"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+
+        <span>
+          Clear
+        </span>
+
+      </button>
+
+
+      <button
+        type="button"
+
+        class="
+          individual-risk-button
+          individual-risk-button--primary
+        "
+
+        (click)="save()"
+      >
+
+        <svg
+          [lucideIcon]="saveIcon"
+
+          [size]="16"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+
+        <span>
+          Save
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="individual-risk-toast"
+
+      [class.individual-risk-toast--success]="
+        toast()?.type ===
+        'success'
+      "
+
+      [class.individual-risk-toast--error]="
+        toast()?.type ===
+        'error'
+      "
+    >
+
+      <!-- TOAST ICON -->
+
+      <span class="individual-risk-toast__icon">
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+
+            [size]="20"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+
+            [size]="20"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <!-- TOAST CONTENT -->
+
+      <div class="individual-risk-toast__content">
+
+        <span class="individual-risk-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to save'
+          }}
+
+        </span>
+
+
+        <span class="individual-risk-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <!-- CLOSE -->
+
+      <button
+        type="button"
+
+        class="individual-risk-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+
+          [size]="16"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

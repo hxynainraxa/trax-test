@@ -1,0 +1,134 @@
+<div class="master-page">
+
+  <div class="master-header">
+    <h1>Remittance Purpose</h1>
+
+    <p>
+      Search remittance purpose information.
+    </p>
+  </div>
+
+
+  <section class="master-card">
+
+    <form (ngSubmit)="search()">
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Remittance Purpose</span>
+
+            <input
+              name="purpose"
+              [(ngModel)]="form.purpose"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Description</span>
+
+            <input
+              name="description"
+              [(ngModel)]="form.description"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Remarks</span>
+
+            <input
+              name="remarks"
+              [(ngModel)]="form.remarks"
+            />
+          </label>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Created By</span>
+
+            <input
+              name="createdBy"
+              [(ngModel)]="form.createdBy"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Created On</span>
+
+            <input
+              type="date"
+              name="createdOn"
+              [(ngModel)]="form.createdOn"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Modified By</span>
+
+            <input
+              name="modifiedBy"
+              [(ngModel)]="form.modifiedBy"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Modified On</span>
+
+            <input
+              type="date"
+              name="modifiedOn"
+              [(ngModel)]="form.modifiedOn"
+            />
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <div class="master-actions">
+
+        <button
+          type="submit"
+          class="master-btn master-btn--primary"
+        >
+          Search
+        </button>
+
+        <button
+          type="button"
+          class="master-btn master-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+  }
+
+</div>

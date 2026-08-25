@@ -1,0 +1,656 @@
+// ==================================================
+// PAGE
+// ==================================================
+
+.transaction-screening-page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+
+  font-family: Inter, sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.transaction-screening-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+
+.transaction-screening-header__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+// ==================================================
+// TITLE
+// ==================================================
+
+.transaction-screening-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 100%;
+}
+
+
+// ==================================================
+// DESCRIPTION
+// ==================================================
+
+.transaction-screening-description {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// SEARCH CARD
+// ==================================================
+
+.transaction-screening-card {
+  width: 100%;
+
+  padding: 18px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SEARCH ROW
+// ==================================================
+
+.transaction-screening-row {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    minmax(280px, 1fr)
+    minmax(380px, 1fr);
+
+  align-items: end;
+
+  gap: 32px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.transaction-screening-field {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 7px;
+}
+
+
+// ==================================================
+// LABEL
+// ==================================================
+
+.transaction-screening-label {
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// INPUT
+// ==================================================
+
+.transaction-screening-control {
+  width: 100%;
+  height: 38px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #101828;
+
+  background: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+
+.transaction-screening-control::placeholder {
+  color: #98a2b3;
+}
+
+
+.transaction-screening-control:hover {
+  border-color: #b8bdc5;
+}
+
+
+.transaction-screening-control:focus {
+  border-color: #e7651c;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// CHECKBOX GROUP
+// ==================================================
+
+.transaction-screening-checks {
+  display: flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  gap: 24px;
+
+  padding: 0 2px;
+}
+
+
+// ==================================================
+// CHECKBOX
+// ==================================================
+
+.transaction-screening-checkbox {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 16px;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+
+.transaction-screening-checkbox input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+// ==================================================
+// CUSTOM CHECKBOX BOX
+// ==================================================
+
+.transaction-screening-checkbox__box {
+  position: relative;
+
+  display: flex;
+
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 16px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+// ==================================================
+// CHECKED
+// ==================================================
+
+.transaction-screening-checkbox
+input:checked
++
+.transaction-screening-checkbox__box {
+  border-color: #e7651c;
+
+  background: #e7651c;
+}
+
+
+.transaction-screening-checkbox
+input:checked
++
+.transaction-screening-checkbox__box::after {
+  content: '';
+
+  width: 7px;
+  height: 4px;
+
+  margin-top: -2px;
+
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+
+  transform:
+    rotate(-45deg);
+}
+
+
+// ==================================================
+// CHECKBOX FOCUS
+// ==================================================
+
+.transaction-screening-checkbox
+input:focus-visible
++
+.transaction-screening-checkbox__box {
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      231,
+      101,
+      28,
+      0.12
+    );
+}
+
+
+// ==================================================
+// VALIDATION
+// ==================================================
+
+.transaction-screening-message {
+  margin-top: 12px;
+
+  padding: 9px 12px;
+
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+
+  color: #b42318;
+
+  background: #fef3f2;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 18px;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.transaction-screening-actions {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+
+// ==================================================
+// BUTTON
+// ==================================================
+
+.transaction-screening-button {
+  display: inline-flex;
+
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 8px 16px;
+
+  border-radius: 8px;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+
+// ==================================================
+// RESET
+// ==================================================
+
+.transaction-screening-button--secondary {
+  min-width: 92px;
+
+  border: 1px solid #d0d5dd;
+
+  color: #344054;
+
+  background: #ffffff;
+}
+
+
+.transaction-screening-button--secondary:hover {
+  border-color: #e7651c;
+
+  color: #e7651c;
+
+  background: #fff7ed;
+}
+
+
+// ==================================================
+// SEARCH
+// ==================================================
+
+.transaction-screening-button--primary {
+  min-width: 100px;
+
+  border: 1px solid #e7651c;
+
+  color: #ffffff;
+
+  background: #e7651c;
+}
+
+
+.transaction-screening-button--primary:hover {
+  border-color: #d65312;
+
+  background: #d65312;
+}
+
+
+// ==================================================
+// RESULTS
+// ==================================================
+
+.transaction-screening-results {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 16px 14px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// RESULTS HEADER
+// ==================================================
+
+.transaction-screening-results__header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 12px;
+}
+
+
+// ==================================================
+// RESULTS TITLE
+// ==================================================
+
+.transaction-screening-results__title {
+  margin: 0;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// RESULTS DESCRIPTION
+// ==================================================
+
+.transaction-screening-results__description {
+  margin: 2px 0 0;
+
+  color: #667085;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// COUNT
+// ==================================================
+
+.transaction-screening-results__count {
+  display: inline-flex;
+
+  min-height: 24px;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 3px 9px;
+
+  border-radius: 999px;
+
+  color: #d65312;
+
+  background: #fff0e7;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// TABLE
+// ==================================================
+
+.transaction-screening-results
+theme-table {
+  display: block;
+
+  width: 100%;
+
+  min-width: 0;
+}
+
+
+// ==================================================
+// STATUS VISUAL HELP
+// ==================================================
+
+:host
+::ng-deep
+.transaction-screening-results
+.shared-table__cell {
+  vertical-align: middle;
+}
+
+
+// ==================================================
+// TABLET
+// ==================================================
+
+@media (max-width: 900px) {
+
+  .transaction-screening-row {
+    grid-template-columns:
+      1fr;
+
+    gap: 16px;
+  }
+
+
+  .transaction-screening-checks {
+    flex-wrap: wrap;
+  }
+}
+
+
+// ==================================================
+// MOBILE
+// ==================================================
+
+@media (max-width: 600px) {
+
+  .transaction-screening-card {
+    padding: 16px;
+  }
+
+
+  .transaction-screening-checks {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+
+  .transaction-screening-actions {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+
+
+  .transaction-screening-button {
+    width: 100%;
+  }
+
+
+  .transaction-screening-results__header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,805 @@
+<div class="risk-score-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="risk-score-header">
+
+    <div
+      class="risk-score-header__content"
+    >
+
+      <h1
+        class="risk-score-title"
+      >
+        Risk Score Settings
+      </h1>
+
+
+      <p
+        class="risk-score-description"
+      >
+        View the active customer risk score configuration and its previous history.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section
+    class="risk-score-card"
+  >
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="risk-score-tabs">
+
+      <button
+        type="button"
+
+        class="risk-score-tab"
+
+        [class.risk-score-tab--active]="
+          activeTab() ===
+          'risk-score'
+        "
+
+        (click)="
+          setTab(
+            'risk-score'
+          )
+        "
+      >
+        Risk Score
+      </button>
+
+
+      <button
+        type="button"
+
+        class="risk-score-tab"
+
+        [class.risk-score-tab--active]="
+          activeTab() ===
+          'history'
+        "
+
+        (click)="
+          setTab(
+            'history'
+          )
+        "
+      >
+        History
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         RISK SCORE
+         =================================================== -->
+
+    @if (
+      activeTab() ===
+      'risk-score'
+    ) {
+
+      <div
+        class="risk-score-current"
+      >
+
+        <!-- ===============================================
+             SECTION HEADER
+             =============================================== -->
+
+        <div
+          class="risk-score-section-header"
+        >
+
+          <div>
+
+            <h2
+              class="risk-score-section-title"
+            >
+              Risk Definitions
+            </h2>
+
+
+            <p
+              class="risk-score-section-description"
+            >
+              These values are managed by the administrator and cannot be edited from this screen.
+            </p>
+
+          </div>
+
+
+          <span
+            class="risk-score-readonly-badge"
+          >
+            Read only
+          </span>
+
+        </div>
+
+
+        <!-- ===============================================
+             DEFINITIONS
+             =============================================== -->
+
+        <div
+          class="risk-score-definitions"
+        >
+
+          @for (
+            range of configuration.ranges;
+            track range.key
+          ) {
+
+            <div
+              class="risk-score-definition"
+            >
+
+              <!-- RANGE NAME -->
+
+              <div
+                class="risk-score-definition__name"
+              >
+                {{ range.label }}
+              </div>
+
+
+              <!-- SCORE FROM -->
+
+              <div
+                class="risk-score-definition__field"
+              >
+
+                <label
+                  class="risk-score-field__label"
+                >
+                  Score From
+                </label>
+
+
+                <input
+                  type="text"
+
+                  class="
+                    risk-score-field__control
+                    risk-score-field__control--readonly
+                  "
+
+                  [value]="
+                    range.scoreFrom
+                  "
+
+                  readonly
+                />
+
+              </div>
+
+
+              <!-- SCORE TO -->
+
+              <div
+                class="risk-score-definition__field"
+              >
+
+                <label
+                  class="risk-score-field__label"
+                >
+                  Score To
+                </label>
+
+
+                <input
+                  type="text"
+
+                  class="
+                    risk-score-field__control
+                    risk-score-field__control--readonly
+                  "
+
+                  [value]="
+                    range.scoreTo
+                  "
+
+                  readonly
+                />
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- ===============================================
+             META
+             =============================================== -->
+
+        <div
+          class="risk-score-meta"
+        >
+
+          <div
+            class="risk-score-meta__item"
+          >
+
+            <span
+              class="risk-score-meta__label"
+            >
+              Created By
+            </span>
+
+
+            <span
+              class="risk-score-meta__value"
+            >
+              {{ configuration.createdBy }}
+            </span>
+
+          </div>
+
+
+          <span
+            class="risk-score-meta__divider"
+          ></span>
+
+
+          <div
+            class="risk-score-meta__item"
+          >
+
+            <span
+              class="risk-score-meta__label"
+            >
+              Created On
+            </span>
+
+
+            <span
+              class="risk-score-meta__value"
+            >
+              {{
+                formatDateTime(
+                  configuration.createdAt
+                )
+              }}
+            </span>
+
+          </div>
+
+
+          <span
+            class="
+              risk-score-status
+              risk-score-status--active
+            "
+          >
+            Active
+          </span>
+
+        </div>
+
+      </div>
+
+    }
+
+
+    <!-- ===================================================
+         HISTORY
+         =================================================== -->
+
+    @if (
+      activeTab() ===
+      'history'
+    ) {
+
+      <div
+        class="risk-score-history"
+      >
+
+        <!-- ===============================================
+             HISTORY FILTER
+             =============================================== -->
+
+        <form
+          class="risk-score-history-form"
+
+          (ngSubmit)="search()"
+        >
+
+          <div
+            class="risk-score-history-grid"
+          >
+
+            <!-- ===========================================
+                 LEFT
+                 =========================================== -->
+
+            <div
+              class="risk-score-history-column"
+            >
+
+              <!-- LOW FROM -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-low-from"
+                  class="history-field__label"
+                >
+                  Low Score From
+                </label>
+
+
+                <input
+                  id="history-low-from"
+
+                  name="lowFrom"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter low score from"
+
+                  [(ngModel)]="
+                    filters.lowFrom
+                  "
+                />
+
+              </div>
+
+
+              <!-- MEDIUM FROM -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-medium-from"
+                  class="history-field__label"
+                >
+                  Medium Score From
+                </label>
+
+
+                <input
+                  id="history-medium-from"
+
+                  name="mediumFrom"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter medium score from"
+
+                  [(ngModel)]="
+                    filters.mediumFrom
+                  "
+                />
+
+              </div>
+
+
+              <!-- HIGH FROM -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-high-from"
+                  class="history-field__label"
+                >
+                  High Score From
+                </label>
+
+
+                <input
+                  id="history-high-from"
+
+                  name="highFrom"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter high score from"
+
+                  [(ngModel)]="
+                    filters.highFrom
+                  "
+                />
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RIGHT
+                 =========================================== -->
+
+            <div
+              class="risk-score-history-column"
+            >
+
+              <!-- LOW TO -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-low-to"
+                  class="history-field__label"
+                >
+                  Low Score To
+                </label>
+
+
+                <input
+                  id="history-low-to"
+
+                  name="lowTo"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter low score to"
+
+                  [(ngModel)]="
+                    filters.lowTo
+                  "
+                />
+
+              </div>
+
+
+              <!-- MEDIUM TO -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-medium-to"
+                  class="history-field__label"
+                >
+                  Medium Score To
+                </label>
+
+
+                <input
+                  id="history-medium-to"
+
+                  name="mediumTo"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter medium score to"
+
+                  [(ngModel)]="
+                    filters.mediumTo
+                  "
+                />
+
+              </div>
+
+
+              <!-- HIGH TO -->
+
+              <div class="history-field">
+
+                <label
+                  for="history-high-to"
+                  class="history-field__label"
+                >
+                  High Score To
+                </label>
+
+
+                <input
+                  id="history-high-to"
+
+                  name="highTo"
+
+                  type="number"
+
+                  step="0.01"
+
+                  class="history-field__control"
+
+                  placeholder="Enter high score to"
+
+                  [(ngModel)]="
+                    filters.highTo
+                  "
+                />
+
+              </div>
+
+
+              <!-- STATUS -->
+
+              <div class="history-field">
+
+                <span
+                  class="history-field__label"
+                >
+                  Status
+                </span>
+
+
+                <div
+                  class="history-radio-group"
+                >
+
+                  <label
+                    class="history-radio"
+                  >
+
+                    <input
+                      type="radio"
+
+                      name="historyStatus"
+
+                      value="all"
+
+                      [(ngModel)]="
+                        filters.status
+                      "
+                    />
+
+
+                    <span
+                      class="history-radio__indicator"
+                    ></span>
+
+
+                    <span>
+                      All
+                    </span>
+
+                  </label>
+
+
+                  <label
+                    class="history-radio"
+                  >
+
+                    <input
+                      type="radio"
+
+                      name="historyStatus"
+
+                      value="active"
+
+                      [(ngModel)]="
+                        filters.status
+                      "
+                    />
+
+
+                    <span
+                      class="history-radio__indicator"
+                    ></span>
+
+
+                    <span>
+                      Active
+                    </span>
+
+                  </label>
+
+
+                  <label
+                    class="history-radio"
+                  >
+
+                    <input
+                      type="radio"
+
+                      name="historyStatus"
+
+                      value="inactive"
+
+                      [(ngModel)]="
+                        filters.status
+                      "
+                    />
+
+
+                    <span
+                      class="history-radio__indicator"
+                    ></span>
+
+
+                    <span>
+                      InActive
+                    </span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               ACTIONS
+               ============================================= -->
+
+          <div
+            class="risk-score-actions"
+          >
+
+            <button
+              type="button"
+
+              class="
+                risk-score-button
+                risk-score-button--secondary
+              "
+
+              (click)="reset()"
+            >
+
+              <svg
+                [lucideIcon]="resetIcon"
+
+                [size]="16"
+
+                [strokeWidth]="1.8"
+
+                aria-hidden="true"
+              ></svg>
+
+
+              <span>
+                Reset
+              </span>
+
+            </button>
+
+
+            <button
+              type="submit"
+
+              class="
+                risk-score-button
+                risk-score-button--primary
+              "
+            >
+
+              <svg
+                [lucideIcon]="searchIcon"
+
+                [size]="16"
+
+                [strokeWidth]="1.8"
+
+                aria-hidden="true"
+              ></svg>
+
+
+              <span>
+                Search
+              </span>
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       HISTORY TABLE
+       ===================================================== -->
+
+  @if (
+    activeTab() ===
+    'history'
+  ) {
+
+    <section
+      class="risk-score-results"
+    >
+
+      <div
+        class="risk-score-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="risk-score-results__title"
+          >
+            Risk Score History
+          </h2>
+
+
+          <p
+            class="risk-score-results__description"
+          >
+            Previous risk score configurations saved by the administrator.
+          </p>
+
+        </div>
+
+
+        <span
+          class="risk-score-results__count"
+        >
+          {{ results.length }}
+          Records
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No risk score history"
+
+        emptyMessage="No previous risk score settings matched the selected criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+</div>

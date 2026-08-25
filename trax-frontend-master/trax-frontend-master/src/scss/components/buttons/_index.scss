@@ -1,0 +1,107 @@
+// Custom component classes
+@layer components {
+  .btn-primary {
+    @apply px-[18px] py-[15px] flex justify-center align-middle gap-2 bg-primary-500 text-white rounded-[100px] font-medium transition-all duration-200 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed border border-primary-500 shadow-[0px_1px_2px_0px_#1018280D];
+    svg {
+      @apply text-white;
+    }
+    &:hover svg {
+      @apply text-white;
+    }
+  }
+
+  .mate-btn {
+    @apply gap-2 py-[10px] flex align-middle justify-center px-4 rounded-[12px] border border-[#D5D7DA] bg-white shadow-[0px_1px_2px_0px_#0A0D120D] text-[#414651] hover:text-primary-500;
+    svg {
+      @apply text-[#414651];
+    }
+    &:hover svg {
+      @apply text-primary-500;
+    }
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 flex justify-center align-middle gap-2 bg-gray-200 text-gray-700 rounded-lg font-medium transition-all duration-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+    svg {
+      @apply text-primary-500;
+    }
+    &:hover svg {
+      @apply text-white;
+    }
+  }
+
+  .btn-outline {
+    @apply px-4 py-2 flex justify-center align-middle gap-2 border-2 border-primary-500 text-primary-500 rounded-lg font-medium transition-all duration-200 hover:bg-primary-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    svg {
+      @apply text-primary-500;
+    }
+    &:hover svg {
+      @apply text-white;
+    }
+  }
+
+  .icon-btn {
+    @apply px-[18px] py-[15px] flex justify-center align-middle gap-2 bg-transparent text-[#475467] rounded-[100px] font-medium transition-all duration-200 hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed hover:text-white;
+    svg {
+      @apply text-[#475467];
+    }
+    &:hover svg {
+      @apply text-white;
+    }
+  }
+  .btn-danger {
+    @apply px-4 py-2 bg-red-500 text-white rounded-lg font-medium transition-all duration-200 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+
+  .badge {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  .badge-primary {
+    @apply bg-primary-100 text-primary-800;
+  }
+
+  .input-primary {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white;
+  }
+
+  .status-dot {
+    @apply inline-block w-2.5 h-2.5 rounded-full mr-2;
+  }
+
+  .status-active {
+    @apply bg-green-500;
+  }
+
+  .status-inactive {
+    @apply bg-gray-400;
+  }
+}

@@ -1,0 +1,574 @@
+<div class="screening-page">
+
+  <!-- =====================================================
+       FILTER VIEW
+       ===================================================== -->
+
+  @if (!hasSearched) {
+
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <div class="screening-header">
+
+      <div class="screening-header__content">
+
+        <h1 class="screening-title">
+          Name Screening
+        </h1>
+
+        <p class="screening-description">
+          Search and screen names against configured lists.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         FILTER CARD
+         =================================================== -->
+
+    <form
+      class="screening-card"
+      (ngSubmit)="onSearch()"
+    >
+
+      <!-- =================================================
+           MAIN FILTERS
+           ================================================= -->
+
+      <div class="screening-form-grid">
+
+        <!-- Name -->
+        <div class="screening-field">
+
+          <label
+            for="screening-name"
+            class="screening-field__label"
+          >
+            Name
+          </label>
+
+          <input
+            id="screening-name"
+            name="screeningName"
+            type="text"
+            class="screening-field__control"
+            placeholder="Enter name"
+            [(ngModel)]="filters.name"
+          />
+
+        </div>
+
+
+        <!-- Status -->
+        <div class="screening-field">
+
+          <label
+            for="screening-status"
+            class="screening-field__label"
+          >
+            Status
+          </label>
+
+          <select
+            id="screening-status"
+            name="screeningStatus"
+            class="screening-field__control screening-field__select"
+            [(ngModel)]="filters.status"
+          >
+
+            @for (
+              option of statusOptions;
+              track option.value
+            ) {
+              <option
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- List -->
+        <div class="screening-field">
+
+          <label
+            for="screening-list"
+            class="screening-field__label"
+          >
+            List
+          </label>
+
+          <select
+            id="screening-list"
+            name="screeningList"
+            class="screening-field__control screening-field__select"
+            [(ngModel)]="filters.list"
+          >
+
+            @for (
+              option of listOptions;
+              track option.value
+            ) {
+              <option
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- ID Number -->
+        <div class="screening-field">
+
+          <label
+            for="screening-id"
+            class="screening-field__label"
+          >
+            ID Number
+          </label>
+
+          <input
+            id="screening-id"
+            name="screeningId"
+            type="text"
+            class="screening-field__control"
+            placeholder="Enter ID number"
+            [(ngModel)]="filters.idNumber"
+          />
+
+        </div>
+
+
+        <!-- Nationality -->
+        <div class="screening-field">
+
+          <label
+            for="screening-nationality"
+            class="screening-field__label"
+          >
+            Nationality
+          </label>
+
+          <input
+            id="screening-nationality"
+            name="screeningNationality"
+            type="text"
+            class="screening-field__control"
+            placeholder="Enter nationality"
+            [(ngModel)]="filters.nationality"
+          />
+
+        </div>
+
+
+        <!-- DOB -->
+        <div class="screening-field">
+
+          <label
+            for="screening-dob"
+            class="screening-field__label"
+          >
+            Date of Birth
+          </label>
+
+          <input
+            id="screening-dob"
+            name="screeningDob"
+            type="date"
+            class="screening-field__control"
+            [(ngModel)]="filters.dob"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           MATCHING SETTINGS
+           ================================================= -->
+
+      <div class="screening-settings">
+
+        <!-- Settings header -->
+        <div class="screening-settings__header">
+
+          <div>
+
+            <h2 class="screening-settings__title">
+              Name matching settings
+            </h2>
+
+            <p class="screening-settings__description">
+              These settings apply to name screening only.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="screening-settings__body">
+
+          <!-- =============================================
+               MATCHING STYLE
+               ============================================= -->
+
+          <div class="screening-setting-row">
+
+            <div class="screening-setting-row__label">
+
+              <span class="screening-setting-title">
+                Matching style
+              </span>
+
+              <span class="screening-setting-help">
+                Choose how strictly the entered name should be matched.
+              </span>
+
+            </div>
+
+
+            <div class="screening-radio-group">
+
+              @for (
+                option of matchingStyleOptions;
+                track option.value
+              ) {
+
+                <label class="screening-radio">
+
+                  <input
+                    type="radio"
+                    name="matchingStyle"
+                    [value]="option.value"
+                    [(ngModel)]="filters.matchingStyle"
+                  />
+
+                  <span
+                    class="screening-radio__indicator"
+                  ></span>
+
+                  <span
+                    class="screening-radio__label"
+                  >
+                    {{ option.label }}
+                  </span>
+
+                </label>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="screening-settings__divider"
+          ></div>
+
+
+          <!-- =============================================
+               MINIMUM WORDS
+               ============================================= -->
+
+          <div class="screening-setting-row">
+
+            <div class="screening-setting-row__label">
+
+              <span class="screening-setting-title">
+                Minimum word match
+              </span>
+
+              <span class="screening-setting-help">
+                Minimum words required in the blacklist name.
+              </span>
+
+            </div>
+
+
+            <div class="screening-inline-control">
+
+              <input
+                type="number"
+                name="minWords"
+                min="1"
+                class="screening-small-input"
+                placeholder="0"
+                [(ngModel)]="filters.minWords"
+              />
+
+              <span
+                class="screening-inline-control__text"
+              >
+                Words
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="screening-settings__divider"
+          ></div>
+
+
+          <!-- =============================================
+               NAME LENGTH
+               ============================================= -->
+
+          <div class="screening-setting-row">
+
+            <div class="screening-setting-row__label">
+
+              <span class="screening-setting-title">
+                Blacklist name length
+              </span>
+
+              <span class="screening-setting-help">
+                Search blacklist names between the selected word lengths.
+              </span>
+
+            </div>
+
+
+            <div class="screening-range-control">
+
+              <input
+                type="number"
+                name="minLength"
+                min="1"
+                class="screening-small-input"
+                placeholder="0"
+                [(ngModel)]="filters.minLength"
+              />
+
+              <span
+                class="screening-range-control__separator"
+              >
+                to
+              </span>
+
+              <input
+                type="number"
+                name="maxLength"
+                min="1"
+                class="screening-small-input"
+                placeholder="0"
+                [(ngModel)]="filters.maxLength"
+              />
+
+              <span
+                class="screening-range-control__suffix"
+              >
+                Words
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="screening-actions">
+
+        <button
+          type="button"
+          class="screening-button screening-button--secondary"
+          (click)="onReset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="screening-button screening-button--primary"
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  }
+
+
+  <!-- =====================================================
+       RESULTS VIEW
+       ===================================================== -->
+
+  @else {
+
+    <!-- ===================================================
+         RESULTS HEADER
+         =================================================== -->
+
+    <div
+      class="screening-results-header"
+    >
+
+      <div
+        class="screening-results-header__content"
+      >
+
+        <h1 class="screening-title">
+          Screening Results
+        </h1>
+
+        <p class="screening-description">
+
+          @if (total === 1) {
+            1 matching record found.
+          } @else {
+            {{ total }} matching records found.
+          }
+
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="screening-modify-button"
+        (click)="showFilters()"
+      >
+
+        <svg
+          [lucideIcon]="backIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+        <span>
+          Modify Filters
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         RESULTS TABLE CARD
+         =================================================== -->
+
+    <section
+      class="screening-results-card"
+    >
+
+      <div
+        class="screening-results-card__header"
+      >
+
+        <div
+          class="screening-results-card__title-group"
+        >
+
+          <h2
+            class="screening-results-card__title"
+          >
+            Name Screening Results
+          </h2>
+
+          <span
+            class="screening-results-count"
+          >
+            {{ total }} results
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           REUSE EXISTING PROJECT TABLE
+           ================================================= -->
+
+      <theme-table
+        [rows]="results"
+        [columns]="tableColumns"
+
+        rowKey="id"
+
+        [searchable]="false"
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [striped]="false"
+        [hoverable]="true"
+
+        [showFooter]="true"
+
+        [clientSidePagination]="false"
+
+        [totalRecords]="total"
+
+        [pageSize]="limit"
+
+        [showPageSizeSelector]="true"
+
+        [pageSizeOptions]="[10, 13, 25, 50]"
+
+        emptyTitle="No matches found"
+
+        emptyMessage="No blacklist records matched the screening filters you selected."
+
+        (pageChange)="onPageChange($event)"
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+</div>

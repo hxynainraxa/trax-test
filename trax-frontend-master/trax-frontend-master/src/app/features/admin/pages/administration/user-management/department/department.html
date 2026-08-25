@@ -1,0 +1,804 @@
+<div class="department-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="department-header">
+
+    <div class="department-header__content">
+
+      <h1 class="department-title">
+        Department
+      </h1>
+
+      <p class="department-description">
+        Create, update, delete and search departments used across the system.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+       ===================================================== -->
+
+  <section class="department-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="department-tabs">
+
+      <button
+        type="button"
+        class="department-tab"
+
+        [class.department-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="department-tab"
+
+        [class.department-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="department-tab"
+
+        [class.department-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="department-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="department-fields">
+
+          <!-- DEPARTMENT CODE -->
+
+          <div class="department-field">
+
+            <label
+              for="add-department-code"
+              class="department-field__label"
+            >
+              Department Code
+
+              <span class="department-required">
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="add-department-code"
+              name="departmentCode"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter department code"
+
+              [(ngModel)]="
+                addForm.code
+              "
+            />
+
+          </div>
+
+
+          <!-- DEPARTMENT NAME -->
+
+          <div class="department-field">
+
+            <label
+              for="add-department-name"
+              class="department-field__label"
+            >
+              Department Name
+
+              <span class="department-required">
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="add-department-name"
+              name="departmentName"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter department name"
+
+              [(ngModel)]="
+                addForm.name
+              "
+            />
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="department-field">
+
+            <label
+              for="add-description"
+              class="department-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="add-description"
+              name="description"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                addForm.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="department-actions">
+
+          <button
+            type="button"
+
+            class="
+              department-button
+              department-button--secondary
+            "
+
+            (click)="clearAdd()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              department-button
+              department-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="department-form"
+        (ngSubmit)="update()"
+      >
+
+        <div class="department-fields">
+
+          <!-- SELECT DEPARTMENT -->
+
+          <div class="department-field">
+
+            <label
+              for="edit-department-code"
+              class="department-field__label"
+            >
+              Department Code
+
+              <span class="department-required">
+                *
+              </span>
+            </label>
+
+
+            <select
+              id="edit-department-code"
+              name="selectedDepartment"
+
+              class="
+                department-field__control
+                department-field__select
+              "
+
+              [ngModel]="
+                selectedDepartmentId
+              "
+
+              (ngModelChange)="
+                onDepartmentSelected(
+                  $event
+                )
+              "
+            >
+
+              <option [ngValue]="null">
+                --Select Department--
+              </option>
+
+
+              @for (
+                option of departmentOptions();
+                track option.value
+              ) {
+
+                <option
+                  [ngValue]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- NAME -->
+
+          <div class="department-field">
+
+            <label
+              for="edit-department-name"
+              class="department-field__label"
+            >
+              Department Name
+
+              <span class="department-required">
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="edit-department-name"
+              name="editDepartmentName"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter department name"
+
+              [(ngModel)]="
+                editForm.name
+              "
+            />
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="department-field">
+
+            <label
+              for="edit-description"
+              class="department-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="edit-description"
+              name="editDescription"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                editForm.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="department-actions">
+
+          <button
+            type="button"
+
+            class="
+              department-button
+              department-button--secondary
+            "
+
+            (click)="clearEdit()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              department-button
+              department-button--delete
+            "
+
+            [disabled]="
+              selectedDepartmentId === null
+            "
+
+            (click)="deleteDepartment()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Delete
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              department-button
+              department-button--primary
+            "
+
+            [disabled]="
+              selectedDepartmentId === null
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Update
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="department-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="department-fields">
+
+          <!-- CODE -->
+
+          <div class="department-field">
+
+            <label
+              for="search-department-code"
+              class="department-field__label"
+            >
+              Department Code
+            </label>
+
+
+            <input
+              id="search-department-code"
+              name="searchDepartmentCode"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter department code"
+
+              [(ngModel)]="
+                searchFilters.code
+              "
+            />
+
+          </div>
+
+
+          <!-- NAME -->
+
+          <div class="department-field">
+
+            <label
+              for="search-department-name"
+              class="department-field__label"
+            >
+              Department Name
+            </label>
+
+
+            <input
+              id="search-department-name"
+              name="searchDepartmentName"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter department name"
+
+              [(ngModel)]="
+                searchFilters.name
+              "
+            />
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="department-field">
+
+            <label
+              for="search-description"
+              class="department-field__label"
+            >
+              Description
+            </label>
+
+
+            <input
+              id="search-description"
+              name="searchDescription"
+
+              type="text"
+
+              class="department-field__control"
+
+              placeholder="Enter description"
+
+              [(ngModel)]="
+                searchFilters.description
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="department-actions">
+
+          <button
+            type="button"
+
+            class="
+              department-button
+              department-button--secondary
+            "
+
+            (click)="resetSearch()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Reset
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              department-button
+              department-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="department-results">
+
+      <div class="department-results__header">
+
+        <div>
+
+          <h2 class="department-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="department-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'department'
+                : 'departments'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="department-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="department-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No departments found"
+
+          emptyMessage="No departments matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="department-toast"
+
+      [class.department-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.department-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="department-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="department-toast__content">
+
+        <span class="department-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="department-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="department-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,101 @@
+@use '../master-search';
+
+
+.bank-card {
+  position: relative;
+
+  padding:
+    52px
+    22px
+    20px;
+}
+
+
+// ==================================================
+// SEARCH TAB
+// ==================================================
+
+.bank-tab {
+  position: absolute;
+
+  top: -1px;
+  left: 0;
+
+  display: flex;
+
+  min-width: 86px;
+  height: 36px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #eaecf0;
+  border-top: 2px solid #e7651c;
+  border-bottom-color: #fff;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  color: #d65312;
+  background: #fff;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  text-transform: uppercase;
+}
+
+
+// ==================================================
+// ACTIVE CHECKBOX
+// ==================================================
+
+.bank-active {
+  margin-top: 10px;
+}
+
+.bank-checkbox {
+  display: inline-flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #344054;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.bank-checkbox input {
+  width: 15px;
+  height: 15px;
+
+  margin: 0;
+
+  accent-color: #e7651c;
+
+  cursor: pointer;
+}
+
+
+@media (max-width: 560px) {
+
+  .bank-card {
+    padding:
+      52px
+      12px
+      16px;
+  }
+
+}

@@ -1,0 +1,17 @@
+<div class="layout-container">
+  <app-sidebar
+    [menuItems]="menuItems"
+  ></app-sidebar>
+
+  <div class="main-content">
+    <app-navbar>
+      <span page-title>
+        Admin Dashboard
+      </span>
+    </app-navbar>
+
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

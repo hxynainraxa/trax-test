@@ -1,0 +1,892 @@
+<div class="corporate-risk-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+
+  <div class="corporate-risk-header">
+
+    <div class="corporate-risk-header__content">
+
+      <h1 class="corporate-risk-title">
+        Corporate Risk Ratings
+      </h1>
+
+      <p class="corporate-risk-description">
+        Configure corporate AML risk parameter weightages across onboarding,
+        transaction and profile risk.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+       ===================================================== -->
+
+  <section class="corporate-risk-card">
+
+
+    <!-- ===================================================
+         TOTAL AML RISK
+         =================================================== -->
+
+    <div
+      class="corporate-accordion"
+
+      [class.corporate-accordion--open]="
+        isOpen('total')
+      "
+    >
+
+      <button
+        type="button"
+
+        class="corporate-accordion__trigger"
+
+        (click)="toggleSection('total')"
+      >
+
+        <span>
+          Total AML Risk Rating - Corporate
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('total')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      @if (
+        isOpen('total')
+      ) {
+
+        <div class="corporate-accordion__content">
+
+          <p class="corporate-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="corporate-table-wrapper">
+
+            <table
+              class="
+                corporate-table
+                corporate-table--total
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="corporate-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th class="corporate-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.total;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="corporate-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="corporate-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="corporate-table__total-row">
+
+                  <td></td>
+
+                  <td>
+                    Final Risk Rating
+                  </td>
+
+                  <td>
+                    {{ getTotalRiskWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         ONBOARDING
+         =================================================== -->
+
+    <div
+      class="corporate-accordion"
+
+      [class.corporate-accordion--open]="
+        isOpen('onboarding')
+      "
+    >
+
+      <button
+        type="button"
+
+        class="corporate-accordion__trigger"
+
+        (click)="toggleSection('onboarding')"
+      >
+
+        <span>
+          Onboarding (Business Intelligence) Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('onboarding')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      @if (
+        isOpen('onboarding')
+      ) {
+
+        <div class="corporate-accordion__content">
+
+          <p class="corporate-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="corporate-table-wrapper">
+
+            <table class="corporate-table">
+
+              <thead>
+
+                <tr>
+
+                  <th class="corporate-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="corporate-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.onboarding;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="corporate-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        [class.corporate-reference]="
+                          row.reference
+                        "
+                      >
+                        {{ row.rating }}
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="corporate-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="corporate-table__total-row">
+
+                  <td></td>
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+                  <td></td>
+
+                  <td>
+                    {{ getOnboardingWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         TRANSACTION
+         =================================================== -->
+
+    <div
+      class="corporate-accordion"
+
+      [class.corporate-accordion--open]="
+        isOpen('transaction')
+      "
+    >
+
+      <button
+        type="button"
+
+        class="corporate-accordion__trigger"
+
+        (click)="toggleSection('transaction')"
+      >
+
+        <span>
+          Transaction Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('transaction')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      @if (
+        isOpen('transaction')
+      ) {
+
+        <div class="corporate-accordion__content">
+
+          <p class="corporate-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="corporate-table-wrapper">
+
+            <table
+              class="
+                corporate-table
+                corporate-table--transaction
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="corporate-table__serial">
+                    Sl#
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="corporate-table__weight">
+                    Weightage
+                  </th>
+
+                  <th class="corporate-table__type">
+                    Type
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.transaction;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td>
+                      {{ row.id }}
+                    </td>
+
+
+                    <td class="corporate-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        [class.corporate-reference]="
+                          row.reference
+                        "
+                      >
+                        {{ row.rating }}
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="corporate-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+
+                    <td>
+                      {{ row.type }}
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="corporate-table__total-row">
+
+                  <td></td>
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+                  <td></td>
+
+                  <td>
+                    {{ getTransactionWeight() }}
+                  </td>
+
+                  <td></td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         PROFILE
+         =================================================== -->
+
+    <div
+      class="corporate-accordion"
+
+      [class.corporate-accordion--open]="
+        isOpen('profile')
+      "
+    >
+
+      <button
+        type="button"
+
+        class="corporate-accordion__trigger"
+
+        (click)="toggleSection('profile')"
+      >
+
+        <span>
+          Profile Risk
+        </span>
+
+
+        <svg
+          [lucideIcon]="
+            isOpen('profile')
+              ? chevronDownIcon
+              : chevronRightIcon
+          "
+
+          [size]="18"
+
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+
+      @if (
+        isOpen('profile')
+      ) {
+
+        <div class="corporate-accordion__content">
+
+          <p class="corporate-help-text">
+            Please insert appropriate weightage for each risk parameter.
+            Weightage is on a scale from 1 to 100.
+          </p>
+
+
+          <div class="corporate-table-wrapper">
+
+            <table
+              class="
+                corporate-table
+                corporate-table--profile
+              "
+            >
+
+              <thead>
+
+                <tr>
+
+                  <th class="corporate-table__serial">
+                    Sl No.
+                  </th>
+
+                  <th>
+                    Parameters
+                  </th>
+
+                  <th>
+                    Rule
+                  </th>
+
+                  <th>
+                    Rating
+                  </th>
+
+                  <th class="corporate-table__weight">
+                    Weightage
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  row of configuration.profile;
+                  track row.id
+                ) {
+
+                  <tr>
+
+                    <td>
+
+                      <span class="corporate-serial-pill">
+                        {{ row.id }}
+                      </span>
+
+                    </td>
+
+
+                    <td class="corporate-table__parameter">
+                      {{ row.parameter }}
+                    </td>
+
+
+                    <td>
+                      {{ row.rule }}
+                    </td>
+
+
+                    <td>
+                      {{ row.rating }}
+                    </td>
+
+
+                    <td>
+
+                      <input
+                        type="number"
+
+                        min="0"
+                        max="100"
+
+                        class="corporate-weight-input"
+
+                        [(ngModel)]="
+                          row.weightage
+                        "
+
+                        (blur)="
+                          row.weightage =
+                            normalizeWeight(
+                              row.weightage
+                            )
+                        "
+                      />
+
+                    </td>
+
+                  </tr>
+
+                }
+
+
+                <tr class="corporate-table__total-row">
+
+                  <td></td>
+
+                  <td>
+                    Total Weightage
+                  </td>
+
+                  <td></td>
+
+                  <td></td>
+
+                  <td>
+                    {{ getProfileWeight() }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ===================================================
+         ACTIONS
+         =================================================== -->
+
+    <div class="corporate-risk-actions">
+
+      <button
+        type="button"
+
+        class="
+          corporate-risk-button
+          corporate-risk-button--secondary
+        "
+
+        (click)="clearChanges()"
+      >
+
+        <svg
+          [lucideIcon]="clearIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+        <span>
+          Clear
+        </span>
+
+      </button>
+
+
+      <button
+        type="button"
+
+        class="
+          corporate-risk-button
+          corporate-risk-button--primary
+        "
+
+        (click)="save()"
+      >
+
+        <svg
+          [lucideIcon]="saveIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+        <span>
+          Save
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="corporate-risk-toast"
+
+      [class.corporate-risk-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.corporate-risk-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="corporate-risk-toast__icon">
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="corporate-risk-toast__content">
+
+        <span class="corporate-risk-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to save'
+          }}
+
+        </span>
+
+
+        <span class="corporate-risk-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="corporate-risk-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

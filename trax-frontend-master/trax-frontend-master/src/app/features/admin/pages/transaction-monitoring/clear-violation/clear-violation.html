@@ -1,0 +1,559 @@
+<div class="clear-violation-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="clear-violation-header">
+
+    <div
+      class="clear-violation-header__content"
+    >
+
+      <h1
+        class="clear-violation-title"
+      >
+        Clear Violation
+      </h1>
+
+
+      <p
+        class="clear-violation-description"
+      >
+        Search violations by module, transaction details, customer and branch.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section
+    class="clear-violation-card"
+  >
+
+    <form
+      class="clear-violation-form"
+
+      (ngSubmit)="search()"
+    >
+
+      <div
+        class="clear-violation-grid"
+      >
+
+        <!-- =================================================
+             LEFT
+             ================================================= -->
+
+        <div
+          class="clear-violation-column"
+        >
+
+          <!-- MODULE -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-module"
+              class="clear-field__label"
+            >
+              Module
+            </label>
+
+
+            <select
+              id="clear-module"
+
+              name="module"
+
+              class="
+                clear-field__control
+                clear-field__select
+              "
+
+              [(ngModel)]="
+                filters.module
+              "
+            >
+
+              @for (
+                option of modules;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- TRANSACTION TYPE -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-transaction-type"
+              class="clear-field__label"
+            >
+              Transaction Type
+            </label>
+
+
+            <select
+              id="clear-transaction-type"
+
+              name="transactionType"
+
+              class="
+                clear-field__control
+                clear-field__select
+              "
+
+              [(ngModel)]="
+                filters.transactionType
+              "
+            >
+
+              @for (
+                option of transactionTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- REMITTER TYPE -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-remitter-type"
+              class="clear-field__label"
+            >
+              Remitter Type
+            </label>
+
+
+            <select
+              id="clear-remitter-type"
+
+              name="remitterType"
+
+              class="
+                clear-field__control
+                clear-field__select
+              "
+
+              [(ngModel)]="
+                filters.remitterType
+              "
+            >
+
+              @for (
+                option of remitterTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT
+             ================================================= -->
+
+        <div
+          class="clear-violation-column"
+        >
+
+          <!-- FROM DATE -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-from-date"
+              class="clear-field__label"
+            >
+              From Date
+            </label>
+
+
+            <input
+              id="clear-from-date"
+
+              name="fromDate"
+
+              type="date"
+
+              class="clear-field__control"
+
+              [(ngModel)]="
+                filters.fromDate
+              "
+            />
+
+          </div>
+
+
+          <!-- TO DATE -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-to-date"
+              class="clear-field__label"
+            >
+              To Date
+            </label>
+
+
+            <input
+              id="clear-to-date"
+
+              name="toDate"
+
+              type="date"
+
+              class="clear-field__control"
+
+              [(ngModel)]="
+                filters.toDate
+              "
+            />
+
+          </div>
+
+
+          <!-- MEMBERSHIP NUMBER -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-membership"
+              class="clear-field__label"
+            >
+              Membership Number
+            </label>
+
+
+            <input
+              id="clear-membership"
+
+              name="membershipNumber"
+
+              type="text"
+
+              class="clear-field__control"
+
+              placeholder="Enter membership number"
+
+              [(ngModel)]="
+                filters.membershipNumber
+              "
+            />
+
+          </div>
+
+
+          <!-- BRANCH -->
+
+          <div class="clear-field">
+
+            <label
+              for="clear-branch"
+              class="clear-field__label"
+            >
+              Branch
+            </label>
+
+
+            <select
+              id="clear-branch"
+
+              name="branch"
+
+              class="
+                clear-field__control
+                clear-field__select
+              "
+
+              [(ngModel)]="
+                filters.branch
+              "
+            >
+
+              @for (
+                option of branches;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- VALUE DATE -->
+
+          <div class="clear-field">
+
+            <span
+              class="clear-field__label"
+            >
+            </span>
+
+
+            <label
+              class="clear-checkbox"
+            >
+
+              <input
+                type="checkbox"
+
+                name="useValueDate"
+
+                [(ngModel)]="
+                  filters.useValueDate
+                "
+              />
+
+
+              <span
+                class="clear-checkbox__box"
+              ></span>
+
+
+              <span>
+                Value Date
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DATE ERROR
+           ================================================= -->
+
+      @if (
+        dateError
+      ) {
+
+        <div
+          class="clear-date-error"
+        >
+          {{ dateError }}
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div
+        class="clear-violation-actions"
+      >
+
+        <button
+          type="button"
+
+          class="
+            clear-button
+            clear-button--secondary
+          "
+
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            clear-button
+            clear-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section
+      class="clear-results"
+    >
+
+      <div
+        class="clear-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="clear-results__title"
+          >
+            Search Results
+          </h2>
+
+
+          <p
+            class="clear-results__description"
+          >
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'violation'
+                : 'violations'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span
+          class="clear-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div
+        class="clear-results__table"
+      >
+
+        <theme-table
+          [rows]="results"
+
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No violations found"
+
+          emptyMessage="No violations matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

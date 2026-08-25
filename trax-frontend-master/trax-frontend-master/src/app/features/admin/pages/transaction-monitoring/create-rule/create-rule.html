@@ -1,0 +1,1983 @@
+<div class="rule-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="rule-header">
+
+    <div class="rule-header__content">
+
+      <h1 class="rule-title">
+        Create Rule
+      </h1>
+
+      <p class="rule-description">
+        Create, update and search transaction monitoring rules.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="rule-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="rule-tabs">
+
+      <button
+        type="button"
+        class="rule-tab"
+        [class.rule-tab--active]="
+          activeTab() === 'add'
+        "
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="rule-tab"
+        [class.rule-tab--active]="
+          activeTab() === 'edit'
+        "
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="rule-tab"
+        [class.rule-tab--active]="
+          activeTab() === 'search'
+        "
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="rule-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="rule-main-grid">
+
+          <!-- =============================================
+               LEFT PANEL
+               ============================================= -->
+
+          <div class="rule-panel">
+
+            <!-- ===========================================
+                 RULE NUMBER
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="rule-number"
+                class="rule-field__label"
+              >
+                Rule Number
+
+                <span class="rule-required">
+                  *
+                </span>
+              </label>
+
+
+              <div class="rule-field__body">
+
+                <input
+                  id="rule-number"
+                  name="ruleNumber"
+                  type="text"
+                  class="rule-field__control"
+
+                  [class.rule-field__control--error]="
+                    !!getFieldError(
+                      'ruleNumber'
+                    )
+                  "
+
+                  placeholder="Enter rule number"
+
+                  [(ngModel)]="
+                    form.ruleNumber
+                  "
+
+                  (ngModelChange)="
+                    clearFieldError(
+                      'ruleNumber'
+                    )
+                  "
+                />
+
+
+                @if (
+                  getFieldError(
+                    'ruleNumber'
+                  )
+                ) {
+
+                  <span
+                    class="rule-field__error"
+                  >
+                    {{
+                      getFieldError(
+                        'ruleNumber'
+                      )
+                    }}
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE NAME
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="rule-name"
+                class="rule-field__label"
+              >
+                Rule Name
+
+                <span class="rule-required">
+                  *
+                </span>
+              </label>
+
+
+              <div class="rule-field__body">
+
+                <input
+                  id="rule-name"
+                  name="ruleName"
+                  type="text"
+                  class="rule-field__control"
+
+                  [class.rule-field__control--error]="
+                    !!getFieldError(
+                      'ruleName'
+                    )
+                  "
+
+                  placeholder="Enter rule name"
+
+                  [(ngModel)]="
+                    form.ruleName
+                  "
+
+                  (ngModelChange)="
+                    clearFieldError(
+                      'ruleName'
+                    )
+                  "
+                />
+
+
+                @if (
+                  getFieldError(
+                    'ruleName'
+                  )
+                ) {
+
+                  <span
+                    class="rule-field__error"
+                  >
+                    {{
+                      getFieldError(
+                        'ruleName'
+                      )
+                    }}
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE STATUS
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Rule Status
+              </span>
+
+
+              <label class="rule-checkbox">
+
+                <input
+                  type="checkbox"
+                  name="active"
+
+                  [(ngModel)]="
+                    form.active
+                  "
+                />
+
+                <span
+                  class="rule-checkbox__box"
+                ></span>
+
+                <span>
+                  Active
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE DESCRIPTION
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="rule-description"
+                class="rule-field__label"
+              >
+                Rule Description
+              </label>
+
+
+              <textarea
+                id="rule-description"
+                name="ruleDescription"
+
+                class="
+                  rule-field__control
+                  rule-field__textarea
+                "
+
+                placeholder="Enter rule description"
+
+                [(ngModel)]="
+                  form.ruleDescription
+                "
+              ></textarea>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE ACTION
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Rule Action
+              </span>
+
+
+              <label class="rule-checkbox">
+
+                <input
+                  type="checkbox"
+                  name="block"
+
+                  [(ngModel)]="
+                    form.block
+                  "
+                />
+
+                <span
+                  class="rule-checkbox__box"
+                ></span>
+
+                <span>
+                  Block
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE LOGIC
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="rule-logic"
+                class="rule-field__label"
+              >
+                Rule Logic
+              </label>
+
+
+              <textarea
+                id="rule-logic"
+                name="ruleLogic"
+
+                class="
+                  rule-field__control
+                  rule-field__textarea
+                "
+
+                placeholder="Enter rule logic"
+
+                [(ngModel)]="
+                  form.ruleLogic
+                "
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT PANEL
+               ============================================= -->
+
+          <div class="rule-panel">
+
+            <!-- ===========================================
+                 SERVICES
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="add-rule-service"
+                class="rule-field__label"
+              >
+                Services
+              </label>
+
+
+              <select
+                id="add-rule-service"
+                name="services"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  form.services
+                "
+              >
+
+                @for (
+                  option of services;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 REAL TIME
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Real Time
+              </span>
+
+
+              <div class="rule-radio-group">
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="realTime"
+
+                    [value]="true"
+
+                    [(ngModel)]="
+                      form.realTime
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    Yes
+                  </span>
+
+                </label>
+
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="realTime"
+
+                    [value]="false"
+
+                    [(ngModel)]="
+                      form.realTime
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    No
+                  </span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 REPORT VIOLATION
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Report Violation
+              </span>
+
+
+              <div class="rule-radio-group">
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="reportViolation"
+
+                    [value]="true"
+
+                    [(ngModel)]="
+                      form.reportViolation
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    Yes
+                  </span>
+
+                </label>
+
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="reportViolation"
+
+                    [value]="false"
+
+                    [(ngModel)]="
+                      form.reportViolation
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    No
+                  </span>
+
+                  <span class="rule-helper-inline">
+                    [If No then Only Notification]
+                  </span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             RULE CONDITIONS
+             =============================================== -->
+
+        <div class="rule-conditions">
+
+          <h2 class="rule-conditions__title">
+            Rule Conditions
+          </h2>
+
+
+          <textarea
+            name="ruleConditions"
+
+            class="
+              rule-field__control
+              rule-conditions__textarea
+            "
+
+            placeholder="Enter rule conditions"
+
+            [(ngModel)]="
+              form.ruleConditions
+            "
+          ></textarea>
+
+        </div>
+
+
+        <!-- ===============================================
+             ADD ACTIONS
+             =============================================== -->
+
+        <div class="rule-actions">
+
+          <button
+            type="button"
+
+            class="
+              rule-button
+              rule-button--secondary
+            "
+
+            (click)="reset()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Clear
+            </span>
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              rule-button
+              rule-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Save
+            </span>
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="rule-form"
+        (ngSubmit)="update()"
+      >
+
+        <!-- ===============================================
+             EDIT LOOKUP
+             =============================================== -->
+
+        <div class="rule-edit-lookup">
+
+          <!-- =============================================
+               RULE TYPE
+               ============================================= -->
+
+          <div class="rule-field">
+
+            <label
+              for="edit-rule-type"
+              class="rule-field__label"
+            >
+              Rule Type
+            </label>
+
+
+            <select
+              id="edit-rule-type"
+              name="editRuleType"
+
+              class="
+                rule-field__control
+                rule-field__select
+              "
+
+              [ngModel]="
+                editRuleType()
+              "
+
+              (ngModelChange)="
+                onEditRuleTypeChange(
+                  $event
+                )
+              "
+            >
+
+              @for (
+                option of editRuleTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- =============================================
+               SEARCH RULE
+               ============================================= -->
+
+          <div class="rule-field">
+
+            <label
+              for="edit-search-rule"
+              class="rule-field__label"
+            >
+              Search Rule
+            </label>
+
+
+            <select
+              id="edit-search-rule"
+              name="selectedEditRule"
+
+              class="
+                rule-field__control
+                rule-field__select
+              "
+
+              [ngModel]="
+                selectedEditRuleId
+              "
+
+              (ngModelChange)="
+                onEditRuleSelected(
+                  $event
+                )
+              "
+            >
+
+              <option
+                [ngValue]="null"
+              >
+                -Select-
+              </option>
+
+
+              @for (
+                rule of editRuleOptions();
+                track rule.id
+              ) {
+
+                <option
+                  [ngValue]="rule.id"
+                >
+                  {{ rule.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             EDIT FORM
+             =============================================== -->
+
+        <div class="rule-main-grid">
+
+          <!-- =============================================
+               LEFT PANEL
+               ============================================= -->
+
+          <div class="rule-panel">
+
+            <!-- RULE NUMBER -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-number"
+                class="rule-field__label"
+              >
+                Rule Number
+
+                <span class="rule-required">
+                  *
+                </span>
+              </label>
+
+
+              <div class="rule-field__body">
+
+                <input
+                  id="edit-rule-number"
+                  name="editRuleNumber"
+                  type="text"
+
+                  class="rule-field__control"
+
+                  [class.rule-field__control--error]="
+                    !!getFieldError(
+                      'ruleNumber'
+                    )
+                  "
+
+                  placeholder="Enter rule number"
+
+                  [(ngModel)]="
+                    form.ruleNumber
+                  "
+
+                  (ngModelChange)="
+                    clearFieldError(
+                      'ruleNumber'
+                    )
+                  "
+                />
+
+
+                @if (
+                  getFieldError(
+                    'ruleNumber'
+                  )
+                ) {
+
+                  <span
+                    class="rule-field__error"
+                  >
+                    {{
+                      getFieldError(
+                        'ruleNumber'
+                      )
+                    }}
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- RULE NAME -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-name"
+                class="rule-field__label"
+              >
+                Rule Name
+
+                <span class="rule-required">
+                  *
+                </span>
+              </label>
+
+
+              <div class="rule-field__body">
+
+                <input
+                  id="edit-rule-name"
+                  name="editRuleName"
+                  type="text"
+
+                  class="rule-field__control"
+
+                  [class.rule-field__control--error]="
+                    !!getFieldError(
+                      'ruleName'
+                    )
+                  "
+
+                  placeholder="Enter rule name"
+
+                  [(ngModel)]="
+                    form.ruleName
+                  "
+
+                  (ngModelChange)="
+                    clearFieldError(
+                      'ruleName'
+                    )
+                  "
+                />
+
+
+                @if (
+                  getFieldError(
+                    'ruleName'
+                  )
+                ) {
+
+                  <span
+                    class="rule-field__error"
+                  >
+                    {{
+                      getFieldError(
+                        'ruleName'
+                      )
+                    }}
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- RULE STATUS -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Rule Status
+              </span>
+
+
+              <label class="rule-checkbox">
+
+                <input
+                  type="checkbox"
+                  name="editActive"
+
+                  [(ngModel)]="
+                    form.active
+                  "
+                />
+
+                <span
+                  class="rule-checkbox__box"
+                ></span>
+
+                <span>
+                  Active
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <!-- RULE DESCRIPTION -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-description"
+                class="rule-field__label"
+              >
+                Rule Description
+              </label>
+
+
+              <textarea
+                id="edit-rule-description"
+                name="editRuleDescription"
+
+                class="
+                  rule-field__control
+                  rule-field__textarea
+                "
+
+                placeholder="Enter rule description"
+
+                [(ngModel)]="
+                  form.ruleDescription
+                "
+              ></textarea>
+
+            </div>
+
+
+            <!-- RULE ACTION -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Rule Action
+              </span>
+
+
+              <label class="rule-checkbox">
+
+                <input
+                  type="checkbox"
+                  name="editBlock"
+
+                  [(ngModel)]="
+                    form.block
+                  "
+                />
+
+                <span
+                  class="rule-checkbox__box"
+                ></span>
+
+                <span>
+                  Block
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <!-- RULE LOGIC -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-logic"
+                class="rule-field__label"
+              >
+                Rule Logic
+              </label>
+
+
+              <textarea
+                id="edit-rule-logic"
+                name="editRuleLogic"
+
+                class="
+                  rule-field__control
+                  rule-field__textarea
+                "
+
+                placeholder="Enter rule logic"
+
+                [(ngModel)]="
+                  form.ruleLogic
+                "
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT PANEL
+               ============================================= -->
+
+          <div class="rule-panel">
+
+            <!-- ===========================================
+                 SERVICES
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-services"
+                class="rule-field__label"
+              >
+                Services
+              </label>
+
+
+              <select
+                id="edit-services"
+                name="editServices"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  form.services
+                "
+              >
+
+                @for (
+                  option of services;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 REAL TIME
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Real Time
+              </span>
+
+
+              <div class="rule-radio-group">
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="editRealTime"
+
+                    [value]="true"
+
+                    [(ngModel)]="
+                      form.realTime
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    Yes
+                  </span>
+
+                </label>
+
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="editRealTime"
+
+                    [value]="false"
+
+                    [(ngModel)]="
+                      form.realTime
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    No
+                  </span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 REPORT VIOLATION
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <span class="rule-field__label">
+                Report Violation
+              </span>
+
+
+              <div class="rule-radio-group">
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="editReportViolation"
+
+                    [value]="true"
+
+                    [(ngModel)]="
+                      form.reportViolation
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    Yes
+                  </span>
+
+                </label>
+
+
+                <label class="rule-radio">
+
+                  <input
+                    type="radio"
+                    name="editReportViolation"
+
+                    [value]="false"
+
+                    [(ngModel)]="
+                      form.reportViolation
+                    "
+                  />
+
+                  <span
+                    class="rule-radio__indicator"
+                  ></span>
+
+                  <span>
+                    No
+                  </span>
+
+                  <span class="rule-helper-inline">
+                    [If No then Only Notification]
+                  </span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE CATEGORY
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-category"
+                class="rule-field__label"
+              >
+                Rule Category
+              </label>
+
+
+              <select
+                id="edit-rule-category"
+                name="editRuleCategory"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  form.ruleCategory
+                "
+              >
+
+                @for (
+                  option of ruleCategories;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE THRESHOLD
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="edit-rule-threshold"
+                class="rule-field__label"
+              >
+                Rule Threshold
+              </label>
+
+
+              <input
+                id="edit-rule-threshold"
+                name="editRuleThreshold"
+                type="text"
+
+                class="rule-field__control"
+
+                placeholder="Enter threshold"
+
+                [(ngModel)]="
+                  form.ruleThreshold
+                "
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             EDIT RULE CONDITIONS
+             =============================================== -->
+
+        <div class="rule-conditions">
+
+          <h2 class="rule-conditions__title">
+            Rule Conditions
+          </h2>
+
+
+          <textarea
+            name="editRuleConditions"
+
+            class="
+              rule-field__control
+              rule-conditions__textarea
+            "
+
+            placeholder="Enter rule conditions"
+
+            [(ngModel)]="
+              form.ruleConditions
+            "
+          ></textarea>
+
+        </div>
+
+
+        <!-- ===============================================
+             EDIT ACTIONS
+             =============================================== -->
+
+        <div class="rule-actions">
+
+          <button
+            type="button"
+
+            class="
+              rule-button
+              rule-button--secondary
+            "
+
+            (click)="reset()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Clear
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              rule-button
+              rule-button--danger
+            "
+
+            [disabled]="
+              selectedEditRuleId === null
+            "
+
+            (click)="deleteRule()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Delete
+            </span>
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              rule-button
+              rule-button--primary
+            "
+
+            [disabled]="
+              selectedEditRuleId === null
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Update
+            </span>
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="rule-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="rule-search-grid">
+
+          <!-- =============================================
+               SEARCH LEFT COLUMN
+               ============================================= -->
+
+          <div class="rule-column">
+
+            <!-- ===========================================
+                 CREATE RULE / RULE NAME
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-created-rule"
+                class="rule-field__label"
+              >
+                Create Rule
+              </label>
+
+
+              <input
+                id="search-created-rule"
+                name="searchCreatedRule"
+                type="text"
+
+                class="rule-field__control"
+
+                placeholder="Enter rule name"
+
+                [(ngModel)]="
+                  searchForm.createdRule
+                "
+              />
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE NUMBER
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-rule-number"
+                class="rule-field__label"
+              >
+                Rule Number
+              </label>
+
+
+              <input
+                id="search-rule-number"
+                name="searchRuleNumber"
+                type="text"
+
+                class="rule-field__control"
+
+                placeholder="Enter rule number"
+
+                [(ngModel)]="
+                  searchForm.ruleNumber
+                "
+              />
+
+            </div>
+
+
+            <!-- ===========================================
+                 SERVICES
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-services"
+                class="rule-field__label"
+              >
+                Services
+              </label>
+
+
+              <select
+                id="search-services"
+                name="searchServices"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  searchForm.services
+                "
+              >
+
+                @for (
+                  option of searchServices;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               SEARCH RIGHT COLUMN
+               ============================================= -->
+
+          <div class="rule-column">
+
+            <!-- ===========================================
+                 RULE STATUS
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-rule-status"
+                class="rule-field__label"
+              >
+                Rule Status
+              </label>
+
+
+              <select
+                id="search-rule-status"
+                name="searchStatus"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  searchForm.status
+                "
+              >
+
+                @for (
+                  option of ruleStatuses;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RULE TYPE
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-rule-type"
+                class="rule-field__label"
+              >
+                Rule Type
+              </label>
+
+
+              <select
+                id="search-rule-type"
+                name="searchRuleType"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  searchForm.ruleType
+                "
+              >
+
+                @for (
+                  option of searchRuleTypes;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 PROFILE RISK
+                 =========================================== -->
+
+            <div class="rule-field">
+
+              <label
+                for="search-profile-risk"
+                class="rule-field__label"
+              >
+                Profile Risk
+              </label>
+
+
+              <select
+                id="search-profile-risk"
+                name="searchProfileRisk"
+
+                class="
+                  rule-field__control
+                  rule-field__select
+                "
+
+                [(ngModel)]="
+                  searchForm.profileRisk
+                "
+              >
+
+                @for (
+                  option of profileRisks;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             SEARCH ACTIONS
+             =============================================== -->
+
+        <div class="rule-actions">
+
+          <button
+            type="button"
+
+            class="
+              rule-button
+              rule-button--secondary
+            "
+
+            (click)="reset()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Reset
+            </span>
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              rule-button
+              rule-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Search
+            </span>
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="rule-results">
+
+      <div class="rule-results__header">
+
+        <div>
+
+          <h2 class="rule-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="rule-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'rule'
+                : 'rules'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="rule-results__count">
+
+          {{ results.length }}
+          Results
+
+        </span>
+
+      </div>
+
+
+      <div class="rule-results__table">
+
+        <theme-table
+          [rows]="results"
+
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No rules found"
+
+          emptyMessage="No transaction monitoring rules matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="rule-toast"
+
+      [class.rule-toast--success]="
+        toast()?.type ===
+        'success'
+      "
+
+      [class.rule-toast--error]="
+        toast()?.type ===
+        'error'
+      "
+    >
+
+      <!-- ===============================================
+           TOAST ICON
+           =============================================== -->
+
+      <span class="rule-toast__icon">
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <!-- ===============================================
+           TOAST CONTENT
+           =============================================== -->
+
+      <div class="rule-toast__content">
+
+        <span class="rule-toast__title">
+
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="rule-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <!-- ===============================================
+           CLOSE TOAST
+           =============================================== -->
+
+      <button
+        type="button"
+
+        class="rule-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

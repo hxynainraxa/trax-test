@@ -1,0 +1,200 @@
+<div class="risk-page">
+
+  <!-- HEADER -->
+
+  <div class="risk-header">
+
+    <h1>
+      Transaction Type
+    </h1>
+
+    <p>
+      Search transaction type and risk configuration.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="risk-card transaction-type-card">
+
+    <form
+      class="risk-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="transaction-type-grid">
+
+        <!-- ==========================================
+             LEFT COLUMN
+             ========================================== -->
+
+        <div class="risk-fields">
+
+          <label class="risk-field">
+
+            <span>
+              Transaction Type
+            </span>
+
+            <input
+              type="text"
+              name="transactionType"
+              [(ngModel)]="
+                form.transactionType
+              "
+            />
+
+          </label>
+
+
+          <label class="risk-field">
+
+            <span>
+              Transaction Type Name
+            </span>
+
+            <input
+              type="text"
+              name="transactionTypeName"
+              [(ngModel)]="
+                form.transactionTypeName
+              "
+            />
+
+          </label>
+
+
+          <label class="risk-field">
+
+            <span>
+              Risk Rating
+            </span>
+
+            <select
+              name="riskRating"
+              [(ngModel)]="
+                form.riskRating
+              "
+            >
+
+              @for (
+                rating of riskRatings;
+                track rating
+              ) {
+
+                <option [value]="rating">
+                  {{ rating }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+        </div>
+
+
+        <!-- ==========================================
+             RIGHT COLUMN
+             ========================================== -->
+
+        <div class="risk-fields">
+
+          <label class="risk-field">
+
+            <span>
+              Allowed Amount Limit
+            </span>
+
+            <input
+              type="number"
+              min="0"
+              name="allowedAmountLimit"
+              [(ngModel)]="
+                form.allowedAmountLimit
+              "
+            />
+
+          </label>
+
+
+          <label class="risk-field">
+
+            <span>
+              Transaction Flow
+            </span>
+
+            <select
+              name="transactionFlow"
+              [(ngModel)]="
+                form.transactionFlow
+              "
+            >
+
+              @for (
+                flow of transactionFlows;
+                track flow
+              ) {
+
+                <option [value]="flow">
+                  {{ flow }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="risk-actions">
+
+        <button
+          type="submit"
+          class="
+            risk-btn
+            risk-btn--primary
+          "
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="
+            risk-btn
+            risk-btn--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

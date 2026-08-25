@@ -1,0 +1,24 @@
+@use '../risk-master-form';
+
+.profile-card {
+  padding: 22px;
+}
+
+.profile-fields {
+  width: min(560px, 100%);
+}
+
+.required {
+  margin-left: 2px;
+
+  color: #d92d20;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .profile-card {
+    padding: 16px 12px;
+  }
+}

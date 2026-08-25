@@ -1,0 +1,455 @@
+<div class="beneficiary-page">
+
+  <!-- HEADER -->
+
+  <div class="beneficiary-header">
+    <h1>Beneficiary</h1>
+
+    <p>
+      Search beneficiary personal, bank and identification details.
+    </p>
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="beneficiary-card">
+
+    <!-- TABS -->
+
+    <div class="beneficiary-tabs">
+
+      <button
+        type="button"
+        class="beneficiary-tab"
+        [class.beneficiary-tab--active]="
+          activeTab === 'personal'
+        "
+        (click)="setTab('personal')"
+      >
+        Personal
+      </button>
+
+      <button
+        type="button"
+        class="beneficiary-tab"
+        [class.beneficiary-tab--active]="
+          activeTab === 'bank'
+        "
+        (click)="setTab('bank')"
+      >
+        Bank
+      </button>
+
+      <button
+        type="button"
+        class="beneficiary-tab"
+        [class.beneficiary-tab--active]="
+          activeTab === 'id-details'
+        "
+        (click)="setTab('id-details')"
+      >
+        ID Details
+      </button>
+
+    </div>
+
+
+    <form
+      class="beneficiary-form"
+      (ngSubmit)="search()"
+    >
+
+      <!-- ==================================================
+           PERSONAL
+           ================================================== -->
+
+      @if (
+        activeTab === 'personal'
+      ) {
+
+        <div class="beneficiary-grid">
+
+          <!-- LEFT -->
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>Salutation</span>
+              <input
+                name="salutation"
+                [(ngModel)]="form.salutation"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>First Name</span>
+              <input
+                name="firstName"
+                [(ngModel)]="form.firstName"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Middle Name</span>
+              <input
+                name="middleName"
+                [(ngModel)]="form.middleName"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Last Name</span>
+              <input
+                name="lastName"
+                [(ngModel)]="form.lastName"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Full Name</span>
+              <input
+                name="fullName"
+                [(ngModel)]="form.fullName"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Beneficiary Number</span>
+              <input
+                name="beneficiaryNumber"
+                [(ngModel)]="form.beneficiaryNumber"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Gender</span>
+
+              <select
+                name="gender"
+                [(ngModel)]="form.gender"
+              >
+                @for (
+                  option of genderOptions;
+                  track option
+                ) {
+                  <option [value]="option">
+                    {{ option }}
+                  </option>
+                }
+              </select>
+            </label>
+
+            <label class="beneficiary-field">
+              <span>DOB</span>
+              <input
+                type="date"
+                name="dob"
+                [(ngModel)]="form.dob"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Birth Place</span>
+              <input
+                name="birthPlace"
+                [(ngModel)]="form.birthPlace"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Mobile Num.</span>
+              <input
+                name="mobileNumber"
+                [(ngModel)]="form.mobileNumber"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Nationality</span>
+
+              <select
+                name="nationality"
+                [(ngModel)]="form.nationality"
+              >
+                @for (
+                  option of nationalityOptions;
+                  track option
+                ) {
+                  <option [value]="option">
+                    {{ option }}
+                  </option>
+                }
+              </select>
+            </label>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>Membership Number</span>
+              <input
+                name="membershipNumber"
+                [(ngModel)]="form.membershipNumber"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Membership Branch</span>
+
+              <select
+                name="membershipBranch"
+                [(ngModel)]="form.membershipBranch"
+              >
+                @for (
+                  option of branchOptions;
+                  track option
+                ) {
+                  <option [value]="option">
+                    {{ option }}
+                  </option>
+                }
+              </select>
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Membership No In Branch</span>
+              <input
+                name="membershipNoInBranch"
+                [(ngModel)]="form.membershipNoInBranch"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Created By</span>
+              <input
+                name="createdBy"
+                [(ngModel)]="form.createdBy"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Created On</span>
+              <input
+                type="date"
+                name="createdOn"
+                [(ngModel)]="form.createdOn"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Verified By</span>
+              <input
+                name="verifiedBy"
+                [(ngModel)]="form.verifiedBy"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Verified On</span>
+              <input
+                type="date"
+                name="verifiedOn"
+                [(ngModel)]="form.verifiedOn"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Modified By</span>
+              <input
+                name="modifiedBy"
+                [(ngModel)]="form.modifiedBy"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Modified On</span>
+              <input
+                type="date"
+                name="modifiedOn"
+                [(ngModel)]="form.modifiedOn"
+              />
+            </label>
+
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- ==================================================
+           BANK
+           ================================================== -->
+
+      @if (
+        activeTab === 'bank'
+      ) {
+
+        <div class="beneficiary-grid">
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>Bank Name</span>
+              <input
+                name="bankName"
+                [(ngModel)]="form.bankName"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Bank Branch Name</span>
+              <input
+                name="bankBranchName"
+                [(ngModel)]="form.bankBranchName"
+              />
+            </label>
+
+          </div>
+
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>Bank Account Type</span>
+              <input
+                name="bankAccountType"
+                [(ngModel)]="form.bankAccountType"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>Account Number</span>
+              <input
+                name="accountNumber"
+                [(ngModel)]="form.accountNumber"
+              />
+            </label>
+
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- ==================================================
+           ID DETAILS
+           ================================================== -->
+
+      @if (
+        activeTab === 'id-details'
+      ) {
+
+        <div class="beneficiary-grid">
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>ID Type</span>
+
+              <select
+                name="idType"
+                [(ngModel)]="form.idType"
+              >
+                @for (
+                  option of idTypeOptions;
+                  track option
+                ) {
+                  <option [value]="option">
+                    {{ option }}
+                  </option>
+                }
+              </select>
+            </label>
+
+            <label class="beneficiary-field">
+              <span>ID Number</span>
+              <input
+                name="idNumber"
+                [(ngModel)]="form.idNumber"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>ID Issued Place</span>
+              <input
+                name="idIssuedPlace"
+                [(ngModel)]="form.idIssuedPlace"
+              />
+            </label>
+
+          </div>
+
+
+          <div class="beneficiary-column">
+
+            <label class="beneficiary-field">
+              <span>ID Issued Date</span>
+              <input
+                type="date"
+                name="idIssuedDate"
+                [(ngModel)]="form.idIssuedDate"
+              />
+            </label>
+
+            <label class="beneficiary-field">
+              <span>ID Expiry Date</span>
+              <input
+                type="date"
+                name="idExpiryDate"
+                [(ngModel)]="form.idExpiryDate"
+              />
+            </label>
+
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- ACTIONS -->
+
+      <div class="beneficiary-actions">
+
+        <button
+          type="submit"
+          class="
+            beneficiary-button
+            beneficiary-button--primary
+          "
+        >
+          Search
+        </button>
+
+        <button
+          type="button"
+          class="
+            beneficiary-button
+            beneficiary-button--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message) {
+    <div class="beneficiary-toast">
+      {{ message }}
+    </div>
+  }
+
+</div>

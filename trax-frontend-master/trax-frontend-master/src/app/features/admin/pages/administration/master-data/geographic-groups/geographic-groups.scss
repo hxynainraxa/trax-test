@@ -1,0 +1,150 @@
+@use '../master-search';
+
+
+// ==================================================
+// CARD / TABS
+// ==================================================
+
+.geo-card {
+  position: relative;
+  padding: 52px 22px 20px;
+}
+
+.geo-tabs {
+  position: absolute;
+  top: -1px;
+  left: 0;
+
+  display: flex;
+  gap: 4px;
+}
+
+.geo-tab {
+  min-width: 86px;
+  height: 36px;
+
+  padding: 0 14px;
+
+  border: 1px solid #eaecf0;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+
+  color: #98a2b3;
+  background: #fbfaf9;
+
+  font: 600 12px Inter, sans-serif;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  &--active {
+    border-top: 2px solid #e7651c;
+    border-bottom: 1px solid #fff;
+
+    color: #d65312;
+    background: #fff;
+  }
+}
+
+
+// ==================================================
+// SELECTED COUNTRIES
+// ==================================================
+
+.geo-selected-field {
+  align-items: start;
+}
+
+.geo-selected-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.geo-selected {
+  width: 100%;
+  height: 104px;
+
+  padding: 6px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #344054;
+  background: #fff;
+
+  font: 400 12px Inter, sans-serif;
+
+  &:focus {
+    border-color: #e7651c;
+
+    box-shadow:
+      0 0 0 3px
+      rgba(231, 101, 28, .1);
+  }
+}
+
+.geo-remove,
+.geo-delete {
+  height: 38px;
+  padding: 0 14px;
+
+  border: 1px solid #e7651c;
+  border-radius: 8px;
+
+  color: #d65312;
+  background: #fff;
+
+  font: 600 12px Inter, sans-serif;
+
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background: #e7651c;
+  }
+}
+
+
+// ==================================================
+// READONLY INFORMATION
+// ==================================================
+
+.geo-readonly {
+  min-height: 38px;
+
+  strong {
+    display: flex;
+    min-height: 38px;
+
+    align-items: center;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 560px) {
+
+  .geo-card {
+    padding: 52px 12px 16px;
+  }
+
+  .geo-selected-wrapper {
+    flex-direction: column;
+  }
+
+  .geo-remove {
+    width: 100%;
+  }
+
+}

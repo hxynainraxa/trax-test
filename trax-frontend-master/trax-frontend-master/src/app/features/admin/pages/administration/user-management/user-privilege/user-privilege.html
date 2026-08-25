@@ -1,0 +1,332 @@
+<div class="privilege-page">
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+
+  <div class="privilege-header">
+
+    <h1 class="privilege-title">
+      User Privilege
+    </h1>
+
+    <p class="privilege-description">
+      Configure privileges for individual users.
+    </p>
+
+  </div>
+
+
+  <!-- ==================================================
+       TOP FILTERS
+       ================================================== -->
+
+  <section class="user-privilege-controls">
+
+    <!-- USER -->
+
+    <div class="user-privilege-field">
+
+      <label>
+        Users
+        <span>*</span>
+      </label>
+
+      <select
+        class="privilege-select"
+
+        [(ngModel)]="
+          selectedUser
+        "
+
+        (ngModelChange)="
+          userChanged()
+        "
+      >
+
+        <option [ngValue]="null">
+          --Select--
+        </option>
+
+        @for (
+          user of users;
+          track user.value
+        ) {
+
+          <option
+            [ngValue]="user.value"
+          >
+            {{ user.label }}
+          </option>
+
+        }
+
+      </select>
+
+    </div>
+
+
+    <!-- COPY FROM -->
+
+    <div class="user-privilege-field">
+
+      <label>
+        Copy Privilege From User
+      </label>
+
+      <select
+        class="privilege-select"
+
+        [(ngModel)]="
+          copyFromUser
+        "
+
+        (ngModelChange)="
+          copyUserChanged()
+        "
+      >
+
+        <option [ngValue]="null">
+          --Select--
+        </option>
+
+        @for (
+          user of users;
+          track user.value
+        ) {
+
+          @if (
+            user.value !==
+            selectedUser
+          ) {
+
+            <option
+              [ngValue]="user.value"
+            >
+              {{ user.label }}
+            </option>
+
+          }
+
+        }
+
+      </select>
+
+    </div>
+
+
+    <!-- ROLE -->
+
+    <div class="user-privilege-field">
+
+      <label>
+        Role
+        <span>*</span>
+      </label>
+
+      <select
+        class="privilege-select"
+
+        [(ngModel)]="
+          selectedRole
+        "
+
+        (ngModelChange)="
+          roleChanged()
+        "
+      >
+
+        <option value="">
+          --Select--
+        </option>
+
+        @for (
+          role of roles;
+          track role.value
+        ) {
+
+          <option
+            [value]="role.value"
+          >
+            {{ role.label }}
+          </option>
+
+        }
+
+      </select>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       PRIVILEGES
+       ================================================== -->
+
+  <section class="privilege-list">
+
+    @for (
+      group of groups;
+      track group.id;
+      let groupIndex = $index
+    ) {
+
+      <div class="privilege-group">
+
+        <!-- GROUP -->
+
+        <label class="privilege-group__title">
+
+          <input
+            type="checkbox"
+
+            [checked]="
+              isGroupSelected(
+                groupIndex
+              )
+            "
+
+            [indeterminate]="
+              isGroupPartial(
+                groupIndex
+              )
+            "
+
+            (change)="
+              toggleGroup(
+                groupIndex,
+                $any($event.target).checked
+              )
+            "
+          />
+
+          <span>
+            {{ group.label }}
+          </span>
+
+        </label>
+
+
+        <!-- PERMISSIONS -->
+
+        <div class="privilege-group__items">
+
+          @for (
+            item of group.items;
+            track item.id
+          ) {
+
+            <label class="privilege-item">
+
+              <input
+                type="checkbox"
+
+                [checked]="
+                  isSelected(
+                    item.id
+                  )
+                "
+
+                (change)="
+                  toggleItem(
+                    item.id,
+                    $any($event.target).checked
+                  )
+                "
+              />
+
+              <span>
+                {{ item.label }}
+              </span>
+
+            </label>
+
+          }
+
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ==================================================
+       ACTIONS
+       ================================================== -->
+
+  <div class="privilege-actions">
+
+    <button
+      type="button"
+
+      class="
+        privilege-button
+        privilege-button--primary
+      "
+
+      (click)="save()"
+    >
+      Save
+    </button>
+
+
+    <button
+      type="button"
+
+      class="
+        privilege-button
+        privilege-button--delete
+      "
+
+      (click)="deletePrivileges()"
+    >
+      Delete
+    </button>
+
+
+    <button
+      type="button"
+
+      class="
+        privilege-button
+        privilege-button--secondary
+      "
+
+      (click)="clear()"
+    >
+      Clear
+    </button>
+
+  </div>
+
+
+  <!-- ==================================================
+       TOAST
+       ================================================== -->
+
+  @if (
+    message()
+  ) {
+
+    <div
+      class="privilege-toast"
+
+      [class.privilege-toast--success]="
+        message()?.type ===
+        'success'
+      "
+
+      [class.privilege-toast--error]="
+        message()?.type ===
+        'error'
+      "
+    >
+      {{ message()?.text }}
+    </div>
+
+  }
+
+</div>

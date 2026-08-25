@@ -1,0 +1,798 @@
+<div class="list-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="list-header">
+
+    <div class="list-header__content">
+
+      <h1 class="list-title">
+        List
+      </h1>
+
+      <p class="list-description">
+        Create, update and search screening lists.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       LIST CARD
+       ===================================================== -->
+
+  <section class="list-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div
+      class="list-tabs"
+      role="tablist"
+    >
+
+      <!-- ADD -->
+
+      <button
+        type="button"
+
+        class="list-tab"
+
+        [class.list-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="
+          setTab('add')
+        "
+      >
+        Add
+      </button>
+
+
+      <!-- EDIT -->
+
+      <button
+        type="button"
+
+        class="list-tab"
+
+        [class.list-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="
+          setTab('edit')
+        "
+      >
+        Edit
+      </button>
+
+
+      <!-- SEARCH -->
+
+      <button
+        type="button"
+
+        class="list-tab"
+
+        [class.list-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="
+          setTab('search')
+        "
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD TAB
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="list-form"
+
+        (ngSubmit)="saveList()"
+      >
+
+        <div class="list-form-grid">
+
+          <!-- LIST CODE -->
+
+          <div class="list-field">
+
+            <label
+              for="add-list-code"
+
+              class="list-field__label"
+            >
+              List Code
+              <span
+                class="list-field__required"
+              >
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="add-list-code"
+
+              name="addListCode"
+
+              type="text"
+
+              class="list-field__control"
+
+              placeholder="Enter list code"
+
+              [(ngModel)]="
+                addForm.code
+              "
+            />
+
+          </div>
+
+
+          <!-- LIST NAME -->
+
+          <div class="list-field">
+
+            <label
+              for="add-list-name"
+
+              class="list-field__label"
+            >
+              List Name
+
+              <span
+                class="list-field__required"
+              >
+                *
+              </span>
+            </label>
+
+
+            <input
+              id="add-list-name"
+
+              name="addListName"
+
+              type="text"
+
+              class="list-field__control"
+
+              placeholder="Enter list name"
+
+              [(ngModel)]="
+                addForm.name
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="list-actions">
+
+          <button
+            type="button"
+
+            class="
+              list-button
+              list-button--secondary
+            "
+
+            (click)="
+              clearAddForm()
+            "
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Clear
+            </span>
+
+          </button>
+
+
+          <button
+            type="submit"
+
+            class="
+              list-button
+              list-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Save
+            </span>
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT TAB
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <div class="list-form">
+
+        <!-- SEARCH EXISTING LIST -->
+
+        <div
+          class="
+            list-form-grid
+            list-form-grid--search
+          "
+        >
+
+          <div class="list-field">
+
+            <label
+              for="edit-search-code"
+
+              class="list-field__label"
+            >
+              List Code
+            </label>
+
+
+            <input
+              id="edit-search-code"
+
+              name="editSearchCode"
+
+              type="text"
+
+              class="list-field__control"
+
+              placeholder="Enter list code"
+
+              [(ngModel)]="
+                editSearchCode
+              "
+
+              (keyup.enter)="
+                findForEdit()
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="list-actions">
+
+          <button
+            type="button"
+
+            class="
+              list-button
+              list-button--secondary
+            "
+
+            (click)="
+              resetEdit()
+            "
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Reset
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              list-button
+              list-button--primary
+            "
+
+            (click)="
+              findForEdit()
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Search
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- =============================================
+             EDIT FORM AFTER LIST FOUND
+             ============================================= -->
+
+        @if (
+          editingId !== null
+        ) {
+
+          <div
+            class="list-edit-divider"
+          ></div>
+
+
+          <form
+            class="list-edit-section"
+
+            (ngSubmit)="updateList()"
+          >
+
+            <div class="list-form-grid">
+
+              <!-- CODE -->
+
+              <div class="list-field">
+
+                <label
+                  for="edit-list-code"
+
+                  class="list-field__label"
+                >
+                  List Code
+                </label>
+
+
+                <input
+                  id="edit-list-code"
+
+                  name="editListCode"
+
+                  type="text"
+
+                  class="list-field__control"
+
+                  [(ngModel)]="
+                    editForm.code
+                  "
+                />
+
+              </div>
+
+
+              <!-- NAME -->
+
+              <div class="list-field">
+
+                <label
+                  for="edit-list-name"
+
+                  class="list-field__label"
+                >
+                  List Name
+                </label>
+
+
+                <input
+                  id="edit-list-name"
+
+                  name="editListName"
+
+                  type="text"
+
+                  class="list-field__control"
+
+                  [(ngModel)]="
+                    editForm.name
+                  "
+                />
+
+              </div>
+
+            </div>
+
+
+            <div class="list-actions">
+
+              <button
+                type="button"
+
+                class="
+                  list-button
+                  list-button--secondary
+                "
+
+                (click)="
+                  resetEdit()
+                "
+              >
+                Cancel
+              </button>
+
+
+              <button
+                type="submit"
+
+                class="
+                  list-button
+                  list-button--primary
+                "
+              >
+
+                <svg
+                  [lucideIcon]="saveIcon"
+                  [size]="16"
+                  [strokeWidth]="1.8"
+                  aria-hidden="true"
+                ></svg>
+
+                <span>
+                  Update
+                </span>
+
+              </button>
+
+            </div>
+
+          </form>
+
+        }
+
+      </div>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH TAB
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <div class="list-form">
+
+        <div
+          class="
+            list-form-grid
+            list-form-grid--search
+          "
+        >
+
+          <div class="list-field">
+
+            <label
+              for="search-list-code"
+
+              class="list-field__label"
+            >
+              List Code
+            </label>
+
+
+            <input
+              id="search-list-code"
+
+              name="searchListCode"
+
+              type="text"
+
+              class="list-field__control"
+
+              placeholder="Enter list code"
+
+              [(ngModel)]="
+                searchCode
+              "
+
+              (keyup.enter)="
+                searchLists()
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="list-actions">
+
+          <button
+            type="button"
+
+            class="
+              list-button
+              list-button--secondary
+            "
+
+            (click)="
+              resetSearch()
+            "
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Reset
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+
+            class="
+              list-button
+              list-button--primary
+            "
+
+            (click)="
+              searchLists()
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              Search
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="list-results">
+
+      <div class="list-results__header">
+
+        <div>
+
+          <h2 class="list-results__title">
+            Lists
+          </h2>
+
+
+          <p
+            class="list-results__description"
+          >
+            {{
+              results.length
+            }}
+            matching
+            {{
+              results.length === 1
+                ? 'list'
+                : 'lists'
+            }}
+            found.
+          </p>
+
+        </div>
+
+
+        <span
+          class="list-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showFooter]="false"
+
+        [showActions]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No lists found"
+
+        emptyMessage="No list matched the entered List Code."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (toast()) {
+
+    <div
+      class="list-toast"
+
+      [class.list-toast--success]="
+        toast()?.type ===
+        'success'
+      "
+
+      [class.list-toast--error]="
+        toast()?.type ===
+        'error'
+      "
+    >
+
+      <span
+        class="list-toast__icon"
+      >
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div
+        class="list-toast__content"
+      >
+
+        <span
+          class="list-toast__title"
+        >
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+        </span>
+
+
+        <span
+          class="list-toast__message"
+        >
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="list-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

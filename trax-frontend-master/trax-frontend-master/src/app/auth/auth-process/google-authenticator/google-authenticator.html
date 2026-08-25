@@ -1,0 +1,209 @@
+<div
+  class="flex min-h-screen w-full items-center justify-center
+         bg-[#F8F8F8] px-4 py-6 font-inter"
+>
+  <!-- Main Container -->
+  <div
+    class="box-border w-full max-w-[506px]
+           rounded-[12px]
+           border-[0.8px] border-[#E0DDDB]
+           bg-white p-[36px]"
+  >
+    <!-- Key Icon Container -->
+    <div
+      class="flex h-[56px] w-[56px]
+             items-center justify-center
+             rounded-full bg-[#FBFAF9]"
+    >
+      <img
+        src="/images/key-icon.png"
+        alt=""
+        class="h-[24px] w-[24px] object-contain"
+      />
+    </div>
+
+    <!-- Heading -->
+    <h1
+      class="mt-[20px]
+             font-inter text-[24px] font-semibold
+             leading-[32px] tracking-[-0.6px]
+             text-[#3A3735]"
+    >
+      Authenticator code
+    </h1>
+
+    <!-- Description -->
+    <p
+      class="mt-[8px]
+             max-w-[390px]
+             font-inter text-[14px] font-normal
+             leading-[20px] tracking-[0px]
+             text-[#667085]"
+    >
+      Open Google Authenticator and enter the code shown for Trax.
+    </p>
+
+    <!-- Error Message -->
+    @if (errorMessage) {
+      <div
+        class="mt-[24px] flex w-full
+               items-start gap-[12px]
+               rounded-[8px]
+               border border-primary-200
+               bg-primary-50
+               px-[14px] py-[12px]
+               text-primary-700"
+        role="alert"
+      >
+        <!-- Warning Icon -->
+        <svg
+          class="mt-[1px] h-[18px] w-[18px] shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M10.29 3.86L1.82 18A2 2 0 0 0 3.53 21H20.47A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <path
+            d="M12 9V13"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M12 17H12.01"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+        </svg>
+
+        <p
+          class="font-inter text-[14px]
+                 font-normal leading-[20px]"
+        >
+          {{ errorMessage }}
+        </p>
+      </div>
+    }
+
+    <!-- OTP Inputs -->
+    <div
+      class="mt-[36px] flex w-full
+             overflow-hidden rounded-[8px]
+             border-[0.8px] border-[#D6D3D1]
+             bg-white
+             shadow-[0px_1px_2px_0px_#1018280D]
+             focus-within:border-primary-400
+             focus-within:ring-2
+             focus-within:ring-primary-100"
+      (paste)="onOtpPaste($event)"
+    >
+      @for (
+        digit of otpDigits;
+        track $index;
+        let i = $index
+      ) {
+        <input
+          [id]="'otp-' + i"
+          [name]="'otp-' + i"
+          type="text"
+          maxlength="1"
+          autocomplete="one-time-code"
+          [ngModel]="otpDigits[i]"
+          (input)="onOtpInput(i, $event)"
+          (keydown)="onOtpKeyDown(i, $event)"
+          class="h-[50px] min-w-0 flex-1
+                 border-0 bg-white
+                 text-center
+                 font-inter text-[20px]
+                 font-semibold
+                 leading-[28px]
+                 text-[#3A3735]
+                 outline-none
+                 caret-primary-500
+                 first:rounded-l-[8px]
+                 last:rounded-r-[8px]
+                 [&:not(:last-child)]:border-r
+                 [&:not(:last-child)]:border-[#D6D3D1]"
+          aria-label="OTP character {{ i + 1 }}"
+        />
+      }
+    </div>
+
+    <!-- Verify OTP -->
+    <button
+      type="button"
+      (click)="verifyOtp()"
+      class="mt-[36px]
+             flex h-[44px] w-full
+             items-center justify-center
+             gap-[8px]
+             rounded-[8px]
+             border border-primary-500
+             bg-primary-500
+             px-[18px] py-[10px]
+             font-inter text-[16px]
+             font-bold leading-[24px]
+             tracking-[0px]
+             text-white
+             shadow-[0px_1px_2px_0px_#1018280D]
+             transition-colors duration-200
+             hover:border-primary-600
+             hover:bg-primary-600
+             focus:outline-none
+             focus:ring-4
+             focus:ring-primary-100"
+    >
+      Verify OTP
+    </button>
+
+    <!-- Other Methods -->
+    <button
+      type="button"
+      (click)="otherMethods()"
+      class="mx-auto mt-[20px]
+             flex items-center justify-center
+             gap-[8px]
+             font-inter text-[16px]
+             font-semibold leading-[24px]
+             text-[#475467]
+             transition-colors duration-200
+             hover:text-primary-500"
+    >
+      <!-- Back Arrow -->
+      <svg
+        class="h-[20px] w-[20px]"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M19 12H5"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+
+        <path
+          d="M11 18L5 12L11 6"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <span>Other methods</span>
+    </button>
+  </div>
+</div>

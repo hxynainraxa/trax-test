@@ -1,0 +1,1295 @@
+<div class="case-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="case-header">
+
+    <div class="case-header__content">
+
+      <h1 class="case-title">
+        Case Creation
+      </h1>
+
+      <p class="case-description">
+        Create, update and search customer monitoring cases.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="case-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="case-tabs">
+
+      <button
+        type="button"
+        class="case-tab"
+        [class.case-tab--active]="
+          activeTab() === 'add'
+        "
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="case-tab"
+        [class.case-tab--active]="
+          activeTab() === 'edit'
+        "
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="case-tab"
+        [class.case-tab--active]="
+          activeTab() === 'search'
+        "
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="case-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="case-grid">
+
+          <!-- =============================================
+               LEFT
+               ============================================= -->
+
+          <div class="case-column">
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Case Code
+              </label>
+
+              <input
+                type="text"
+                class="
+                  case-field__control
+                  case-field__control--readonly
+                "
+                [value]="addForm.caseCode"
+                readonly
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-description"
+                class="case-field__label"
+              >
+                Description
+              </label>
+
+              <input
+                id="add-description"
+                name="description"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter description"
+                [(ngModel)]="addForm.description"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-customer-name"
+                class="case-field__label"
+              >
+                Customer Name
+              </label>
+
+              <input
+                id="add-customer-name"
+                name="customerName"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter customer name"
+                [(ngModel)]="addForm.customerName"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-customer-id"
+                class="case-field__label"
+              >
+                Customer Id No.
+              </label>
+
+              <input
+                id="add-customer-id"
+                name="customerIdNo"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter customer ID"
+                [(ngModel)]="addForm.customerIdNo"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-membership"
+                class="case-field__label"
+              >
+                Membership Card #
+              </label>
+
+              <input
+                id="add-membership"
+                name="membershipCard"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter membership card"
+                [(ngModel)]="addForm.membershipCard"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-mobile"
+                class="case-field__label"
+              >
+                Mobile Num.
+              </label>
+
+              <input
+                id="add-mobile"
+                name="mobileNumber"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter mobile number"
+                [(ngModel)]="addForm.mobileNumber"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Support Documents
+              </label>
+
+              <input
+                #supportFileInput
+                type="file"
+                class="
+                  case-field__control
+                  case-file-control
+                "
+                (change)="
+                  onSupportDocumentSelected(
+                    $event
+                  )
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field case-field--textarea">
+
+              <label
+                for="add-support-comments"
+                class="case-field__label"
+              >
+                Support Documents Comments
+              </label>
+
+              <textarea
+                id="add-support-comments"
+                name="supportDocumentComments"
+                class="
+                  case-field__control
+                  case-field__textarea
+                "
+                placeholder="Enter support document comments"
+                [(ngModel)]="
+                  addForm.supportDocumentComments
+                "
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT
+               ============================================= -->
+
+          <div class="case-column">
+
+            <div class="case-field">
+
+              <label
+                for="add-beneficiary-name"
+                class="case-field__label"
+              >
+                Beneficiary Name
+              </label>
+
+              <input
+                id="add-beneficiary-name"
+                name="beneficiaryName"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter beneficiary name"
+                [(ngModel)]="addForm.beneficiaryName"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-beneficiary-id"
+                class="case-field__label"
+              >
+                Beneficiary ID No
+              </label>
+
+              <input
+                id="add-beneficiary-id"
+                name="beneficiaryIdNo"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter beneficiary ID"
+                [(ngModel)]="addForm.beneficiaryIdNo"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-limit"
+                class="case-field__label"
+              >
+                Transaction Limit
+              </label>
+
+              <input
+                id="add-limit"
+                name="transactionLimit"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter transaction limit"
+                [(ngModel)]="addForm.transactionLimit"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-active-from"
+                class="case-field__label"
+              >
+                Active From
+              </label>
+
+              <input
+                id="add-active-from"
+                name="activeFrom"
+                type="date"
+                class="case-field__control"
+                [(ngModel)]="addForm.activeFrom"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label
+                for="add-active-to"
+                class="case-field__label"
+              >
+                Active To
+              </label>
+
+              <input
+                id="add-active-to"
+                name="activeTo"
+                type="date"
+                class="case-field__control"
+                [(ngModel)]="addForm.activeTo"
+              />
+
+            </div>
+
+
+            <div class="case-field case-field--textarea">
+
+              <label
+                for="add-remark"
+                class="case-field__label"
+              >
+                Remark
+              </label>
+
+              <textarea
+                id="add-remark"
+                name="remark"
+                class="
+                  case-field__control
+                  case-field__textarea
+                "
+                placeholder="Enter remark"
+                [(ngModel)]="addForm.remark"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ADD ACTIONS
+             =============================================== -->
+
+        <div class="case-actions">
+
+          <button
+            type="button"
+            class="
+              case-button
+              case-button--secondary
+            "
+            (click)="resetAddForm()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Clear
+
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              case-button
+              case-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="case-form"
+        (ngSubmit)="update()"
+      >
+
+        <div class="case-grid">
+
+          <!-- LEFT -->
+
+          <div class="case-column">
+
+            <!-- CASE DROPDOWN -->
+
+            <div class="case-field">
+
+              <label
+                for="edit-case-code"
+                class="case-field__label"
+              >
+                Case Code
+              </label>
+
+              <select
+                id="edit-case-code"
+                name="selectedCase"
+                class="
+                  case-field__control
+                  case-field__select
+                "
+                [ngModel]="selectedCaseId"
+                (ngModelChange)="
+                  onCaseSelected(
+                    $event
+                  )
+                "
+              >
+
+                <option [ngValue]="null">
+                  All
+                </option>
+
+                @for (
+                  option of caseOptions();
+                  track option.value
+                ) {
+
+                  <option
+                    [ngValue]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Membership Card #
+              </label>
+
+              <input
+                name="editMembershipCard"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.membershipCard"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Mobile Num.
+              </label>
+
+              <input
+                name="editMobileNumber"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.mobileNumber"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Customer Name
+              </label>
+
+              <input
+                name="editCustomerName"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.customerName"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Customer Id No.
+              </label>
+
+              <input
+                name="editCustomerIdNo"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.customerIdNo"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Transaction Limit
+              </label>
+
+              <input
+                name="editTransactionLimit"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.transactionLimit"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Status
+              </label>
+
+              <select
+                name="editStatus"
+                class="
+                  case-field__control
+                  case-field__select
+                "
+                [(ngModel)]="editForm.status"
+              >
+
+                <option value="active">
+                  Active
+                </option>
+
+                <option value="inactive">
+                  Inactive
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="case-column">
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Beneficiary Name
+              </label>
+
+              <input
+                name="editBeneficiaryName"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.beneficiaryName"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Beneficiary ID No
+              </label>
+
+              <input
+                name="editBeneficiaryIdNo"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="editForm.beneficiaryIdNo"
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Created By
+              </label>
+
+              <input
+                type="text"
+                class="
+                  case-field__control
+                  case-field__control--readonly
+                "
+                [value]="
+                  selectedCaseId
+                    ? caseStore.findById(
+                        selectedCaseId
+                      )?.createdBy ?? ''
+                    : ''
+                "
+                readonly
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Created Date
+              </label>
+
+              <input
+                type="text"
+                class="
+                  case-field__control
+                  case-field__control--readonly
+                "
+                [value]="
+                  selectedCaseId
+                    ? formatDateTime(
+                        caseStore.findById(
+                          selectedCaseId
+                        )?.createdAt ?? ''
+                      )
+                    : ''
+                "
+                readonly
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Modified By
+              </label>
+
+              <input
+                type="text"
+                class="
+                  case-field__control
+                  case-field__control--readonly
+                "
+                [value]="
+                  selectedCaseId
+                    ? caseStore.findById(
+                        selectedCaseId
+                      )?.modifiedBy ?? ''
+                    : ''
+                "
+                readonly
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Modified Date
+              </label>
+
+              <input
+                type="text"
+                class="
+                  case-field__control
+                  case-field__control--readonly
+                "
+                [value]="
+                  selectedCaseId
+                    ? formatDateTime(
+                        caseStore.findById(
+                          selectedCaseId
+                        )?.modifiedAt ?? ''
+                      )
+                    : ''
+                "
+                readonly
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="case-actions">
+
+          <button
+            type="button"
+            class="
+              case-button
+              case-button--secondary
+            "
+            (click)="resetEditForm()"
+          >
+            Reset
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              case-button
+              case-button--primary
+            "
+            [disabled]="
+              selectedCaseId === null
+            "
+          >
+            Update
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="case-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="case-grid">
+
+          <!-- LEFT -->
+
+          <div class="case-column">
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Case Code
+              </label>
+
+              <input
+                name="searchCaseCode"
+                type="text"
+                class="case-field__control"
+                placeholder="Enter case code"
+                [(ngModel)]="
+                  searchFilters.caseCode
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Membership Card #
+              </label>
+
+              <input
+                name="searchMembership"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.membershipCard
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Mobile Num.
+              </label>
+
+              <input
+                name="searchMobile"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.mobileNumber
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Customer Name
+              </label>
+
+              <input
+                name="searchCustomerName"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.customerName
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Customer Id No.
+              </label>
+
+              <input
+                name="searchCustomerId"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.customerIdNo
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Status
+              </label>
+
+              <select
+                name="searchStatus"
+                class="
+                  case-field__control
+                  case-field__select
+                "
+                [(ngModel)]="
+                  searchFilters.status
+                "
+              >
+
+                @for (
+                  option of statusOptions;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="case-column">
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Transaction Limit
+              </label>
+
+              <input
+                name="searchLimit"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.transactionLimit
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Beneficiary Name
+              </label>
+
+              <input
+                name="searchBeneficiaryName"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.beneficiaryName
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Beneficiary ID No
+              </label>
+
+              <input
+                name="searchBeneficiaryId"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.beneficiaryIdNo
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Created By
+              </label>
+
+              <input
+                name="searchCreatedBy"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.createdBy
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Created Date
+              </label>
+
+              <input
+                name="searchCreatedDate"
+                type="date"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.createdDate
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Modified By
+              </label>
+
+              <input
+                name="searchModifiedBy"
+                type="text"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.modifiedBy
+                "
+              />
+
+            </div>
+
+
+            <div class="case-field">
+
+              <label class="case-field__label">
+                Modified Date
+              </label>
+
+              <input
+                name="searchModifiedDate"
+                type="date"
+                class="case-field__control"
+                [(ngModel)]="
+                  searchFilters.modifiedDate
+                "
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="case-actions">
+
+          <button
+            type="button"
+            class="
+              case-button
+              case-button--secondary
+            "
+            (click)="resetSearch()"
+          >
+            Reset
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              case-button
+              case-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="case-results">
+
+      <div class="case-results__header">
+
+        <div>
+
+          <h2 class="case-results__title">
+            Search Results
+          </h2>
+
+          <p class="case-results__description">
+            {{ results.length }}
+            matching
+            {{
+              results.length === 1
+                ? 'case'
+                : 'cases'
+            }}
+            found.
+          </p>
+
+        </div>
+
+
+        <span class="case-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="case-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No cases found"
+
+          emptyMessage="No cases matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="case-toast"
+
+      [class.case-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.case-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="case-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="case-toast__content">
+
+        <span class="case-toast__title">
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+        </span>
+
+        <span class="case-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="case-toast__close"
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

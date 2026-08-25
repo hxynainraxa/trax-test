@@ -1,0 +1,245 @@
+<div
+  class="flex min-h-screen w-full items-center justify-center
+         bg-[#F8F8F8] px-4 py-6 font-inter"
+>
+  <!-- Main Card -->
+  <div
+    class="box-border w-full max-w-[448px]
+           rounded-[12px]
+           border-[0.8px] border-[#E0DDDB]
+           bg-white p-[32px]"
+  >
+    <!-- Logo -->
+    <div>
+      <img
+        src="/images/trax-logo.png"
+        alt="Trax"
+        class="h-[38px] w-[99px] object-contain"
+      />
+    </div>
+
+    <!-- Heading -->
+    <h1
+      class="mt-[16px]
+             font-inter text-[24px] font-semibold
+             leading-[32px] tracking-[-0.6px]
+             text-[#3A3735]"
+    >
+      Choose a verification method
+    </h1>
+
+    <!-- Description -->
+    <p
+      class="mt-[8px]
+             font-inter text-[14px] font-normal
+             leading-[20px] tracking-[0px]
+             text-[#667085]"
+    >
+      For your protection we blocked after 3 failed password
+      attempts. Only a Trax administrator can restore access.
+    </p>
+
+    <!-- Verification Methods -->
+    <div class="mt-[26px] flex w-full flex-col gap-[10px]">
+
+      <!-- Google Authenticator -->
+      <button
+        type="button"
+        (click)="selectGoogleAuthenticator()"
+        class="group flex h-[73.6px] w-full
+               max-w-[382.2px]
+               items-center gap-[16px]
+               rounded-[8px]
+               border-[0.8px] border-[#E0DDDB]
+               bg-[#FBFAF9]
+               p-[16px]
+               text-left
+               transition-all duration-200
+               hover:border-primary-300
+               hover:bg-primary-50
+               focus:outline-none
+               focus:ring-4
+               focus:ring-primary-100"
+      >
+        <!-- Icon Container -->
+        <div
+          class="flex h-[40px] w-[40px] shrink-0
+                 items-center justify-center
+                 rounded-[8px]
+                 bg-[#FFF0E7]"
+        >
+          <img
+            src="/images/google-auth.png"
+            alt=""
+            class="h-[22px] w-[22px] object-contain"
+          />
+        </div>
+
+        <!-- Text -->
+        <div class="min-w-0 flex-1">
+          <p
+            class="font-inter text-[14px] font-medium
+                   leading-[20px] text-[#3A3735]"
+          >
+            Google Authenticator
+          </p>
+
+          <p
+            class="mt-[1px]
+                   font-inter text-[14px] font-normal
+                   leading-[20px] text-[#777471]"
+          >
+            Enter the rotating 6-digit code
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <svg
+          class="h-[18px] w-[18px] shrink-0
+                 text-[#777471]
+                 transition-transform duration-200
+                 group-hover:translate-x-0.5
+                 group-hover:text-primary-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M5 12H19"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M13 6L19 12L13 18"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- One-time Passcode -->
+      <button
+        type="button"
+        (click)="selectOneTimePasscode()"
+        class="group flex h-[73.6px] w-full
+               max-w-[382.2px]
+               items-center gap-[16px]
+               rounded-[8px]
+               border-[0.8px] border-[#E0DDDB]
+               bg-[#FBFAF9]
+               p-[16px]
+               text-left
+               transition-all duration-200
+               hover:border-primary-300
+               hover:bg-primary-50
+               focus:outline-none
+               focus:ring-4
+               focus:ring-primary-100"
+      >
+        <!-- Icon Container -->
+        <div
+          class="flex h-[40px] w-[40px] shrink-0
+                 items-center justify-center
+                 rounded-[8px]
+                 bg-[#FFF0E7]"
+        >
+          <img
+            src="/images/otp-auth.png"
+            alt=""
+            class="h-[22px] w-[22px] object-contain"
+          />
+        </div>
+
+        <!-- Text -->
+        <div class="min-w-0 flex-1">
+          <p
+            class="font-inter text-[14px] font-medium
+                   leading-[20px] text-[#3A3735]"
+          >
+            One-time passcode
+          </p>
+
+          <p
+            class="mt-[1px]
+                   font-inter text-[14px] font-normal
+                   leading-[20px] text-[#777471]"
+          >
+            SMS to •• 4417
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <svg
+          class="h-[18px] w-[18px] shrink-0
+                 text-[#777471]
+                 transition-transform duration-200
+                 group-hover:translate-x-0.5
+                 group-hover:text-primary-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M5 12H19"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M13 6L19 12L13 18"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Back To Login -->
+    <button
+      type="button"
+      (click)="backToLogin()"
+      class="mx-auto mt-[34px]
+             flex items-center justify-center
+             gap-[8px]
+             font-inter text-[14px]
+             font-semibold leading-[20px]
+             text-[#475467]
+             transition-colors duration-200
+             hover:text-primary-500"
+    >
+      <svg
+        class="h-[18px] w-[18px]"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M19 12H5"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+
+        <path
+          d="M11 18L5 12L11 6"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <span>Back to log in</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,291 @@
+<div class="master-page">
+
+  <!-- HEADER -->
+
+  <div class="master-header">
+
+    <h1>
+      Source of Income
+    </h1>
+
+    <p>
+      Search and manage source of income information.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="master-card source-card">
+
+    <!-- TABS -->
+
+    <div class="source-tabs">
+
+      <button
+        type="button"
+        class="source-tab"
+        [class.source-tab--active]="
+          activeTab === 'edit'
+        "
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="source-tab"
+        [class.source-tab--active]="
+          activeTab === 'search'
+        "
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form
+      class="source-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+
+            <span>
+              Source of Income Code
+            </span>
+
+            <select
+              name="sourceCode"
+              [(ngModel)]="form.sourceCode"
+            >
+
+              @for (
+                option of sourceCodes;
+                track option
+              ) {
+
+                <option [value]="option">
+                  {{ option }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Transaction Risk Rating
+            </span>
+
+            <select
+              name="transactionRiskRating"
+              [(ngModel)]="
+                form.transactionRiskRating
+              "
+            >
+
+              @for (
+                option of riskRatings;
+                track option
+              ) {
+
+                <option [value]="option">
+                  {{ option }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Description
+            </span>
+
+            <input
+              type="text"
+              name="description"
+              [(ngModel)]="form.description"
+            />
+
+          </label>
+
+
+          <!-- STATUS -->
+
+          <div class="master-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="master-radios">
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="form.status"
+                />
+
+                Active
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="form.status"
+                />
+
+                InActive
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+
+            <span>
+              Created By
+            </span>
+
+            <input
+              type="text"
+              name="createdBy"
+              [(ngModel)]="form.createdBy"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Created On
+            </span>
+
+            <input
+              type="date"
+              name="createdOn"
+              [(ngModel)]="form.createdOn"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Modified By
+            </span>
+
+            <input
+              type="text"
+              name="modifiedBy"
+              [(ngModel)]="form.modifiedBy"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Modified On
+            </span>
+
+            <input
+              type="date"
+              name="modifiedOn"
+              [(ngModel)]="form.modifiedOn"
+            />
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="master-actions">
+
+        <button
+          type="submit"
+          class="
+            master-btn
+            master-btn--primary
+          "
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="
+            master-btn
+            master-btn--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

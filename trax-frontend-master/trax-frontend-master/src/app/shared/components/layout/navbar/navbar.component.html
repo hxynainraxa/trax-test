@@ -1,0 +1,92 @@
+<header class="top-navbar">
+  <!-- Left -->
+  <div class="navbar-left">
+    <span class="page-title">
+      <ng-content select="[page-title]"></ng-content>
+    </span>
+  </div>
+
+  <!-- Right -->
+  <div class="navbar-right">
+    <!-- Language -->
+    <button
+      type="button"
+      class="language-selector"
+      aria-label="Change language"
+    >
+      <span>ENG</span>
+
+      <svg
+        [lucideIcon]="chevronDownIcon"
+        [size]="12"
+        [strokeWidth]="1.8"
+      ></svg>
+    </button>
+
+    <!-- Notification -->
+    <button
+      type="button"
+      class="navbar-icon-button"
+      aria-label="Notifications"
+    >
+      <svg
+        [lucideIcon]="bellIcon"
+        [size]="18"
+        [strokeWidth]="1.6"
+      ></svg>
+    </button>
+
+    <!-- Help -->
+    <button
+      type="button"
+      class="navbar-icon-button"
+      aria-label="Help"
+    >
+      <svg
+        [lucideIcon]="helpIcon"
+        [size]="18"
+        [strokeWidth]="1.6"
+      ></svg>
+    </button>
+
+    <!-- User -->
+    <button
+      type="button"
+      class="user-menu"
+      aria-label="User menu"
+    >
+      <!-- Avatar -->
+      <div class="user-avatar">
+        @if (userInfo.avatar) {
+          <img
+            [src]="userInfo.avatar"
+            [alt]="userInfo.name"
+          />
+        } @else {
+          <span>
+            {{ getUserInitials() }}
+          </span>
+        }
+      </div>
+
+      <!-- User ID -->
+      <div class="user-info">
+        <span class="user-label">
+          USER ID
+        </span>
+
+        <span class="user-id">
+          {{ userInfo.userId }}
+        </span>
+      </div>
+
+      <!-- Expand -->
+      <svg
+        class="user-chevron"
+        [lucideIcon]="chevronsIcon"
+        [size]="14"
+        [strokeWidth]="1.6"
+      ></svg>
+    </button>
+  </div>
+</header>

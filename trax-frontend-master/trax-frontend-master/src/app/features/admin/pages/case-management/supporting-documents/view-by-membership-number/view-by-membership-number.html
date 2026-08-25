@@ -1,0 +1,304 @@
+<div class="membership-view-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="membership-view-header">
+
+    <div class="membership-view-header__content">
+
+      <h1 class="membership-view-title">
+        View By Membership Number
+      </h1>
+
+      <p class="membership-view-description">
+        Search supporting documents using membership details and date range.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="membership-view-card">
+
+    <!-- SEARCH TAB -->
+
+    <div class="membership-view-tabs">
+
+      <div
+        class="
+          membership-view-tab
+          membership-view-tab--active
+        "
+      >
+        Search
+      </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form
+      class="membership-view-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="membership-view-grid">
+
+        <!-- LEFT -->
+
+        <div class="membership-view-column">
+
+          <div class="membership-field">
+
+            <label
+              for="view-membership"
+              class="membership-field__label"
+            >
+              Membership No.
+            </label>
+
+
+            <div class="membership-search-control">
+
+              <input
+                id="view-membership"
+                name="membershipNumber"
+                type="text"
+                class="membership-field__control"
+                placeholder="Enter membership number"
+                [(ngModel)]="
+                  filters.membershipNumber
+                "
+              />
+
+
+              <svg
+                [lucideIcon]="searchIcon"
+                [size]="17"
+                [strokeWidth]="1.8"
+                class="membership-search-control__icon"
+                aria-hidden="true"
+              ></svg>
+
+            </div>
+
+          </div>
+
+
+          <div class="membership-field">
+
+            <label
+              for="view-name"
+              class="membership-field__label"
+            >
+              Name
+            </label>
+
+            <input
+              id="view-name"
+              name="name"
+              type="text"
+              class="membership-field__control"
+              placeholder="Enter member name"
+              [(ngModel)]="
+                filters.name
+              "
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="membership-view-column">
+
+          <div class="membership-field">
+
+            <label
+              for="view-from-date"
+              class="membership-field__label"
+            >
+              From Date
+            </label>
+
+            <input
+              id="view-from-date"
+              name="fromDate"
+              type="date"
+              class="membership-field__control"
+              [(ngModel)]="
+                filters.fromDate
+              "
+            />
+
+          </div>
+
+
+          <div class="membership-field">
+
+            <label
+              for="view-to-date"
+              class="membership-field__label"
+            >
+              To Date
+            </label>
+
+            <input
+              id="view-to-date"
+              name="toDate"
+              type="date"
+              class="membership-field__control"
+              [(ngModel)]="
+                filters.toDate
+              "
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      @if (dateError) {
+
+        <div class="membership-date-error">
+          {{ dateError }}
+        </div>
+
+      }
+
+
+      <!-- ACTIONS -->
+
+      <div class="membership-view-actions">
+
+        <button
+          type="button"
+          class="
+            membership-button
+            membership-button--secondary
+          "
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          Clear
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="
+            membership-button
+            membership-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          Search
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="membership-results">
+
+      <div class="membership-results__header">
+
+        <div>
+
+          <h2 class="membership-results__title">
+            Search Results
+          </h2>
+
+          <p class="membership-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'record'
+                : 'records'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="membership-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="membership-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+          [showFilterButton]="false"
+          [showActions]="false"
+          [showFooter]="false"
+
+          [hoverable]="true"
+          [striped]="false"
+
+          emptyTitle="No records found"
+
+          emptyMessage="No support documents matched the selected membership criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

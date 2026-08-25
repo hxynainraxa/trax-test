@@ -1,0 +1,342 @@
+<div class="master-page">
+
+  <!-- HEADER -->
+
+  <div class="master-header">
+
+    <h1>
+      Suspicious Words
+    </h1>
+
+    <p>
+      Add, search and manage suspicious words.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="master-card suspicious-card">
+
+    <!-- TABS -->
+
+    <div class="suspicious-tabs">
+
+      @for (
+        tab of ['add', 'edit', 'search'];
+        track tab
+      ) {
+
+        <button
+          type="button"
+          class="suspicious-tab"
+          [class.suspicious-tab--active]="
+            activeTab === tab
+          "
+          (click)="setTab($any(tab))"
+        >
+          {{ tab }}
+        </button>
+
+      }
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form
+      class="suspicious-form"
+      (ngSubmit)="submit()"
+    >
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+
+            <span>
+              Suspicious Word
+            </span>
+
+            <input
+              name="word"
+              [(ngModel)]="form.word"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Description
+            </span>
+
+            <input
+              name="description"
+              [(ngModel)]="
+                form.description
+              "
+            />
+
+          </label>
+
+
+          <div class="master-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="master-radios">
+
+              @if (
+                activeTab !== 'add'
+              ) {
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value=""
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  All
+                </label>
+
+              }
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                Active
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                InActive
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT - EDIT / SEARCH -->
+
+        @if (
+          activeTab !== 'add'
+        ) {
+
+          <div class="master-column">
+
+            <label class="master-field">
+              <span>Created By</span>
+
+              <input
+                name="createdBy"
+                [(ngModel)]="
+                  form.createdBy
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Created Date</span>
+
+              <input
+                type="date"
+                name="createdDate"
+                [(ngModel)]="
+                  form.createdDate
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Modified By</span>
+
+              <input
+                name="modifiedBy"
+                [(ngModel)]="
+                  form.modifiedBy
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Modified Date</span>
+
+              <input
+                type="date"
+                name="modifiedDate"
+                [(ngModel)]="
+                  form.modifiedDate
+                "
+              />
+            </label>
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="master-actions">
+
+        @if (
+          activeTab === 'add'
+        ) {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Save
+          </button>
+
+        }
+
+        @else if (
+          activeTab === 'edit' &&
+          selectedId
+        ) {
+
+          <button
+            type="button"
+            class="
+              master-btn
+              master-btn--primary
+            "
+            (click)="save()"
+          >
+            Update
+          </button>
+
+        }
+
+        @else {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Search
+          </button>
+
+        }
+
+
+        <button
+          type="button"
+          class="
+            master-btn
+            master-btn--secondary
+          "
+          (click)="reset()"
+        >
+          {{
+            activeTab === 'add'
+              ? 'Clear'
+              : 'Reset'
+          }}
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <!-- =============================================
+         FILE SECTION
+         ============================================= -->
+
+    @if (
+      activeTab === 'add'
+    ) {
+
+      <div class="suspicious-files">
+
+        <button
+          type="button"
+          class="suspicious-download"
+          (click)="download()"
+        >
+          Download Suspicious Word List
+        </button>
+
+
+        <label class="suspicious-upload">
+
+          <span>
+            Suspicious Word List
+          </span>
+
+          <input
+            type="file"
+            accept=".csv,.txt"
+            (change)="uploadFile($event)"
+          />
+
+        </label>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

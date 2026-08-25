@@ -1,0 +1,355 @@
+<section
+  class="shared-table"
+  [class.shared-table--compact]="compact"
+  [class.shared-table--striped]="striped"
+  [class.shared-table--hoverable]="hoverable"
+>
+  <!-- Toolbar -->
+  <header
+    *ngIf="searchable || showFilterButton || toolbarStartTemplate || toolbarEndTemplate"
+    class="shared-table__toolbar"
+  >
+    <div class="shared-table__toolbar-start">
+      <ng-container *ngIf="toolbarStartTemplate" [ngTemplateOutlet]="toolbarStartTemplate"></ng-container>
+
+      <div *ngIf="searchable" class="shared-table__search">
+        <span class="shared-table__search-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+        <input
+          type="search"
+          class="shared-table__search-input"
+          [ngModel]="searchValue"
+          [placeholder]="searchPlaceholder"
+          aria-label="Search table"
+          (ngModelChange)="onSearchInput($event)"
+        />
+
+        <button
+          *ngIf="searchValue"
+          type="button"
+          class="shared-table__search-clear"
+          aria-label="Clear search"
+          (click)="clearSearch()"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="shared-table__toolbar-end">
+      <ng-container *ngIf="toolbarEndTemplate" [ngTemplateOutlet]="toolbarEndTemplate"></ng-container>
+
+      <button *ngIf="showFilterButton" type="button" class="shared-table__filter-button" (click)="filterClick.emit()">
+        <svg class="shared-table__filter-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M4 7H14M18 7H20M10 17H20M4 17H6M14 4V10M10 14V20"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <circle cx="16" cy="7" r="2" stroke="currentColor" stroke-width="1.7" />
+
+          <circle cx="8" cy="17" r="2" stroke="currentColor" stroke-width="1.7" />
+        </svg>
+
+        <span>{{ filterButtonLabel }}</span>
+
+        <span *ngIf="activeFilterCount > 0" class="shared-table__filter-count">
+          {{ activeFilterCount }}
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Table content -->
+  <div class="shared-table__scroll-container">
+    <table class="shared-table__table">
+      <thead *ngIf="showHeader" class="shared-table__head">
+        <tr class="shared-table__head-row">
+          <th
+            *ngFor="let column of columns; trackBy: trackByColumn"
+            class="shared-table__head-cell"
+            [ngClass]="getColumnClasses(column)"
+            [ngStyle]="getColumnStyle(column)"
+          >
+            <button
+              *ngIf="column.sortable; else regularHeader"
+              type="button"
+              class="shared-table__sort-button"
+              (click)="onSort(column)"
+            >
+              <span>{{ column.header }}</span>
+
+              <span class="shared-table__sort-icon">
+                <svg *ngIf="getSortDirection(column) !== 'desc'" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M8 14L12 10L16 14"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <svg *ngIf="getSortDirection(column) === 'desc'" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M8 10L12 14L16 10"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <ng-template #regularHeader>
+              {{ column.header }}
+            </ng-template>
+          </th>
+
+          <th
+            *ngIf="hasActions"
+            class="shared-table__head-cell shared-table__actions-heading"
+            aria-label="Actions"
+          ></th>
+        </tr>
+      </thead>
+
+      <tbody class="shared-table__body">
+        <!-- Loading row -->
+        <tr *ngIf="loading">
+          <td class="shared-table__state-cell" [attr.colspan]="columns.length + (hasActions ? 1 : 0)">
+            <ng-container
+              *ngIf="loadingTemplate; else defaultLoading"
+              [ngTemplateOutlet]="loadingTemplate"
+            ></ng-container>
+
+            <ng-template #defaultLoading>
+              <div class="shared-table__loading">
+                <span class="shared-table__spinner"></span>
+
+                <span>{{ loadingMessage }}</span>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+
+        <!-- Data rows -->
+        <tr
+          *ngFor="let row of displayedRows; let rowIndex = index; trackBy: trackByRow"
+          class="shared-table__row"
+          (click)="onRowClick(row)"
+        >
+          <td
+            *ngFor="let column of columns; trackBy: trackByColumn"
+            class="shared-table__cell"
+            [ngClass]="getColumnClasses(column)"
+            [ngStyle]="getColumnStyle(column)"
+          >
+            <ng-container
+              *ngIf="column.template; else defaultCell"
+              [ngTemplateOutlet]="column.template"
+              [ngTemplateOutletContext]="getTemplateContext(row, column)"
+            ></ng-container>
+
+            <ng-template #defaultCell>
+  @if (column.key === 'count') {
+    <span class="shared-table__count-badge">
+      {{ getDisplayValue(row, column) }}
+    </span>
+  } @else {
+    {{ getDisplayValue(row, column) }}
+  }
+</ng-template>
+          </td>
+
+          <!-- Actions -->
+          <td
+            *ngIf="hasActions"
+            class="shared-table__cell shared-table__actions-cell"
+            (click)="$event.stopPropagation()"
+          >
+            <div class="shared-table__actions">
+              <button
+                type="button"
+                class="shared-table__actions-trigger"
+                aria-label="Open row actions"
+                [attr.aria-expanded]="isActionMenuOpen(row, rowIndex)"
+                (click)="toggleActionMenu(row, rowIndex, $event)"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="5" r="1.5" fill="currentColor" />
+
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+
+                  <circle cx="12" cy="19" r="1.5" fill="currentColor" />
+                </svg>
+              </button>
+
+              <!-- <div
+                *ngIf="isActionMenuOpen(row, rowIndex)"
+                class="shared-table__actions-menu"
+                (click)="$event.stopPropagation()"
+              >
+                <button
+                  *ngFor="let action of getVisibleActions(row); trackBy: trackByAction"
+                  type="button"
+                  class="shared-table__action-item"
+                  [class.shared-table__action-item--danger]="action.danger"
+                  [class]="action.className || ''"
+                  [disabled]="isActionDisabled(action, row)"
+                  (click)="onActionClick(action, row, $event)"
+                >
+                  {{ action.label }}
+                </button>
+              </div> -->
+              <!-- Replace only the actions menu div -->
+              <div
+                *ngIf="isActionMenuOpen(row, rowIndex)"
+                class="shared-table__actions-menu"
+                [class.shared-table__actions-menu--top]="rowIndex >= displayedRows.length - 3"
+                (click)="$event.stopPropagation()"
+              >
+                <button
+                  *ngFor="let action of getVisibleActions(row); trackBy: trackByAction"
+                  type="button"
+                  class="shared-table__action-item"
+                  [class.shared-table__action-item--danger]="action.danger"
+                  [class]="action.className || ''"
+                  [disabled]="isActionDisabled(action, row)"
+                  (click)="onActionClick(action, row, $event)"
+                >
+                  {{ action.label }}
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="isEmpty">
+          <td class="shared-table__state-cell" [attr.colspan]="columns.length + (hasActions ? 1 : 0)">
+            <ng-container *ngIf="emptyTemplate; else defaultEmpty" [ngTemplateOutlet]="emptyTemplate"></ng-container>
+
+            <ng-template #defaultEmpty>
+              <div class="shared-table__empty">
+                <div class="shared-table__empty-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 7.5H21M5 7.5V18.5C5 19.3284 5.67157 20 6.5 20H17.5C18.3284 20 19 19.3284 19 18.5V7.5M9 11.5H15M8 4H16C16.5523 4 17 4.44772 17 5V7.5H7V5C7 4.44772 7.44772 4 8 4Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                <h3 class="shared-table__empty-title">
+                  {{ emptyTitle }}
+                </h3>
+
+                <p class="shared-table__empty-message">
+                  {{ searchValue ? emptySearchMessage : emptyMessage }}
+                </p>
+
+                <button *ngIf="searchValue" type="button" class="shared-table__empty-button" (click)="clearSearch()">
+                  Clear search
+                </button>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer *ngIf="showFooter && !loading && resolvedTotalRecords > 0" class="shared-table__footer">
+    <div class="shared-table__footer-information">
+      <span>
+        Showing
+        <strong> {{ startRecord }} - {{ endRecord }} </strong>
+        of
+        <strong>{{ resolvedTotalRecords }}</strong>
+        entries
+      </span>
+
+      <label *ngIf="showPageSizeSelector" class="shared-table__page-size">
+        <span>Rows per page</span>
+
+        <select class="shared-table__page-size-select" [ngModel]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+          <option *ngFor="let option of pageSizeOptions" [ngValue]="option">
+            {{ option }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <nav class="shared-table__pagination" aria-label="Table pagination">
+      <button
+        type="button"
+        class="shared-table__pagination-button shared-table__pagination-navigation"
+        [disabled]="currentPage === 1"
+        (click)="goToPreviousPage()"
+      >
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M15 18L9 12L15 6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+
+        <span>Prev</span>
+      </button>
+
+      <button
+        *ngFor="let page of visiblePages; trackBy: trackByPage"
+        type="button"
+        class="shared-table__pagination-button"
+        [class.shared-table__pagination-button--active]="page === currentPage"
+        [attr.aria-current]="page === currentPage ? 'page' : null"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+
+      <button
+        type="button"
+        class="shared-table__pagination-button shared-table__pagination-navigation"
+        [disabled]="currentPage === totalPages"
+        (click)="goToNextPage()"
+      >
+        <span>Next</span>
+
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M9 18L15 12L9 6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </nav>
+  </footer>
+</section>

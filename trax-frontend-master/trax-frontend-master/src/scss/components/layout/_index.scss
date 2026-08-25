@@ -1,0 +1,1430 @@
+// ==================================================
+// TRAX APP SHELL
+// ==================================================
+
+.layout-container {
+  display: flex;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: #272634;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// COMPONENT HOSTS
+// ==================================================
+
+app-sidebar,
+app-navbar {
+  display: block;
+}
+
+
+// ==================================================
+// MAIN CONTENT
+// ==================================================
+
+.main-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  /*
+   * Sidebar reduced:
+   * 97px -> 82px
+   */
+  width: calc(100% - 82px);
+
+  min-width: 0;
+  min-height: 100vh;
+
+  margin-left: 82px;
+
+  background: #272634;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// PAGE CONTENT
+// ==================================================
+
+.page-content {
+  flex: 1;
+
+  width: auto;
+
+  min-width: 0;
+
+  min-height:
+    calc(
+      100vh - 78px - 24px
+    );
+
+  margin:
+    90px
+    12px
+    12px
+    12px;
+
+  padding: 24px;
+
+  background: #f9f9f9;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SIDEBAR
+// ==================================================
+
+.sidebar {
+  position: fixed;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  /*
+   * Reduced from 97px.
+   */
+  width: 82px;
+  height: 100vh;
+
+  /*
+   * Must stay visible because flyouts
+   * extend beyond the sidebar.
+   */
+  overflow: visible;
+
+  background: #272634;
+
+  font-family: Inter, sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SIDEBAR LOGO
+// ==================================================
+
+.sidebar__header {
+  display: flex;
+
+  width: 82px;
+  height: 55px;
+
+  flex: 0 0 55px;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__logo-image {
+  display: block;
+
+  width: 82px;
+  height: 55px;
+
+  object-fit: contain;
+}
+
+
+// ==================================================
+// SIDEBAR NAVIGATION
+// ==================================================
+
+.sidebar__navigation {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  width: 100%;
+
+  min-height: 0;
+
+  overflow: visible;
+
+  padding-top: 4px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SIDEBAR MENU
+// ==================================================
+
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+
+// ==================================================
+// MAIN SIDEBAR ITEM
+// ==================================================
+
+.sidebar__menu-item {
+  position: relative;
+
+  display: flex;
+
+  width: 100%;
+
+  flex: 0 0 auto;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+
+// ==================================================
+// MAIN SIDEBAR LINK
+// ==================================================
+
+.sidebar__menu-link {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  margin: 0;
+
+  padding: 4px 0;
+
+  border: 0;
+
+  outline: 0;
+
+  color: #667085;
+
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+
+// ==================================================
+// MAIN ICON BOX
+// ==================================================
+
+.sidebar__menu-icon-box {
+  display: flex;
+
+  width: 34px;
+  height: 28px;
+
+  flex: 0 0 28px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border-radius: 6px;
+
+  color: #667085;
+
+  background: transparent;
+
+  box-sizing: border-box;
+
+  transition:
+    width 160ms ease,
+    height 160ms ease,
+    flex-basis 160ms ease,
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+
+// ==================================================
+// MAIN LUCIDE ICON
+// ==================================================
+
+.sidebar__menu-icon {
+  display: block;
+
+  width: 24px !important;
+  height: 24px !important;
+
+  min-width: 24px;
+  min-height: 24px;
+
+  max-width: 24px;
+  max-height: 24px;
+
+  flex: 0 0 24px;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// MAIN SIDEBAR LABEL
+//
+// Important:
+//
+// Long labels now become:
+//
+// Transaction Monitoring
+// -> Transaction...
+//
+// Administration
+// -> Administra...
+// ==================================================
+
+.sidebar__menu-label {
+  display: block;
+
+  width: 68px;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+
+  color: #667085;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  line-height: 12px;
+
+  letter-spacing: 0;
+
+  text-align: center;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  transition:
+    color 160ms ease;
+}
+
+
+// ==================================================
+// ACTIVE / OPEN MAIN ITEM
+// ==================================================
+
+.sidebar__menu-item--active,
+.sidebar__menu-item--open {
+
+  > .sidebar__menu-link {
+
+    .sidebar__menu-icon-box {
+      width: 48px;
+      height: 48px;
+
+      flex: 0 0 48px;
+
+      padding: 12px;
+
+      color: #ffffff;
+
+      background: #e7651c;
+
+      border-radius: 6px;
+    }
+
+
+    .sidebar__menu-icon {
+      width: 24px !important;
+      height: 24px !important;
+
+      color: #ffffff;
+
+      stroke: currentColor;
+    }
+
+
+    .sidebar__menu-label {
+      color: #e7651c;
+
+      font-weight: 500;
+    }
+  }
+}
+
+
+// ==================================================
+// MAIN HOVER
+// ==================================================
+
+.sidebar__menu-item:not(
+  .sidebar__menu-item--active
+):not(
+  .sidebar__menu-item--open
+)
+> .sidebar__menu-link:hover {
+
+  .sidebar__menu-icon-box {
+    color: #98a2b3;
+  }
+
+
+  .sidebar__menu-label {
+    color: #98a2b3;
+  }
+}
+
+
+// ==================================================
+// DISABLED
+// ==================================================
+
+.sidebar__menu-item--disabled {
+  pointer-events: none;
+
+  opacity: 0.4;
+}
+
+
+// ==================================================
+// FIRST FLYOUT
+//
+// Styling preserved.
+// ==================================================
+
+.sidebar__flyout {
+  position: absolute;
+
+  top: -4px;
+  left: 100%;
+
+  z-index: 1200;
+
+  width: 280px;
+
+  padding: 6px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 8px -2px
+      rgba(
+        16,
+        24,
+        40,
+        0.08
+      ),
+    0 12px 24px -4px
+      rgba(
+        16,
+        24,
+        40,
+        0.12
+      );
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform:
+    translateX(-4px);
+
+  box-sizing: border-box;
+
+  transition:
+    opacity 140ms ease,
+    visibility 140ms ease,
+    transform 140ms ease;
+}
+
+
+// ==================================================
+// OPEN FIRST FLYOUT
+// ==================================================
+
+.sidebar__flyout--open,
+.sidebar__menu-item:hover
+> .sidebar__flyout {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform:
+    translateX(0);
+}
+
+
+// ==================================================
+// REPORTS LOW POSITION
+// ==================================================
+
+.sidebar__menu-item:last-child
+> .sidebar__flyout {
+  top: auto;
+
+  bottom: 0;
+}
+
+
+// ==================================================
+// FLYOUT LIST
+// ==================================================
+
+.sidebar__flyout-list {
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+
+// ==================================================
+// FLYOUT ITEM
+// ==================================================
+
+.sidebar__flyout-item {
+  position: relative;
+
+  width: 100%;
+}
+
+
+// ==================================================
+// FLYOUT LINK / BUTTON
+//
+// Styling remains the same.
+// Circle icon is simply no longer rendered.
+// ==================================================
+
+.sidebar__flyout-link {
+  display: flex;
+
+  width: 100%;
+
+  min-height: 40px;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0;
+
+  padding: 9px 10px;
+
+  border: 0;
+  border-radius: 7px;
+
+  outline: none;
+
+  color: #475467;
+
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 18px;
+
+  text-align: left;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 140ms ease,
+    background-color 140ms ease;
+}
+
+
+// ==================================================
+// PLACEHOLDER LEAF
+// ==================================================
+
+.sidebar__flyout-link--placeholder {
+  cursor: default;
+}
+
+
+// ==================================================
+// FLYOUT LABEL
+// ==================================================
+
+.sidebar__flyout-label {
+  min-width: 0;
+
+  flex: 1;
+
+  color: inherit;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 18px;
+
+  white-space: normal;
+
+  overflow-wrap: break-word;
+}
+
+
+// ==================================================
+// CHEVRON
+// ==================================================
+
+.sidebar__flyout-chevron {
+  width: 16px !important;
+  height: 16px !important;
+
+  flex: 0 0 16px;
+
+  margin-left: auto;
+
+  color: #98a2b3;
+
+  stroke: currentColor;
+
+  transition:
+    transform 140ms ease,
+    color 140ms ease;
+}
+
+
+// ==================================================
+// NESTED HOVER
+// ==================================================
+
+.sidebar__flyout-item:hover
+> .sidebar__flyout-link,
+.sidebar__flyout-item--open
+> .sidebar__flyout-link {
+  color: #d65312;
+
+  background: #fff7ed;
+}
+
+
+.sidebar__flyout-item:hover
+> .sidebar__flyout-link
+.sidebar__flyout-chevron,
+.sidebar__flyout-item--open
+> .sidebar__flyout-link
+.sidebar__flyout-chevron {
+  color: #e7651c;
+}
+
+
+// ==================================================
+// ACTIVE NESTED ITEM
+// ==================================================
+
+.sidebar__flyout-item--active
+> .sidebar__flyout-link {
+  color: #d65312;
+
+  background: #fff0e7;
+
+  font-weight: 600;
+}
+
+
+// ==================================================
+// SECOND / THIRD LEVEL FLYOUT
+//
+// Example:
+//
+// Risk Management
+//   -> Customer Risk
+//      -> Risk Score Setting
+//      -> Individual Risk Rating
+//      -> ...
+//
+// This panel gets its OWN scrollbar.
+// ==================================================
+
+.sidebar__nested-flyout {
+  position: absolute;
+
+  top: -6px;
+  left: 100%;
+
+  z-index: 1300;
+
+  width: 320px;
+
+  /*
+   * The important change:
+   *
+   * Do not allow huge nested menus
+   * to keep growing vertically.
+   */
+  max-height:
+    min(
+      360px,
+      calc(100vh - 32px)
+    );
+
+  padding: 6px;
+
+  overflow-x: hidden;
+
+  /*
+   * Nested links scroll inside
+   * their own white container.
+   */
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 8px -2px
+      rgba(
+        16,
+        24,
+        40,
+        0.08
+      ),
+    0 12px 24px -4px
+      rgba(
+        16,
+        24,
+        40,
+        0.12
+      );
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform:
+    translateX(-4px);
+
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+
+  transition:
+    opacity 140ms ease,
+    visibility 140ms ease,
+    transform 140ms ease;
+}
+
+
+// ==================================================
+// OPEN NESTED FLYOUT
+// ==================================================
+
+.sidebar__nested-flyout--open,
+.sidebar__flyout-item:hover
+> .sidebar__nested-flyout {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform:
+    translateX(0);
+}
+
+
+// ==================================================
+// USER MANAGEMENT NESTED FLYOUT VIEWPORT FIT
+//
+// Only affects:
+// Administration -> User Management
+//
+// Opens upward so all User Management links fit on
+// desktop screens. If the viewport is shorter, the
+// same panel gets its own scrollbar instead of
+// clipping Reset User Password.
+// ==================================================
+
+.sidebar__nested-flyout--fit-up {
+  top: auto;
+  bottom: -6px;
+
+  max-height:
+    min(
+      340px,
+      calc(100vh - 24px)
+    );
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+}
+
+
+// ==================================================
+// LOWER MENU ITEMS
+//
+// Existing behavior preserved.
+// ==================================================
+
+.sidebar__flyout-item:nth-last-child(-n + 2)
+> .sidebar__nested-flyout {
+  top: auto;
+
+  bottom: -6px;
+}
+
+
+// ==================================================
+// NESTED FLYOUT SCROLLBAR
+// ==================================================
+
+.sidebar__nested-flyout::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+.sidebar__nested-flyout::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.sidebar__nested-flyout::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #d0d5dd;
+}
+
+
+.sidebar__nested-flyout::-webkit-scrollbar-thumb:hover {
+  background: #98a2b3;
+}
+
+
+// ==================================================
+// SIDEBAR FOOTER
+// ==================================================
+
+.sidebar__footer {
+  display: flex;
+
+  width: 100%;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: auto;
+
+  padding: 10px 0 14px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// LOGOUT
+// ==================================================
+
+.sidebar__logout {
+  display: flex;
+
+  width: 48px;
+  height: 48px;
+
+  flex: 0 0 48px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: #f04438;
+
+  background: #f044381a;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+
+.sidebar__logout:hover {
+  color: #f04438;
+
+  background:
+    rgba(
+      240,
+      68,
+      56,
+      0.18
+    );
+}
+
+
+.sidebar__logout svg {
+  width: 24px !important;
+  height: 24px !important;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// FIXED TOP NAVBAR
+//
+// SAME NAVBAR STYLING.
+// Only left offset follows 82px sidebar.
+// ==================================================
+
+.top-navbar {
+  position: fixed;
+
+  top: 0;
+  left: 82px;
+  right: 0;
+
+  z-index: 900;
+
+  display: flex;
+
+  width: auto;
+  height: 78px;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 24px;
+
+  border: 0;
+
+  background: #272634;
+
+  font-family: Inter, sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// NAVBAR / SIDEBAR DIVIDER
+// ==================================================
+
+.top-navbar::before {
+  content: '';
+
+  position: absolute;
+
+  top: 19px;
+  left: 0;
+
+  width: 1px;
+  height: 39px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.1
+    );
+
+  pointer-events: none;
+}
+
+
+// ==================================================
+// NAVBAR LEFT
+// ==================================================
+
+.navbar-left {
+  display: flex;
+
+  min-width: 0;
+
+  align-items: center;
+}
+
+
+// ==================================================
+// NAVBAR PAGE TITLE
+// ==================================================
+
+.page-title {
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 20px;
+
+  letter-spacing: 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+// ==================================================
+// NAVBAR RIGHT
+// ==================================================
+
+.navbar-right {
+  display: flex;
+
+  flex-shrink: 0;
+
+  align-items: center;
+
+  gap: 16px;
+}
+
+
+// ==================================================
+// LANGUAGE SELECTOR
+// ==================================================
+
+.language-selector {
+  display: flex;
+
+  height: 28px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  padding: 4px 8px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: #ffffff;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.12
+    );
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+
+  cursor: pointer;
+
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+
+.language-selector:hover {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.18
+    );
+}
+
+
+.language-selector svg {
+  color: #ffffff;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// NAVBAR ICON BUTTON
+// ==================================================
+
+.navbar-icon-button {
+  display: flex;
+
+  width: 32px;
+  height: 32px;
+
+  flex: 0 0 32px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: #d0d5dd;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+
+.navbar-icon-button:hover {
+  color: #ffffff;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+}
+
+
+.navbar-icon-button svg {
+  width: 18px !important;
+  height: 18px !important;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// USER MENU
+// ==================================================
+
+.user-menu {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  color: inherit;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+// ==================================================
+// USER AVATAR
+// ==================================================
+
+.user-avatar {
+  display: flex;
+
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.35
+    );
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  background: #3a3947;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+.user-avatar img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+// ==================================================
+// USER INFO
+// ==================================================
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 54px;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  text-align: left;
+}
+
+
+// ==================================================
+// USER LABEL
+// ==================================================
+
+.user-label {
+  color: #98a2b3;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 9px;
+  font-weight: 500;
+
+  line-height: 12px;
+
+  letter-spacing: 0.2px;
+
+  text-transform: uppercase;
+}
+
+
+// ==================================================
+// USER ID
+// ==================================================
+
+.user-id {
+  color: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+
+  letter-spacing: 0;
+}
+
+
+// ==================================================
+// USER CHEVRON
+// ==================================================
+
+.user-chevron {
+  width: 14px !important;
+  height: 14px !important;
+
+  color: #667085;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 768px) {
+
+  // ================================================
+  // SIDEBAR
+  // ================================================
+
+  .sidebar {
+    width: 82px;
+  }
+
+
+  .sidebar__flyout {
+    width: 240px;
+  }
+
+
+  .sidebar__nested-flyout {
+    width: 280px;
+
+    max-height:
+      min(
+        320px,
+        calc(100vh - 24px)
+      );
+  }
+
+
+  .sidebar__nested-flyout--fit-up {
+    top: auto;
+    bottom: -6px;
+
+    max-height:
+      min(
+        300px,
+        calc(100vh - 24px)
+      );
+  }
+
+
+  // ================================================
+  // MAIN
+  // ================================================
+
+  .main-content {
+    width:
+      calc(
+        100% - 82px
+      );
+
+    margin-left: 82px;
+  }
+
+
+  // ================================================
+  // NAVBAR
+  // ================================================
+
+  .top-navbar {
+    left: 82px;
+
+    height: 70px;
+
+    padding: 14px 16px;
+  }
+
+
+  // ================================================
+  // PAGE CONTENT
+  // ================================================
+
+  .page-content {
+    min-height:
+      calc(
+        100vh - 70px - 24px
+      );
+
+    margin:
+      82px
+      12px
+      12px
+      12px;
+
+    padding: 16px;
+
+    border-radius: 12px;
+  }
+
+
+  // ================================================
+  // NAVBAR ITEMS
+  // ================================================
+
+  .navbar-right {
+    gap: 8px;
+  }
+
+
+  .user-info {
+    display: none;
+  }
+
+
+  .user-chevron {
+    display: none;
+  }
+
+
+  .page-title {
+    font-size: 13px;
+  }
+}

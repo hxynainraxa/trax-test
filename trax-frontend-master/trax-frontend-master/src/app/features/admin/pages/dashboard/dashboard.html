@@ -1,0 +1,470 @@
+<div class="dashboard-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="dashboard-header">
+    <div class="dashboard-header__content">
+      <h1 class="dashboard-title">
+        AL Dhahery Exchange
+      </h1>
+
+      <p class="dashboard-description">
+        Here are the latest insights from your firm.
+      </p>
+    </div>
+
+    <div class="session-id">
+      <span class="session-id__label">
+        Session ID:
+      </span>
+
+      <span class="session-id__value">
+        {{ sessionId }}
+      </span>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       SUMMARY CARDS
+       ===================================================== -->
+
+  <div class="dashboard-cards">
+    @for (card of cards; track card.id) {
+      <div class="theme-card">
+
+        <h2 class="dashboard-card__title">
+          {{ card.title }}
+        </h2>
+
+        <div class="dashboard-card__value-row">
+          <span class="dashboard-card__value">
+            {{ card.value }}
+          </span>
+
+          <span class="dashboard-card__change">
+            <svg
+              [lucideIcon]="arrowUpIcon"
+              [size]="12"
+              [strokeWidth]="2"
+              aria-hidden="true"
+            ></svg>
+
+            <span>
+              +{{ card.change }}%
+            </span>
+          </span>
+        </div>
+
+      </div>
+    }
+  </div>
+
+
+  <!-- =====================================================
+       TABLES
+       ===================================================== -->
+
+  <div class="dashboard-tables">
+
+    <!-- Escalations -->
+    <section class="dashboard-table-card">
+
+      <div class="dashboard-table-card__header">
+        <h2 class="dashboard-table-card__title">
+          Escalations
+        </h2>
+
+        <button
+          type="button"
+          class="dashboard-table-card__refresh"
+        >
+          <svg
+            [lucideIcon]="refreshIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <theme-table
+        [rows]="escalationRows"
+        [columns]="tableColumns"
+        rowKey="id"
+        [searchable]="false"
+        [showFilterButton]="false"
+        [showFooter]="false"
+        [showActions]="false"
+        [hoverable]="false"
+        [striped]="false"
+      >
+      </theme-table>
+    </section>
+
+
+    <!-- Follow-ups -->
+    <section class="dashboard-table-card">
+
+      <div class="dashboard-table-card__header">
+        <h2 class="dashboard-table-card__title">
+          Follow-ups
+        </h2>
+
+        <button
+          type="button"
+          class="dashboard-table-card__refresh"
+        >
+          <svg
+            [lucideIcon]="refreshIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <theme-table
+        [rows]="followUpRows"
+        [columns]="tableColumns"
+        rowKey="id"
+        [searchable]="false"
+        [showFilterButton]="false"
+        [showFooter]="false"
+        [showActions]="false"
+        [hoverable]="false"
+        [striped]="false"
+      >
+      </theme-table>
+    </section>
+
+  </div>
+
+
+  <!-- =====================================================
+       LOWER DASHBOARD
+       ===================================================== -->
+
+  <div class="dashboard-lower">
+
+    <!-- ===================================================
+         LEFT SIDE:
+         BOTH DOUGHNUT CHARTS
+         =================================================== -->
+
+    <div class="dashboard-doughnut-grid">
+
+      <!-- Today's Actions -->
+      <section class="dashboard-chart-card">
+
+        <div class="dashboard-chart-card__header">
+          <h2 class="dashboard-chart-card__title">
+            Today’s Actions
+          </h2>
+
+          <button
+            type="button"
+            class="dashboard-chart-card__refresh"
+            (click)="refreshTodayActions()"
+          >
+            <svg
+              [lucideIcon]="refreshIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            <span>
+              Refresh
+            </span>
+          </button>
+        </div>
+
+        <div class="dashboard-chart-card__body">
+          <div class="dashboard-chart">
+            <canvas
+              #todayActionsChart
+              aria-label="Today's actions chart"
+            ></canvas>
+          </div>
+        </div>
+
+        <div
+          class="dashboard-chart-legend
+                 dashboard-chart-legend--actions"
+        >
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--reject"
+            ></span>
+
+            <span>
+              Reject
+            </span>
+          </div>
+
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--release"
+            ></span>
+
+            <span>
+              Release
+            </span>
+          </div>
+
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--clean"
+            ></span>
+
+            <span>
+              Clean
+            </span>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- Most Activated Rules -->
+      <section class="dashboard-chart-card">
+
+        <div class="dashboard-chart-card__header">
+          <h2 class="dashboard-chart-card__title">
+            3 Most Activated Rules
+          </h2>
+
+          <button
+            type="button"
+            class="dashboard-chart-card__refresh"
+            (click)="refreshActivatedRules()"
+          >
+            <svg
+              [lucideIcon]="refreshIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            <span>
+              Refresh
+            </span>
+          </button>
+        </div>
+
+        <div class="dashboard-chart-card__body">
+          <div class="dashboard-chart">
+            <canvas
+              #activatedRulesChart
+              aria-label="Most activated rules chart"
+            ></canvas>
+          </div>
+        </div>
+
+        <div
+          class="dashboard-chart-legend
+                 dashboard-chart-legend--rules"
+        >
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--rule-dark"
+            ></span>
+
+            <span class="dashboard-chart-legend__muted">
+              Rule No:
+            </span>
+
+            <strong>
+              11%
+            </strong>
+          </div>
+
+
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--rule-orange"
+            ></span>
+
+            <span class="dashboard-chart-legend__muted">
+              Rule No:
+            </span>
+
+            <strong>
+              9%
+            </strong>
+          </div>
+
+
+          <div class="dashboard-chart-legend__item">
+            <span
+              class="dashboard-chart-legend__dot
+                     dashboard-chart-legend__dot--rule-teal"
+            ></span>
+
+            <span class="dashboard-chart-legend__muted">
+              Rule No:
+            </span>
+
+            <strong>
+              45%
+            </strong>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- ===================================================
+         RIGHT SIDE:
+         SANCTIONS VIOLATIONS
+         =================================================== -->
+
+    <section
+      class="dashboard-sanctions-card"
+    >
+
+      <div class="dashboard-chart-card__header">
+
+        <h2 class="dashboard-chart-card__title">
+          Sanctions Violations
+        </h2>
+
+        <button
+          type="button"
+          class="dashboard-chart-card__refresh"
+          (click)="refreshSanctionsViolations()"
+        >
+          <svg
+            [lucideIcon]="refreshIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          <span>
+            Refresh
+          </span>
+        </button>
+
+      </div>
+
+
+      <div
+        class="dashboard-sanctions-chart"
+      >
+        <canvas
+          #sanctionsViolationsChart
+          aria-label="Sanctions violations chart"
+        ></canvas>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- =====================================================
+     BOTTOM TABLES
+     Temporary reuse of existing table data
+     ===================================================== -->
+
+<div class="dashboard-tables dashboard-tables--bottom">
+
+  <!-- ===================================================
+       ESCALATIONS
+       =================================================== -->
+
+  <section class="dashboard-table-card">
+
+    <div class="dashboard-table-card__header">
+      <h2 class="dashboard-table-card__title">
+        Escalations
+      </h2>
+
+      <button
+        type="button"
+        class="dashboard-table-card__refresh"
+      >
+        <svg
+          [lucideIcon]="refreshIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+        <span>
+          Refresh
+        </span>
+      </button>
+    </div>
+
+    <theme-table
+      [rows]="escalationRows"
+      [columns]="tableColumns"
+      rowKey="id"
+      [searchable]="false"
+      [showFilterButton]="false"
+      [showFooter]="false"
+      [showActions]="false"
+      [hoverable]="false"
+      [striped]="false"
+    >
+    </theme-table>
+
+  </section>
+
+
+  <!-- ===================================================
+       FOLLOW-UPS
+       =================================================== -->
+
+  <section class="dashboard-table-card">
+
+    <div class="dashboard-table-card__header">
+      <h2 class="dashboard-table-card__title">
+        Follow-ups
+      </h2>
+
+      <button
+        type="button"
+        class="dashboard-table-card__refresh"
+      >
+        <svg
+          [lucideIcon]="refreshIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+        <span>
+          Refresh
+        </span>
+      </button>
+    </div>
+
+    <theme-table
+      [rows]="followUpRows"
+      [columns]="tableColumns"
+      rowKey="id"
+      [searchable]="false"
+      [showFilterButton]="false"
+      [showFooter]="false"
+      [showActions]="false"
+      [hoverable]="false"
+      [striped]="false"
+    >
+    </theme-table>
+
+  </section>
+
+</div>
+
+</div>

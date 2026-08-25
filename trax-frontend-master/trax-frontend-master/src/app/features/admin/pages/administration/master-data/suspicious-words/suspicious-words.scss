@@ -1,0 +1,240 @@
+@use '../master-search';
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.suspicious-card {
+  position: relative;
+
+  padding:
+    52px
+    22px
+    20px;
+}
+
+
+// ==================================================
+// TABS
+// ==================================================
+
+.suspicious-tabs {
+  position: absolute;
+
+  top: -1px;
+  left: 0;
+
+  display: flex;
+
+  gap: 4px;
+}
+
+
+.suspicious-tab {
+  min-width: 86px;
+  height: 36px;
+
+  padding: 0 14px;
+
+  border: 1px solid #eaecf0;
+  border-bottom: 0;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  color: #98a2b3;
+
+  background: #fbfaf9;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+
+.suspicious-tab--active {
+  border-top:
+    2px solid
+    #e7651c;
+
+  border-bottom:
+    1px solid
+    #fff;
+
+  color: #d65312;
+
+  background: #fff;
+}
+
+
+// ==================================================
+// FILE SECTION
+// ==================================================
+
+.suspicious-files {
+  margin:
+    24px
+    -22px
+    -20px;
+
+  padding:
+    22px;
+
+  border-top:
+    1px solid
+    #eaecf0;
+
+  background:
+    #fbfaf9;
+}
+
+
+.suspicious-download {
+  padding: 0;
+
+  border: 0;
+
+  color: #079455;
+
+  background: transparent;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  cursor: pointer;
+}
+
+
+.suspicious-download:hover {
+  text-decoration: underline;
+}
+
+
+.suspicious-upload {
+  display: grid;
+
+  max-width: 530px;
+
+  grid-template-columns:
+    138px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  color: #344054;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+
+.suspicious-upload input {
+  min-width: 0;
+
+  color: #667085;
+
+  font:
+    400
+    12px
+    Inter,
+    sans-serif;
+}
+
+
+.suspicious-upload
+input::file-selector-button {
+  height: 34px;
+
+  margin-right: 10px;
+
+  padding:
+    0
+    14px;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 7px;
+
+  color: #344054;
+
+  background: #fff;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  cursor: pointer;
+}
+
+
+.suspicious-upload
+input::file-selector-button:hover {
+  border-color: #e7651c;
+
+  color: #e7651c;
+
+  background: #fff7ed;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (
+  max-width: 560px
+) {
+
+  .suspicious-card {
+    padding:
+      52px
+      12px
+      16px;
+  }
+
+
+  .suspicious-tabs {
+    max-width: 100%;
+
+    overflow-x: auto;
+  }
+
+
+  .suspicious-files {
+    margin:
+      20px
+      -12px
+      -16px;
+
+    padding: 16px 12px;
+  }
+
+
+  .suspicious-upload {
+    grid-template-columns: 1fr;
+
+    gap: 6px;
+  }
+
+}

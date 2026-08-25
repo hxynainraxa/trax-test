@@ -1,0 +1,979 @@
+<div class="white-list-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="white-list-header">
+
+    <div class="white-list-header__content">
+
+      <h1 class="white-list-title">
+        White List
+      </h1>
+
+      <p class="white-list-description">
+        Create, update and search white list entries.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="white-list-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="white-list-tabs">
+
+      <button
+        type="button"
+
+        class="white-list-tab"
+
+        [class.white-list-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+
+        class="white-list-tab"
+
+        [class.white-list-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+
+        class="white-list-tab"
+
+        [class.white-list-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         FORM
+         =================================================== -->
+
+    <form
+      class="white-list-form"
+
+      (ngSubmit)="
+        activeTab() === 'add'
+          ? save()
+          : activeTab() === 'edit' &&
+            editingId !== null
+            ? update()
+            : search()
+      "
+    >
+
+      <div class="white-list-form-columns">
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="white-list-column">
+
+          <!-- NAME TYPE -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-name-type"
+
+              class="white-list-field__label"
+            >
+              Name Type
+            </label>
+
+
+            <select
+              id="white-list-name-type"
+
+              name="nameType"
+
+              class="
+                white-list-field__control
+                white-list-field__select
+              "
+
+              [(ngModel)]="
+                form.nameType
+              "
+            >
+
+              @if (
+                activeTab() !== 'add'
+              ) {
+
+                <option value="all">
+                  All
+                </option>
+
+              }
+
+
+              <option value="individual">
+                Individual
+              </option>
+
+              <option value="corporate">
+                Corporate
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- MEMBERSHIP NUMBER -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-membership"
+
+              class="white-list-field__label"
+            >
+              Membership No.
+            </label>
+
+
+            <input
+              id="white-list-membership"
+
+              name="membershipNo"
+
+              type="text"
+
+              class="white-list-field__control"
+
+              placeholder="Enter membership no."
+
+              [(ngModel)]="
+                form.membershipNo
+              "
+            />
+
+          </div>
+
+
+          <!-- NAME -->
+
+          <div
+            class="white-list-field"
+
+            [class.white-list-field--error]="
+              !!getFieldError('name')
+            "
+          >
+
+            <label
+              for="white-list-name"
+
+              class="white-list-field__label"
+            >
+              Name
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span
+                  class="white-list-required"
+                >
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div
+              class="white-list-field__body"
+            >
+
+              <input
+                id="white-list-name"
+
+                name="name"
+
+                type="text"
+
+                class="white-list-field__control"
+
+                [class.white-list-field__control--error]="
+                  !!getFieldError('name')
+                "
+
+                placeholder="Enter name"
+
+                [(ngModel)]="
+                  form.name
+                "
+
+                (ngModelChange)="
+                  clearFieldError('name')
+                "
+              />
+
+
+              @if (
+                getFieldError('name')
+              ) {
+
+                <span
+                  class="white-list-field__error"
+                >
+                  {{ getFieldError('name') }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- NATIONALITY -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-nationality"
+
+              class="white-list-field__label"
+            >
+              Nationality
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span
+                  class="white-list-required"
+                >
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div
+              class="white-list-field__body"
+            >
+
+              <select
+                id="white-list-nationality"
+
+                name="nationality"
+
+                class="
+                  white-list-field__control
+                  white-list-field__select
+                "
+
+                [class.white-list-field__control--error]="
+                  !!getFieldError(
+                    'nationality'
+                  )
+                "
+
+                [(ngModel)]="
+                  form.nationality
+                "
+
+                (ngModelChange)="
+                  clearFieldError(
+                    'nationality'
+                  )
+                "
+              >
+
+                <option
+                  value=""
+
+                  [disabled]="
+                    activeTab() !==
+                    'search'
+                  "
+                >
+                  {{
+                    activeTab() ===
+                    'search'
+                      ? 'All Nationalities'
+                      : 'Select nationality'
+                  }}
+                </option>
+
+
+                @for (
+                  nationality of nationalities;
+                  track nationality.code
+                ) {
+
+                  <option
+                    [value]="
+                      nationality.code
+                    "
+                  >
+                    {{ nationality.label }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (
+                getFieldError(
+                  'nationality'
+                )
+              ) {
+
+                <span
+                  class="white-list-field__error"
+                >
+                  {{
+                    getFieldError(
+                      'nationality'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div class="white-list-column">
+
+          <!-- INCLUDE FROM -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-from"
+
+              class="white-list-field__label"
+            >
+              Include From
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span
+                  class="white-list-required"
+                >
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div
+              class="white-list-field__body"
+            >
+
+              <input
+                id="white-list-from"
+
+                name="includeFrom"
+
+                type="date"
+
+                class="white-list-field__control"
+
+                [class.white-list-field__control--error]="
+                  !!getFieldError(
+                    'includeFrom'
+                  )
+                "
+
+                [(ngModel)]="
+                  form.includeFrom
+                "
+
+                (ngModelChange)="
+                  clearFieldError(
+                    'includeFrom'
+                  )
+                "
+              />
+
+
+              @if (
+                getFieldError(
+                  'includeFrom'
+                )
+              ) {
+
+                <span
+                  class="white-list-field__error"
+                >
+                  {{
+                    getFieldError(
+                      'includeFrom'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- INCLUDE TO -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-to"
+
+              class="white-list-field__label"
+            >
+              Include To
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span
+                  class="white-list-required"
+                >
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div
+              class="white-list-field__body"
+            >
+
+              <input
+                id="white-list-to"
+
+                name="includeTo"
+
+                type="date"
+
+                class="white-list-field__control"
+
+                [class.white-list-field__control--error]="
+                  !!getFieldError(
+                    'includeTo'
+                  )
+                "
+
+                [(ngModel)]="
+                  form.includeTo
+                "
+
+                (ngModelChange)="
+                  clearFieldError(
+                    'includeTo'
+                  )
+                "
+              />
+
+
+              @if (
+                getFieldError(
+                  'includeTo'
+                )
+              ) {
+
+                <span
+                  class="white-list-field__error"
+                >
+                  {{
+                    getFieldError(
+                      'includeTo'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- REMARKS -->
+
+          <div class="white-list-field">
+
+            <label
+              for="white-list-remarks"
+
+              class="white-list-field__label"
+            >
+              Remarks
+            </label>
+
+
+            <textarea
+              id="white-list-remarks"
+
+              name="remarks"
+
+              class="
+                white-list-field__control
+                white-list-field__textarea
+              "
+
+              placeholder="Enter remarks"
+
+              [(ngModel)]="
+                form.remarks
+              "
+            ></textarea>
+
+          </div>
+
+
+          <!-- STATUS -->
+
+          @if (
+            activeTab() === 'search'
+          ) {
+
+            <div class="white-list-field">
+
+              <label
+                for="white-list-status"
+
+                class="white-list-field__label"
+              >
+                Status
+              </label>
+
+
+              <select
+                id="white-list-status"
+
+                name="status"
+
+                class="
+                  white-list-field__control
+                  white-list-field__select
+                "
+
+                [(ngModel)]="
+                  form.status
+                "
+              >
+
+                <option value="all">
+                  All
+                </option>
+
+                <option value="active">
+                  Active
+                </option>
+
+                <option value="inactive">
+                  Inactive
+                </option>
+
+              </select>
+
+            </div>
+
+          }
+
+
+          <!-- ACTIVE -->
+
+          @if (
+            activeTab() !== 'search'
+          ) {
+
+            <div class="white-list-field">
+
+              <span
+                class="white-list-field__label"
+              >
+                Status
+              </span>
+
+
+              <label
+                class="white-list-active"
+              >
+
+                <input
+                  type="checkbox"
+
+                  name="active"
+
+                  [(ngModel)]="
+                    form.active
+                  "
+                />
+
+
+                <span
+                  class="white-list-active__box"
+                ></span>
+
+
+                <span>
+                  Active
+                </span>
+
+              </label>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="white-list-actions">
+
+        <button
+          type="button"
+
+          class="
+            white-list-button
+            white-list-button--secondary
+          "
+
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            {{
+              activeTab() === 'add'
+                ? 'Clear'
+                : 'Reset'
+            }}
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            white-list-button
+            white-list-button--primary
+          "
+        >
+
+          @if (
+            activeTab() === 'add' ||
+            (
+              activeTab() === 'edit' &&
+              editingId !== null
+            )
+          ) {
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+          }
+
+          @else {
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+              aria-hidden="true"
+            ></svg>
+
+          }
+
+
+          <span>
+
+            @if (
+              activeTab() === 'add'
+            ) {
+
+              Save
+
+            }
+
+            @else if (
+              activeTab() === 'edit' &&
+              editingId !== null
+            ) {
+
+              Update
+
+            }
+
+            @else {
+
+              Search
+
+            }
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="white-list-results">
+
+      <div
+        class="white-list-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="white-list-results__title"
+          >
+            Search Results
+          </h2>
+
+
+          <p
+            class="white-list-results__description"
+          >
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'entry'
+                : 'entries'
+            }}
+
+            found.
+          </p>
+
+        </div>
+
+
+        <span
+          class="white-list-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No white list entries found"
+
+        emptyMessage="No entries matched the selected search criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (toast()) {
+
+    <div
+      class="white-list-toast"
+
+      [class.white-list-toast--success]="
+        toast()?.type ===
+        'success'
+      "
+
+      [class.white-list-toast--error]="
+        toast()?.type ===
+        'error'
+      "
+    >
+
+      <span
+        class="white-list-toast__icon"
+      >
+
+        @if (
+          toast()?.type ===
+          'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div
+        class="white-list-toast__content"
+      >
+
+        <span
+          class="white-list-toast__title"
+        >
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+        </span>
+
+
+        <span
+          class="white-list-toast__message"
+        >
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+
+        class="white-list-toast__close"
+
+        aria-label="Close notification"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+          aria-hidden="true"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

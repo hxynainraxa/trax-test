@@ -1,0 +1,869 @@
+// ==================================================
+// DASHBOARD PAGE
+// ==================================================
+
+.dashboard-page {
+  width: 100%;
+
+  font-family: Inter, sans-serif;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.dashboard-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+.dashboard-header__content {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 8px;
+}
+
+
+// ==================================================
+// TITLE
+// ==================================================
+
+.dashboard-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 100%;
+
+  letter-spacing: 0;
+}
+
+
+// ==================================================
+// DESCRIPTION
+// ==================================================
+
+.dashboard-description {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 100%;
+
+  letter-spacing: 0;
+}
+
+
+// ==================================================
+// SESSION ID
+// ==================================================
+
+.session-id {
+  display: flex;
+
+  width: 170px;
+  height: 37px;
+
+  flex: 0 0 170px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  padding: 6px 14px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+.session-id__label {
+  color: #485052;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 24px;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+}
+
+.session-id__value {
+  color: #000000;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 24px;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+}
+
+
+// ==================================================
+// SUMMARY CARDS
+// ==================================================
+
+.dashboard-cards {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+// ==================================================
+// CARD CONTENT
+// ==================================================
+
+.dashboard-card__title {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 20px;
+
+  letter-spacing: 0;
+}
+
+.dashboard-card__value-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.dashboard-card__value {
+  color: #101828;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 32px;
+
+  letter-spacing: -0.4px;
+}
+
+.dashboard-card__change {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 2px;
+
+  color: #12b76a;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  line-height: 14px;
+
+  white-space: nowrap;
+}
+
+.dashboard-card__change svg {
+  color: #12b76a;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// TABLES
+// ==================================================
+
+.dashboard-tables {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+
+// ==================================================
+// TABLE CARD
+// ==================================================
+
+.dashboard-table-card {
+  width: 100%;
+  height: 204px;
+
+  min-width: 0;
+
+  padding: 16px 14px;
+
+  overflow: hidden;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// TABLE HEADER
+// ==================================================
+
+.dashboard-table-card__header {
+  display: flex;
+
+  width: 100%;
+  height: 24px;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.dashboard-table-card__title {
+  margin: 0;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 20px;
+
+  letter-spacing: 0;
+}
+
+
+// ==================================================
+// TABLE REFRESH
+// ==================================================
+
+.dashboard-table-card__refresh {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 0;
+
+  border: 0;
+
+  color: #e7651c;
+
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.dashboard-table-card__refresh:hover {
+  color: #d65312;
+}
+
+.dashboard-table-card__refresh:active {
+  opacity: 0.75;
+}
+
+.dashboard-table-card__refresh svg {
+  flex: 0 0 auto;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// LOWER DASHBOARD
+//
+// LEFT COLUMN = TWO DOUGHNUT CHARTS
+// RIGHT COLUMN = SANCTIONS BAR CHART
+// ==================================================
+
+.dashboard-lower {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 16px;
+
+  align-items: stretch;
+}
+
+
+// ==================================================
+// LEFT LOWER SECTION
+// ==================================================
+
+.dashboard-doughnut-grid {
+  display: grid;
+
+  min-width: 0;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+
+// ==================================================
+// DOUGHNUT CHART CARD
+// ==================================================
+
+.dashboard-chart-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 338px;
+
+  min-width: 0;
+
+  padding: 16px 18px;
+
+  overflow: hidden;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SHARED CHART HEADER
+// ==================================================
+
+.dashboard-chart-card__header {
+  display: flex;
+
+  width: 100%;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.dashboard-chart-card__title {
+  margin: 0;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 20px;
+
+  letter-spacing: 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+// ==================================================
+// CHART REFRESH
+// ==================================================
+
+.dashboard-chart-card__refresh {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 0;
+
+  border: 0;
+
+  color: #e7651c;
+
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.dashboard-chart-card__refresh:hover {
+  color: #d65312;
+}
+
+.dashboard-chart-card__refresh:active {
+  opacity: 0.7;
+}
+
+.dashboard-chart-card__refresh svg {
+  flex: 0 0 auto;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// DOUGHNUT BODY
+// ==================================================
+
+.dashboard-chart-card__body {
+  display: flex;
+
+  width: 100%;
+
+  flex: 1;
+
+  min-height: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 0 6px;
+}
+
+
+// ==================================================
+// DOUGHNUT CHART SIZE
+// ==================================================
+
+.dashboard-chart {
+  position: relative;
+
+  width: 170px;
+  height: 170px;
+
+  flex: 0 0 170px;
+
+  margin: 0 auto;
+}
+
+.dashboard-chart canvas {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+// ==================================================
+// CHART LEGEND
+// ==================================================
+
+.dashboard-chart-legend {
+  display: flex;
+
+  width: 100%;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+}
+
+
+// ==================================================
+// TODAY'S ACTIONS LEGEND
+// ==================================================
+
+.dashboard-chart-legend--actions {
+  gap: 16px;
+
+  flex-wrap: nowrap;
+}
+
+
+// ==================================================
+// ACTIVATED RULES LEGEND
+// ==================================================
+
+.dashboard-chart-legend--rules {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, max-content);
+
+  justify-content: center;
+
+  column-gap: 14px;
+  row-gap: 8px;
+}
+
+
+// ==================================================
+// LEGEND ITEMS
+// ==================================================
+
+.dashboard-chart-legend__item {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  white-space: nowrap;
+}
+
+.dashboard-chart-legend__item strong {
+  color: #101828;
+
+  font-weight: 600;
+}
+
+.dashboard-chart-legend__muted {
+  color: #98a2b3;
+}
+
+
+// ==================================================
+// LEGEND DOT
+// ==================================================
+
+.dashboard-chart-legend__dot {
+  display: block;
+
+  width: 9px;
+  height: 9px;
+
+  flex: 0 0 9px;
+
+  border-radius: 50%;
+}
+
+
+// ==================================================
+// TODAY ACTION COLORS
+// ==================================================
+
+.dashboard-chart-legend__dot--reject {
+  background: #fb4448;
+}
+
+.dashboard-chart-legend__dot--release {
+  background: #ff990a;
+}
+
+.dashboard-chart-legend__dot--clean {
+  background: #174e96;
+}
+
+
+// ==================================================
+// RULE COLORS
+// ==================================================
+
+.dashboard-chart-legend__dot--rule-dark {
+  background: #4b5565;
+}
+
+.dashboard-chart-legend__dot--rule-orange {
+  background: #ffb25a;
+}
+
+.dashboard-chart-legend__dot--rule-teal {
+  background: #43b8b8;
+}
+
+
+// ==================================================
+// SANCTIONS VIOLATIONS CARD
+// ==================================================
+
+.dashboard-sanctions-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 338px;
+
+  min-width: 0;
+
+  padding: 16px 18px;
+
+  overflow: hidden;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// SANCTIONS CHART AREA
+// ==================================================
+
+.dashboard-sanctions-chart {
+  position: relative;
+
+  width: 100%;
+
+  flex: 1;
+
+  min-height: 0;
+
+  margin-top: 8px;
+}
+
+.dashboard-sanctions-chart canvas {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+// ==================================================
+// RESPONSIVE — DESKTOP / SMALL LAPTOP
+// ==================================================
+
+@media (max-width: 1280px) {
+  .dashboard-cards {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  /*
+   * Keep the lower two main columns,
+   * but stack the two doughnuts if space is tight.
+   */
+  .dashboard-doughnut-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-chart-card,
+  .dashboard-sanctions-card {
+    height: 338px;
+  }
+}
+
+
+// ==================================================
+// RESPONSIVE — TABLET
+// ==================================================
+
+@media (max-width: 900px) {
+  .dashboard-tables {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-table-card {
+    height: auto;
+
+    min-height: 204px;
+  }
+
+  /*
+   * Lower section becomes one full-width column.
+   */
+  .dashboard-lower {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+   * Doughnuts can be side-by-side again
+   * because they now have full page width.
+   */
+  .dashboard-doughnut-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-chart-card,
+  .dashboard-sanctions-card {
+    height: 338px;
+  }
+}
+
+
+// ==================================================
+// RESPONSIVE — SMALL TABLET
+// ==================================================
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .session-id {
+    width: auto;
+
+    flex: none;
+  }
+
+  .dashboard-cards {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+// ==================================================
+// RESPONSIVE — NARROW
+// ==================================================
+
+@media (max-width: 700px) {
+  .dashboard-doughnut-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-chart-card,
+  .dashboard-sanctions-card {
+    height: 338px;
+  }
+}
+
+
+// ==================================================
+// RESPONSIVE — MOBILE
+// ==================================================
+
+@media (max-width: 480px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-table-card {
+    padding: 14px 12px;
+  }
+
+  .dashboard-chart-card,
+  .dashboard-sanctions-card {
+    height: 338px;
+
+    padding: 16px;
+  }
+
+  .dashboard-chart {
+    width: 155px;
+    height: 155px;
+
+    flex-basis: 155px;
+  }
+
+  .dashboard-chart-legend--actions {
+    gap: 12px;
+
+    flex-wrap: wrap;
+  }
+
+  .dashboard-chart-legend--rules {
+    grid-template-columns: 1fr;
+
+    justify-items: center;
+  }
+}
+
+// ==================================================
+// BOTTOM TABLES
+// ==================================================
+
+.dashboard-tables--bottom {
+  margin-top: 16px;
+}

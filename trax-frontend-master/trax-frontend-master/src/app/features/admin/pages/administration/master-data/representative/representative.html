@@ -1,0 +1,184 @@
+<div class="representative-page">
+
+  <!-- HEADER -->
+
+  <div class="representative-header">
+    <h1>Representative</h1>
+
+    <p>
+      Search representative and membership information.
+    </p>
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="representative-card">
+
+    <div class="representative-tab">
+      Personal
+    </div>
+
+
+    <form
+      class="representative-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="representative-grid">
+
+        <!-- LEFT -->
+
+        <div class="representative-column">
+
+          <label class="representative-field">
+            <span>First Name</span>
+
+            <input
+              type="text"
+              name="firstName"
+              [(ngModel)]="form.firstName"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Middle Name</span>
+
+            <input
+              type="text"
+              name="middleName"
+              [(ngModel)]="form.middleName"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Last Name</span>
+
+            <input
+              type="text"
+              name="lastName"
+              [(ngModel)]="form.lastName"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Mobile Num.</span>
+
+            <input
+              type="text"
+              name="mobileNumber"
+              [(ngModel)]="form.mobileNumber"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Nationality</span>
+
+            <select
+              name="nationality"
+              [(ngModel)]="form.nationality"
+            >
+
+              @for (
+                option of nationalityOptions;
+                track option
+              ) {
+                <option [value]="option">
+                  {{ option }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="representative-column">
+
+          <label class="representative-field">
+            <span>Membership Number</span>
+
+            <input
+              type="text"
+              name="membershipNumber"
+              [(ngModel)]="form.membershipNumber"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Representative Number</span>
+
+            <input
+              type="text"
+              name="representativeNumber"
+              [(ngModel)]="form.representativeNumber"
+            />
+          </label>
+
+
+          <label class="representative-field">
+            <span>Representative Type</span>
+
+            <select
+              name="representativeType"
+              [(ngModel)]="form.representativeType"
+            >
+
+              @for (
+                option of representativeTypes;
+                track option
+              ) {
+                <option [value]="option">
+                  {{ option }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="representative-actions">
+
+        <button
+          type="submit"
+          class="representative-btn representative-btn--primary"
+        >
+          Search
+        </button>
+
+        <button
+          type="button"
+          class="representative-btn representative-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+    <div class="representative-toast">
+      {{ message() }}
+    </div>
+  }
+
+</div>

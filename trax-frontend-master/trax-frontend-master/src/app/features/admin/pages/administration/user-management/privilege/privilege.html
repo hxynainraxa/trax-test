@@ -1,0 +1,224 @@
+<div class="privilege-page">
+
+  <!-- HEADER -->
+
+  <div class="privilege-header">
+    <h1 class="privilege-title">
+      Privilege
+    </h1>
+
+    <p class="privilege-description">
+      Configure role-based access privileges.
+    </p>
+  </div>
+
+
+  <!-- ROLE -->
+
+  <section class="privilege-role-card">
+
+    <label class="privilege-role-label">
+      Role
+      <span>*</span>
+    </label>
+
+    <select
+      class="privilege-select"
+      [(ngModel)]="selectedRole"
+      (ngModelChange)="roleChanged()"
+    >
+      <option value="">
+        --Select--
+      </option>
+
+      @for (
+        role of roles;
+        track role.value
+      ) {
+        <option
+          [value]="role.value"
+        >
+          {{ role.label }}
+        </option>
+      }
+    </select>
+
+
+    <button
+      type="button"
+      class="privilege-quick privilege-quick--all"
+      (click)="selectAll()"
+    >
+      <svg
+        [lucideIcon]="checkIcon"
+        [size]="15"
+      ></svg>
+
+      Select All
+    </button>
+
+
+    <button
+      type="button"
+      class="privilege-quick privilege-quick--none"
+      (click)="selectNone()"
+    >
+      <svg
+        [lucideIcon]="xIcon"
+        [size]="15"
+      ></svg>
+
+      None
+    </button>
+
+  </section>
+
+
+  <!-- PRIVILEGES -->
+
+  <section class="privilege-list">
+
+    @for (
+      group of groups;
+      track group.id;
+      let groupIndex = $index
+    ) {
+
+      <div class="privilege-group">
+
+        <!-- GROUP NAME -->
+
+        <label class="privilege-group__title">
+
+          <input
+            type="checkbox"
+
+            [checked]="
+              isGroupSelected(groupIndex)
+            "
+
+            [indeterminate]="
+              isGroupPartial(groupIndex)
+            "
+
+            (change)="
+              toggleGroup(
+                groupIndex,
+                $any($event.target).checked
+              )
+            "
+          />
+
+          <span>
+            {{ group.label }}
+          </span>
+
+        </label>
+
+
+        <!-- ITEMS -->
+
+        <div class="privilege-group__items">
+
+          @for (
+            item of group.items;
+            track item.id
+          ) {
+
+            <label class="privilege-item">
+
+              <input
+                type="checkbox"
+
+                [checked]="
+                  isSelected(item.id)
+                "
+
+                (change)="
+                  toggleItem(
+                    item.id,
+                    $any($event.target).checked
+                  )
+                "
+              />
+
+              <span>
+                {{ item.label }}
+              </span>
+
+            </label>
+
+          }
+
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ACTIONS -->
+
+  <div class="privilege-actions">
+
+    <button
+      type="button"
+      class="
+        privilege-button
+        privilege-button--primary
+      "
+      (click)="save()"
+    >
+      Save
+    </button>
+
+
+    <button
+      type="button"
+      class="
+        privilege-button
+        privilege-button--delete
+      "
+      (click)="deletePrivileges()"
+    >
+      Delete
+    </button>
+
+
+    <button
+      type="button"
+      class="
+        privilege-button
+        privilege-button--secondary
+      "
+      (click)="clear()"
+    >
+      Clear
+    </button>
+
+  </div>
+
+
+  <!-- MESSAGE -->
+
+  @if (message()) {
+
+    <div
+      class="privilege-toast"
+
+      [class.privilege-toast--success]="
+        message()?.type === 'success'
+      "
+
+      [class.privilege-toast--error]="
+        message()?.type === 'error'
+      "
+    >
+      {{ message()?.text }}
+    </div>
+
+  }
+
+</div>

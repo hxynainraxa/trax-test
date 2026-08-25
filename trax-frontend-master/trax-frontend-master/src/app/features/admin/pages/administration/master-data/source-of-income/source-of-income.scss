@@ -1,0 +1,104 @@
+@use '../master-search';
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.source-card {
+  position: relative;
+
+  padding:
+    52px
+    22px
+    20px;
+}
+
+
+// ==================================================
+// TABS
+// ==================================================
+
+.source-tabs {
+  position: absolute;
+
+  top: -1px;
+  left: 0;
+
+  display: flex;
+
+  gap: 4px;
+}
+
+
+.source-tab {
+  min-width: 86px;
+  height: 36px;
+
+  padding: 0 14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-bottom:
+    0;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  color: #98a2b3;
+
+  background: #fbfaf9;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+
+.source-tab:hover {
+  color: #e7651c;
+}
+
+
+.source-tab--active {
+  border-top:
+    2px solid
+    #e7651c;
+
+  border-bottom:
+    1px solid
+    #ffffff;
+
+  color: #d65312;
+
+  background: #ffffff;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (
+  max-width: 560px
+) {
+
+  .source-card {
+    padding:
+      52px
+      12px
+      16px;
+  }
+
+}

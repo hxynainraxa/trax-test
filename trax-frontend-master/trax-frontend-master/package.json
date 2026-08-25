@@ -1,0 +1,94 @@
+{
+  "name": "bill-goose-admin",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "start:uat": "ng serve --configuration=uat",
+    "start:prod": "ng serve --configuration=production",
+    "build": "ng build",
+    "build:uat": "ng build --configuration=uat",
+    "build:prod": "ng build --configuration=production",
+    "watch": "ng build --watch --configuration=development",
+    "test": "ng test",
+    "format": "prettier --write \"src/**/*.{ts,js,html,scss,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,html,scss,json,md}\"",
+    "prepare": "husky",
+    "pre-commit": "lint-staged"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "bracketSameLine": false,
+    "arrowParens": "avoid",
+    "plugins": [
+      "@trivago/prettier-plugin-sort-imports"
+    ],
+    "importOrder": [
+      "^@angular/(.*)$",
+      "^@app/(.*)$",
+      "^@core/(.*)$",
+      "^@shared/(.*)$",
+      "^@features/(.*)$",
+      "^@layout/(.*)$",
+      "^@environments/(.*)$",
+      "^@assets/(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      },
+      {
+        "files": "*.ts",
+        "options": {
+          "parser": "babel-ts"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@lucide/angular": "^1.28.0",
+    "chart.js": "^4.5.1",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.0.3",
+    "@angular/cli": "^21.0.3",
+    "@angular/compiler-cli": "^21.0.0",
+    "@babel/preset-typescript": "^8.0.1",
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^10.8.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.1.0",
+    "lint-staged": "^17.2.0",
+    "postcss": "^8.4.49",
+    "prettier": "^3.9.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
+}

@@ -1,0 +1,261 @@
+<div class="branch-page">
+
+  <!-- HEADER -->
+
+  <div class="branch-header">
+    <h1>Exchange Branches</h1>
+
+    <p>
+      Search and manage exchange branch information.
+    </p>
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="branch-card">
+
+    <!-- TABS -->
+
+    <div class="branch-tabs">
+
+      <button
+        type="button"
+        class="branch-tab"
+        [class.branch-tab--active]="activeTab === 'edit'"
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+      <button
+        type="button"
+        class="branch-tab"
+        [class.branch-tab--active]="activeTab === 'search'"
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <form
+      class="branch-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="branch-grid">
+
+        <!-- LEFT -->
+
+        <div class="branch-column">
+
+          <label class="branch-field">
+            <span>Branch Code</span>
+            <input
+              name="branchCode"
+              [(ngModel)]="form.branchCode"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Branch Name</span>
+            <input
+              name="branchName"
+              [(ngModel)]="form.branchName"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Address 1</span>
+            <input
+              name="address1"
+              [(ngModel)]="form.address1"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Address 2</span>
+            <input
+              name="address2"
+              [(ngModel)]="form.address2"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Country</span>
+
+            <select
+              name="country"
+              [(ngModel)]="form.country"
+            >
+              @if (activeTab === 'edit') {
+                <option value="">
+                  --Select--
+                </option>
+              }
+
+              @for (
+                country of countries;
+                track country
+              ) {
+                <option [value]="country">
+                  {{ country }}
+                </option>
+              }
+            </select>
+          </label>
+
+          <label class="branch-field">
+            <span>State</span>
+            <input
+              name="state"
+              [(ngModel)]="form.state"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>City</span>
+            <input
+              name="city"
+              [(ngModel)]="form.city"
+            />
+          </label>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="branch-column">
+
+          <label class="branch-field">
+            <span>Post Box Num</span>
+            <input
+              name="postBoxNumber"
+              [(ngModel)]="form.postBoxNumber"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Telephone Num</span>
+            <input
+              name="telephoneNumber"
+              [(ngModel)]="form.telephoneNumber"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Fax Num</span>
+            <input
+              name="faxNumber"
+              [(ngModel)]="form.faxNumber"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Email Id</span>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="form.email"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Open Date</span>
+            <input
+              type="date"
+              name="openDate"
+              [(ngModel)]="form.openDate"
+            />
+          </label>
+
+          <label class="branch-field">
+            <span>Contact Person</span>
+            <input
+              name="contactPerson"
+              [(ngModel)]="form.contactPerson"
+            />
+          </label>
+
+
+          <!-- STATUS -->
+
+          <div class="branch-field">
+            <span>Status</span>
+
+            <div class="branch-radios">
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="all"
+                  [(ngModel)]="form.status"
+                />
+                All
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="form.status"
+                />
+                Active
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="form.status"
+                />
+                InActive
+              </label>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="branch-actions">
+
+        <button
+          type="submit"
+          class="branch-btn branch-btn--primary"
+        >
+          Search
+        </button>
+
+        <button
+          type="button"
+          class="branch-btn branch-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+    <div class="branch-toast">
+      {{ message() }}
+    </div>
+  }
+
+</div>

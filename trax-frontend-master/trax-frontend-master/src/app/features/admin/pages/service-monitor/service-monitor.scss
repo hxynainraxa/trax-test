@@ -1,0 +1,519 @@
+// ==================================================
+// SERVICE MONITOR
+// ==================================================
+
+.service-monitor {
+  width: 100%;
+}
+
+
+// ==================================================
+// SERVICE CARDS GRID
+// ==================================================
+
+.service-monitor__services {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+// ==================================================
+// SERVICE CARD
+//
+// Base visual styling comes from:
+//
+// .dashboard-table-card
+//
+// We only change sizing/layout here.
+// ==================================================
+
+.service-monitor__service-card {
+  display: flex;
+
+  width: 100%;
+  height: 92px;
+
+  min-width: 0;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  overflow: visible;
+}
+
+
+// ==================================================
+// SERVICE ICON
+// ==================================================
+
+.service-monitor__service-icon {
+  display: flex;
+
+  width: 44px;
+  height: 44px;
+
+  flex: 0 0 44px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  color: #e7651c;
+
+  background: #fff0e7;
+
+  box-sizing: border-box;
+}
+
+.service-monitor__service-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+
+  color: currentColor;
+
+  stroke: currentColor;
+}
+
+
+// ==================================================
+// SERVICE CONTENT
+// ==================================================
+
+.service-monitor__service-content {
+  display: flex;
+
+  min-width: 0;
+
+  flex: 1;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+
+// ==================================================
+// SERVICE NAME
+// ==================================================
+
+.service-monitor__service-name {
+  display: block;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+// ==================================================
+// STATUS TOGGLE
+// ==================================================
+
+.service-monitor__toggle {
+  position: relative;
+
+  display: inline-flex;
+
+  width: 66px;
+  height: 30px;
+
+  align-items: center;
+
+  padding: 3px;
+
+  border: 0;
+  border-radius: 999px;
+
+  outline: none;
+
+  font-family: Inter, sans-serif;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+
+// ==================================================
+// UP
+// ==================================================
+
+.service-monitor__toggle--up {
+  justify-content: flex-end;
+
+  color: #ffffff;
+
+  background: #e7651c;
+}
+
+
+// ==================================================
+// DOWN
+// ==================================================
+
+.service-monitor__toggle--down {
+  justify-content: flex-start;
+
+  color: #667085;
+
+  background: #eaecf0;
+}
+
+
+// ==================================================
+// TOGGLE LABEL
+// ==================================================
+
+.service-monitor__toggle-label {
+  position: absolute;
+
+  top: 50%;
+
+  color: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  line-height: 12px;
+
+  letter-spacing: 0.3px;
+
+  transform:
+    translateY(-50%);
+}
+
+.service-monitor__toggle--up
+.service-monitor__toggle-label {
+  left: 10px;
+}
+
+.service-monitor__toggle--down
+.service-monitor__toggle-label {
+  right: 7px;
+
+  color: #667085;
+}
+
+
+// ==================================================
+// TOGGLE KNOB
+// ==================================================
+
+.service-monitor__toggle-knob {
+  display: flex;
+
+  width: 24px;
+  height: 24px;
+
+  flex: 0 0 24px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #e7651c;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 1px 3px
+    rgba(
+      16,
+      24,
+      40,
+      0.18
+    );
+
+  box-sizing: border-box;
+}
+
+.service-monitor__toggle--down
+.service-monitor__toggle-knob {
+  color: #98a2b3;
+}
+
+
+// ==================================================
+// TOGGLE FOCUS
+// ==================================================
+
+.service-monitor__toggle:focus-visible {
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      231,
+      101,
+      28,
+      0.16
+    );
+}
+
+
+// ==================================================
+// LOG GRID
+// ==================================================
+
+.service-monitor__logs {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  align-items: start;
+
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+
+// ==================================================
+// LOG CARD
+//
+// Again:
+// base card design is dashboard-table-card.
+// ==================================================
+
+.service-monitor__log-card {
+  height: auto;
+
+  min-height: 460px;
+
+  overflow: hidden;
+}
+
+
+// ==================================================
+// TABLE CONTAINER
+// ==================================================
+
+.service-monitor__table-container {
+  width: 100%;
+
+  min-width: 0;
+}
+
+
+// ==================================================
+// AML TABLE SCROLL
+//
+// AML has long stack traces, so keep the page
+// controlled while allowing the log area to scroll.
+// ==================================================
+
+.service-monitor__table-container--aml {
+  max-height: 560px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+}
+
+.service-monitor__table-container--aml::-webkit-scrollbar {
+  width: 5px;
+}
+
+.service-monitor__table-container--aml::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.service-monitor__table-container--aml::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #d0d5dd;
+}
+
+
+// ==================================================
+// TABLE-SPECIFIC WRAPPING
+//
+// Keep your existing theme-table design,
+// but allow Error and Date to display properly.
+// ==================================================
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__table {
+  table-layout: fixed;
+}
+
+
+// ==================================================
+// SL.NO
+// ==================================================
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__head-cell:nth-child(1),
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__cell:nth-child(1) {
+  text-align: center;
+}
+
+
+// ==================================================
+// ERROR COLUMN
+// ==================================================
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__cell:nth-child(2) {
+  height: auto;
+
+  min-height: 38px;
+
+  white-space: normal;
+
+  overflow: visible;
+
+  text-overflow: clip;
+
+  overflow-wrap: anywhere;
+
+  word-break: break-word;
+
+  vertical-align: top;
+
+  line-height: 18px;
+}
+
+
+// ==================================================
+// DATE COLUMN
+// ==================================================
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__cell:nth-child(3) {
+  height: auto;
+
+  white-space: normal;
+
+  vertical-align: top;
+
+  line-height: 18px;
+}
+
+
+// ==================================================
+// EMPTY BLACKLIST TABLE
+// ==================================================
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__empty {
+  min-height: 320px;
+}
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__empty-title {
+  color: #667085;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+:host
+  ::ng-deep
+  .service-monitor__log-card
+  .shared-table__empty-message:empty {
+  display: none;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 1200px) {
+
+  .service-monitor__services {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+}
+
+
+@media (max-width: 900px) {
+
+  .service-monitor__logs {
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .service-monitor__services {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .service-monitor__service-card {
+    height: 86px;
+  }
+
+}

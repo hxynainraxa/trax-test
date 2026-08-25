@@ -1,0 +1,472 @@
+<div class="master-page">
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+
+  <div class="master-header">
+
+    <h1>
+      Geographic Groups
+    </h1>
+
+    <p>
+      Create and manage geographic country groups.
+    </p>
+
+  </div>
+
+
+  <!-- ==================================================
+       CARD
+       ================================================== -->
+
+  <section class="master-card geo-card">
+
+    <!-- ================================================
+         TABS
+         ================================================ -->
+
+    <div class="geo-tabs">
+
+      <button
+        type="button"
+
+        class="geo-tab"
+
+        [class.geo-tab--active]="
+          activeTab === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+
+        class="geo-tab"
+
+        [class.geo-tab--active]="
+          activeTab === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORM
+         ================================================== -->
+
+    <form
+      (ngSubmit)="save()"
+    >
+
+      <div class="master-grid">
+
+        <!-- ============================================
+             LEFT COLUMN
+             ============================================ -->
+
+        <div class="master-column">
+
+          <!-- GEO GROUP -->
+
+          @if (
+            activeTab === 'edit'
+          ) {
+
+            <label class="master-field">
+
+              <span>
+                GeoGroup
+              </span>
+
+              <select
+                name="groupId"
+
+                [(ngModel)]="
+                  form.groupId
+                "
+
+                (ngModelChange)="
+                  loadGroup()
+                "
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+
+                @for (
+                  group of groups;
+                  track group.id
+                ) {
+
+                  <option
+                    [value]="group.id"
+                  >
+                    {{ group.name }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+          }
+
+          @else {
+
+            <label class="master-field">
+
+              <span>
+                GeoGroup
+              </span>
+
+              <input
+                type="text"
+
+                name="geoGroup"
+
+                [(ngModel)]="
+                  form.geoGroup
+                "
+              />
+
+            </label>
+
+          }
+
+
+          <!-- ============================================
+               COUNTRY
+               ============================================ -->
+
+          <label class="master-field">
+
+            <span>
+              Country
+            </span>
+
+            <select
+              name="country"
+
+              [(ngModel)]="
+                form.country
+              "
+
+              (ngModelChange)="
+                addCountry()
+              "
+            >
+
+              <option value="">
+                --Select--
+              </option>
+
+
+              @for (
+                country of countries;
+                track country
+              ) {
+
+                <option
+                  [value]="country"
+                >
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <!-- ============================================
+               SELECTED COUNTRIES
+               ============================================ -->
+
+          <div
+            class="
+              master-field
+              geo-selected-field
+            "
+          >
+
+            <span>
+              Selected Countries
+            </span>
+
+
+            <div class="geo-selected-wrapper">
+
+              <select
+                size="5"
+
+                name="selectedCountry"
+
+                class="geo-selected"
+
+                [(ngModel)]="
+                  selectedCountryToRemove
+                "
+              >
+
+                @for (
+                  country of
+                    form.selectedCountries;
+                  track country
+                ) {
+
+                  <option
+                    [value]="country"
+                  >
+                    {{ country }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              <button
+                type="button"
+
+                class="geo-remove"
+
+                [disabled]="
+                  !selectedCountryToRemove
+                "
+
+                (click)="
+                  removeCountry()
+                "
+              >
+                Remove
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================================
+             RIGHT COLUMN
+             ============================================ -->
+
+        <div class="master-column">
+
+          <!-- DESCRIPTION -->
+
+          <label class="master-field">
+
+            <span>
+              Description
+            </span>
+
+            <input
+              type="text"
+
+              name="description"
+
+              [(ngModel)]="
+                form.description
+              "
+            />
+
+          </label>
+
+
+          <!-- CREATED BY -->
+
+          <div
+            class="
+              master-field
+              geo-readonly
+            "
+          >
+
+            <span>
+              Created By
+            </span>
+
+            <strong>
+              {{
+                form.createdBy ||
+                '-'
+              }}
+            </strong>
+
+          </div>
+
+
+          <!-- CREATED DATE -->
+
+          <div
+            class="
+              master-field
+              geo-readonly
+            "
+          >
+
+            <span>
+              Created Date
+            </span>
+
+            <strong>
+              {{
+                form.createdDate ||
+                '-'
+              }}
+            </strong>
+
+          </div>
+
+
+          <!-- MODIFIED BY -->
+
+          <div
+            class="
+              master-field
+              geo-readonly
+            "
+          >
+
+            <span>
+              Modified By
+            </span>
+
+            <strong>
+              {{
+                form.modifiedBy ||
+                '-'
+              }}
+            </strong>
+
+          </div>
+
+
+          <!-- MODIFIED DATE -->
+
+          <div
+            class="
+              master-field
+              geo-readonly
+            "
+          >
+
+            <span>
+              Modified Date
+            </span>
+
+            <strong>
+              {{
+                form.modifiedDate ||
+                '-'
+              }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==================================================
+           ACTIONS
+           ================================================== -->
+
+      <div class="master-actions">
+
+        <!-- SAVE / UPDATE -->
+
+        <button
+          type="submit"
+
+          class="
+            master-btn
+            master-btn--primary
+          "
+        >
+          {{
+            activeTab === 'add'
+              ? 'Save'
+              : 'Update'
+          }}
+        </button>
+
+
+        <!-- DELETE -->
+
+        @if (
+          activeTab === 'edit'
+        ) {
+
+          <button
+            type="button"
+
+            class="geo-delete"
+
+            [disabled]="
+              selectedId === null
+            "
+
+            (click)="remove()"
+          >
+            Delete
+          </button>
+
+        }
+
+
+        <!-- CLEAR -->
+
+        <button
+          type="button"
+
+          class="
+            master-btn
+            master-btn--secondary
+          "
+
+          (click)="clear()"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- ==================================================
+       TOAST
+       ================================================== -->
+
+  @if (
+    message()
+  ) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

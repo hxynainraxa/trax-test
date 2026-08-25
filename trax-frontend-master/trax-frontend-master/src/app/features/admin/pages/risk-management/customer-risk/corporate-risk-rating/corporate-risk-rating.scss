@@ -1,0 +1,986 @@
+// ==================================================
+// PAGE
+// ==================================================
+
+.corporate-risk-page {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.corporate-risk-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+
+  margin-bottom: 18px;
+}
+
+
+.corporate-risk-header__content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+// ==================================================
+// MAIN HEADING - 700
+// ==================================================
+
+.corporate-risk-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+  line-height: 30px;
+
+  letter-spacing: -0.3px;
+}
+
+
+.corporate-risk-description {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 13px;
+
+  font-weight: 400;
+
+  line-height: 19px;
+}
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.corporate-risk-card {
+  width: 100%;
+
+  overflow: hidden;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// ACCORDION
+// ==================================================
+
+.corporate-accordion {
+  width: 100%;
+
+  overflow: hidden;
+
+  margin-bottom: 8px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+.corporate-accordion:last-of-type {
+  margin-bottom: 0;
+}
+
+
+.corporate-accordion--open {
+  border-color: #e4e7ec;
+
+  box-shadow:
+    0
+    1px
+    2px
+    rgba(
+      16,
+      24,
+      40,
+      0.04
+    );
+}
+
+
+// ==================================================
+// ACCORDION TITLE - 750
+// ==================================================
+
+.corporate-accordion__trigger {
+  display: flex;
+
+  width: 100%;
+
+  min-height: 48px;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding:
+    12px
+    16px;
+
+  border: 0;
+
+  outline: none;
+
+  color: #344054;
+
+  background: #fbfaf9;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 750;
+
+  line-height: 20px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+
+.corporate-accordion__trigger:hover {
+  color: #e7651c;
+
+  background: #fffaf7;
+}
+
+
+.corporate-accordion--open
+.corporate-accordion__trigger {
+  color: #d65312;
+
+  background: #fff7ed;
+}
+
+
+.corporate-accordion__trigger svg {
+  flex:
+    0
+    0
+    auto;
+}
+
+
+// ==================================================
+// CONTENT
+// ==================================================
+
+.corporate-accordion__content {
+  width: 100%;
+
+  padding:
+    18px
+    18px
+    20px;
+
+  border-top:
+    1px solid
+    #eaecf0;
+
+  background:
+    #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HELP
+// ==================================================
+
+.corporate-help-text {
+  margin:
+    0
+    0
+    14px;
+
+  color: #667085;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  line-height: 17px;
+}
+
+
+// ==================================================
+// TABLE WRAPPER
+// ==================================================
+
+.corporate-table-wrapper {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 8px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+}
+
+
+.corporate-table-wrapper::-webkit-scrollbar {
+  height: 5px;
+}
+
+
+.corporate-table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.corporate-table-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #d0d5dd;
+}
+
+
+// ==================================================
+// TABLE
+// ==================================================
+
+.corporate-table {
+  width: 100%;
+
+  min-width: 720px;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  color: #344054;
+
+  background: #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 17px;
+}
+
+
+// ==================================================
+// SPECIAL TABLE WIDTHS
+// ==================================================
+
+.corporate-table--total {
+  max-width: 650px;
+}
+
+
+.corporate-table--transaction {
+  min-width: 860px;
+}
+
+
+.corporate-table--profile {
+  min-width: 1000px;
+}
+
+
+// ==================================================
+// TABLE HEADER
+// ==================================================
+
+.corporate-table thead {
+  background: #fff7ed;
+}
+
+
+.corporate-table th {
+  height: 40px;
+
+  padding:
+    9px
+    12px;
+
+  border-right:
+    1px solid
+    #f3d8c8;
+
+  border-bottom:
+    1px solid
+    #fed7aa;
+
+  color: #9a3412;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  line-height: 16px;
+
+  text-align: left;
+
+  vertical-align: middle;
+
+  box-sizing: border-box;
+}
+
+
+.corporate-table th:last-child {
+  border-right: 0;
+}
+
+
+// ==================================================
+// TABLE BODY
+// ==================================================
+
+.corporate-table td {
+  min-height: 42px;
+
+  padding:
+    9px
+    12px;
+
+  border-right:
+    1px solid
+    #eaecf0;
+
+  border-bottom:
+    1px solid
+    #eaecf0;
+
+  color: #475467;
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  line-height: 17px;
+
+  vertical-align: middle;
+
+  overflow-wrap: anywhere;
+
+  box-sizing: border-box;
+}
+
+
+.corporate-table td:last-child {
+  border-right: 0;
+}
+
+
+.corporate-table
+tbody
+tr:last-child
+td {
+  border-bottom: 0;
+}
+
+
+.corporate-table
+tbody
+tr:not(
+  .corporate-table__total-row
+):hover {
+  background: #fffdfb;
+}
+
+
+// ==================================================
+// COLUMN WIDTH
+// ==================================================
+
+.corporate-table__serial {
+  width: 70px;
+}
+
+
+.corporate-table__weight {
+  width: 130px;
+}
+
+
+.corporate-table__type {
+  width: 130px;
+}
+
+
+// ==================================================
+// PARAMETERS
+// ==================================================
+
+.corporate-table__parameter {
+  color:
+    #344054 !important;
+
+  font-weight:
+    500 !important;
+}
+
+
+// ==================================================
+// REFERENCES
+// ==================================================
+
+.corporate-reference {
+  color: #2e69a4;
+
+  font-weight: 500;
+}
+
+
+// ==================================================
+// SERIAL PILL
+// ==================================================
+
+.corporate-serial-pill {
+  display: inline-flex;
+
+  min-width: 30px;
+
+  height: 22px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    0
+    8px;
+
+  border-radius: 999px;
+
+  color: #667085;
+
+  background: #fff0e7;
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// WEIGHT INPUT
+// ==================================================
+
+.corporate-weight-input {
+  width: 68px;
+
+  height: 32px;
+
+  padding:
+    5px
+    8px;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  color: #101828;
+
+  background: #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  text-align: center;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+.corporate-weight-input:hover {
+  border-color: #e0a179;
+}
+
+
+.corporate-weight-input:focus {
+  border-color: #e7651c;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// TOTAL ROW
+// ==================================================
+
+.corporate-table__total-row {
+  background: #fbfaf9;
+}
+
+
+.corporate-table__total-row td {
+  color: #344054;
+
+  font-weight: 700;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.corporate-risk-actions {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 16px;
+}
+
+
+// ==================================================
+// BUTTON
+// ==================================================
+
+.corporate-risk-button {
+  display: inline-flex;
+
+  min-width: 96px;
+
+  height: 38px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    8px
+    16px;
+
+  border-radius: 8px;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+
+// ==================================================
+// PRIMARY
+// ==================================================
+
+.corporate-risk-button--primary {
+  border:
+    1px solid
+    #e7651c;
+
+  color: #ffffff;
+
+  background: #e7651c;
+}
+
+
+.corporate-risk-button--primary:hover {
+  border-color: #d65312;
+
+  background: #d65312;
+}
+
+
+// ==================================================
+// SECONDARY
+// ==================================================
+
+.corporate-risk-button--secondary {
+  border:
+    1px solid
+    #d0d5dd;
+
+  color: #344054;
+
+  background: #ffffff;
+}
+
+
+.corporate-risk-button--secondary:hover {
+  border-color: #e7651c;
+
+  color: #e7651c;
+
+  background: #fff7ed;
+}
+
+
+// ==================================================
+// TOAST
+// ==================================================
+
+.corporate-risk-toast {
+  position: fixed;
+
+  top: 96px;
+
+  right: 24px;
+
+  z-index: 3000;
+
+  display: flex;
+
+  width: 360px;
+
+  max-width:
+    calc(
+      100vw - 48px
+    );
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    8px
+    24px
+    rgba(
+      16,
+      24,
+      40,
+      0.14
+    );
+
+  box-sizing: border-box;
+}
+
+
+.corporate-risk-toast--success {
+  border-left:
+    4px solid
+    #12b76a;
+}
+
+
+.corporate-risk-toast--error {
+  border-left:
+    4px solid
+    #d92d20;
+}
+
+
+.corporate-risk-toast__icon {
+  display: flex;
+
+  width: 32px;
+
+  height: 32px;
+
+  flex:
+    0
+    0
+    32px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+
+.corporate-risk-toast--success
+.corporate-risk-toast__icon {
+  color: #039855;
+
+  background: #ecfdf3;
+}
+
+
+.corporate-risk-toast--error
+.corporate-risk-toast__icon {
+  color: #d92d20;
+
+  background: #fef3f2;
+}
+
+
+.corporate-risk-toast__content {
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 2px;
+}
+
+
+.corporate-risk-toast__title {
+  color: #344054;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.corporate-risk-toast__message {
+  color: #667085;
+
+  font-size: 12px;
+
+  line-height: 18px;
+}
+
+
+.corporate-risk-toast__close {
+  display: flex;
+
+  width: 26px;
+
+  height: 26px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  color: #98a2b3;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+.corporate-risk-toast__close:hover {
+  color: #344054;
+
+  background: #f2f4f7;
+}
+
+
+// ==================================================
+// TABLET
+// ==================================================
+
+@media (
+  max-width: 900px
+) {
+
+  .corporate-risk-card {
+    padding: 12px;
+  }
+
+
+  .corporate-accordion__content {
+    padding: 14px;
+  }
+
+}
+
+
+// ==================================================
+// MOBILE
+// ==================================================
+
+@media (
+  max-width: 600px
+) {
+
+  .corporate-risk-title {
+    font-size: 22px;
+
+    line-height: 28px;
+  }
+
+
+  .corporate-risk-description {
+    font-size: 12px;
+  }
+
+
+  .corporate-risk-card {
+    padding: 8px;
+  }
+
+
+  .corporate-accordion__trigger {
+    min-height: 46px;
+
+    padding:
+      11px
+      12px;
+
+    font-size: 12px;
+  }
+
+
+  .corporate-accordion__content {
+    padding: 12px;
+  }
+
+
+  .corporate-help-text {
+    font-size: 10px;
+  }
+
+
+  .corporate-risk-actions {
+    flex-direction:
+      column-reverse;
+
+    align-items:
+      stretch;
+  }
+
+
+  .corporate-risk-button {
+    width: 100%;
+  }
+
+
+  .corporate-risk-toast {
+    top: 84px;
+
+    right: 12px;
+
+    left: 12px;
+
+    width: auto;
+
+    max-width: none;
+  }
+
+}

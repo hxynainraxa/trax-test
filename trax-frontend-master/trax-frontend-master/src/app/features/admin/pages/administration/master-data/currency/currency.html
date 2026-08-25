@@ -1,0 +1,269 @@
+<div class="master-page">
+
+  <!-- HEADER -->
+
+  <div class="master-header">
+
+    <h1>Currency</h1>
+
+    <p>
+      Search currency and risk information.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="master-card">
+
+    <form (ngSubmit)="search()">
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+
+            <span>
+              Currency Code
+            </span>
+
+            <input
+              name="currencyCode"
+              [(ngModel)]="form.currencyCode"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Currency Name
+            </span>
+
+            <input
+              name="currencyName"
+              [(ngModel)]="form.currencyName"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Country Name
+            </span>
+
+            <select
+              name="country"
+              [(ngModel)]="form.country"
+            >
+
+              @for (
+                country of countries;
+                track country
+              ) {
+
+                <option [value]="country">
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Risk Rating
+            </span>
+
+            <select
+              name="riskRating"
+              [(ngModel)]="form.riskRating"
+            >
+
+              @for (
+                risk of riskRatings;
+                track risk
+              ) {
+
+                <option [value]="risk">
+                  {{ risk }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <!-- STATUS -->
+
+          <div class="master-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="master-radios">
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="all"
+                  [(ngModel)]="form.status"
+                />
+
+                All
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="form.status"
+                />
+
+                Active
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="form.status"
+                />
+
+                InActive
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+
+            <span>
+              Created By
+            </span>
+
+            <input
+              name="createdBy"
+              [(ngModel)]="form.createdBy"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Created On
+            </span>
+
+            <input
+              type="date"
+              name="createdOn"
+              [(ngModel)]="form.createdOn"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Modified By
+            </span>
+
+            <input
+              name="modifiedBy"
+              [(ngModel)]="form.modifiedBy"
+            />
+
+          </label>
+
+
+          <label class="master-field">
+
+            <span>
+              Modified On
+            </span>
+
+            <input
+              type="date"
+              name="modifiedOn"
+              [(ngModel)]="form.modifiedOn"
+            />
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="master-actions">
+
+        <button
+          type="submit"
+          class="master-btn master-btn--primary"
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="master-btn master-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

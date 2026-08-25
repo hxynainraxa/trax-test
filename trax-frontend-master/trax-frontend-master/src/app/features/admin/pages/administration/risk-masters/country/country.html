@@ -1,0 +1,243 @@
+<div class="risk-page">
+
+  <!-- HEADER -->
+
+  <div class="risk-header">
+
+    <h1>
+      Country
+    </h1>
+
+    <p>
+      Search country risk configuration.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="country-card">
+
+    <form (ngSubmit)="search()">
+
+      <div class="country-grid">
+
+        <!-- LEFT COLUMN -->
+
+        <div class="country-column">
+
+          <label class="risk-field">
+
+            <span>
+              Country Code
+            </span>
+
+            <input
+              type="text"
+              name="countryCode"
+              [(ngModel)]="
+                form.countryCode
+              "
+            />
+
+          </label>
+
+
+          <label class="risk-field">
+
+            <span>
+              Country Name
+            </span>
+
+            <select
+              name="countryName"
+              [(ngModel)]="
+                form.countryName
+              "
+            >
+
+              @for (
+                country of countries;
+                track country
+              ) {
+
+                <option [value]="country">
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <label class="risk-field">
+
+            <span>
+              Type
+            </span>
+
+            <select
+              name="type"
+              [(ngModel)]="form.type"
+            >
+
+              @for (
+                type of types;
+                track type
+              ) {
+
+                <option [value]="type">
+                  {{ type }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+
+        <div class="country-column">
+
+          <label class="risk-field">
+
+            <span>
+              Risk Rating
+            </span>
+
+            <select
+              name="riskRating"
+              [(ngModel)]="
+                form.riskRating
+              "
+            >
+
+              @for (
+                rating of riskRatings;
+                track rating
+              ) {
+
+                <option [value]="rating">
+                  {{ rating }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <div class="risk-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="country-status">
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="all"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                All
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                Active
+
+              </label>
+
+
+              <label>
+
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+
+                InActive
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="risk-actions">
+
+        <button
+          type="submit"
+          class="
+            risk-btn
+            risk-btn--primary
+          "
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="
+            risk-btn
+            risk-btn--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

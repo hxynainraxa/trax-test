@@ -1,0 +1,450 @@
+<div class="daily-violation-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="daily-violation-header">
+
+    <div
+      class="daily-violation-header__content"
+    >
+
+      <h1
+        class="daily-violation-title"
+      >
+        Daily Rule Violation
+      </h1>
+
+
+      <p
+        class="daily-violation-description"
+      >
+        Search transaction monitoring rule violations by rule, date, remitter type and branch.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section
+    class="daily-violation-card"
+  >
+
+    <form
+      class="daily-violation-form"
+
+      (ngSubmit)="search()"
+    >
+
+      <div
+        class="daily-violation-grid"
+      >
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div
+          class="daily-violation-column"
+        >
+
+          <!-- ===============================================
+               RULE NAME
+               =============================================== -->
+
+          <div class="daily-field">
+
+            <label
+              for="daily-rule-name"
+              class="daily-field__label"
+            >
+              Rule Name
+            </label>
+
+
+            <select
+              id="daily-rule-name"
+
+              name="ruleId"
+
+              class="
+                daily-field__control
+                daily-field__select
+              "
+
+              [(ngModel)]="
+                filters.ruleId
+              "
+            >
+
+              <option
+                value="all"
+              >
+                All
+              </option>
+
+
+              @for (
+                rule of ruleOptions();
+                track rule.value
+              ) {
+
+                <option
+                  [ngValue]="rule.value"
+                >
+                  {{ rule.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- ===============================================
+               FROM DATE
+               =============================================== -->
+
+          <div class="daily-field">
+
+            <label
+              for="daily-from-date"
+              class="daily-field__label"
+            >
+              From Date
+            </label>
+
+
+            <input
+              id="daily-from-date"
+
+              name="fromDate"
+
+              type="date"
+
+              class="daily-field__control"
+
+              [(ngModel)]="
+                filters.fromDate
+              "
+            />
+
+          </div>
+
+
+          <!-- ===============================================
+               TO DATE
+               =============================================== -->
+
+          <div class="daily-field">
+
+            <label
+              for="daily-to-date"
+              class="daily-field__label"
+            >
+              To Date
+            </label>
+
+
+            <input
+              id="daily-to-date"
+
+              name="toDate"
+
+              type="date"
+
+              class="daily-field__control"
+
+              [(ngModel)]="
+                filters.toDate
+              "
+            />
+
+          </div>
+
+
+          <!-- ===============================================
+               REMITTER TYPE
+               =============================================== -->
+
+          <div class="daily-field">
+
+            <label
+              for="daily-remitter-type"
+              class="daily-field__label"
+            >
+              Remitter Type
+            </label>
+
+
+            <select
+              id="daily-remitter-type"
+
+              name="remitterType"
+
+              class="
+                daily-field__control
+                daily-field__select
+              "
+
+              [(ngModel)]="
+                filters.remitterType
+              "
+            >
+
+              @for (
+                option of remitterTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div
+          class="daily-violation-column"
+        >
+
+          <!-- ===============================================
+               BRANCH
+               =============================================== -->
+
+          <div class="daily-field">
+
+            <label
+              for="daily-branch"
+              class="daily-field__label"
+            >
+              Branch
+            </label>
+
+
+            <select
+              id="daily-branch"
+
+              name="branch"
+
+              class="
+                daily-field__control
+                daily-field__select
+              "
+
+              [(ngModel)]="
+                filters.branch
+              "
+            >
+
+              @for (
+                option of branches;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div
+        class="daily-violation-actions"
+      >
+
+        <button
+          type="button"
+
+          class="
+            daily-button
+            daily-button--secondary
+          "
+
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            daily-button
+            daily-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section
+      class="daily-violation-results"
+    >
+
+      <!-- =================================================
+           RESULTS HEADER
+           ================================================= -->
+
+      <div
+        class="daily-violation-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="daily-violation-results__title"
+          >
+            Rule Violations
+          </h2>
+
+
+          <p
+            class="daily-violation-results__description"
+          >
+
+            {{ results.length }}
+
+            {{
+              results.length === 1
+                ? 'violation'
+                : 'violations'
+            }}
+
+            found for the selected criteria.
+
+          </p>
+
+        </div>
+
+
+        <span
+          class="daily-violation-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           EXISTING PROJECT TABLE
+           ================================================= -->
+
+      <div
+        class="daily-violation-results__table"
+      >
+
+        <theme-table
+          [rows]="results"
+
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No rule violations found"
+
+          emptyMessage="No violations matched the selected rule, date range, remitter type and branch."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

@@ -1,0 +1,693 @@
+<p>embargoed-countries works!</p>
+<div class="master-page">
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+
+  <div class="master-header">
+
+    <h1>
+      Embargoed Countries
+    </h1>
+
+    <p>
+      Add, edit and search embargoed country records.
+    </p>
+
+  </div>
+
+
+  <!-- ==================================================
+       FORM CARD
+       ================================================== -->
+
+  <section class="master-card embargo-card">
+
+    <!-- TABS -->
+
+    <div class="embargo-tabs">
+
+      <button
+        type="button"
+        class="embargo-tab"
+        [class.embargo-tab--active]="
+          activeTab === 'add'
+        "
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="embargo-tab"
+        [class.embargo-tab--active]="
+          activeTab === 'edit'
+        "
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="embargo-tab"
+        [class.embargo-tab--active]="
+          activeTab === 'search'
+        "
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         ADD FORM
+         ================================================== -->
+
+    @if (activeTab === 'add') {
+
+      <form (ngSubmit)="save()">
+
+        <div class="master-grid">
+
+          <div class="master-column">
+
+            <label class="master-field">
+
+              <span>
+                Country
+              </span>
+
+              <select
+                name="country"
+                [(ngModel)]="form.country"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  country of countries;
+                  track country
+                ) {
+
+                  <option [value]="country">
+                    {{ country }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Risk Rating
+              </span>
+
+              <select
+                name="riskRating"
+                [(ngModel)]="
+                  form.riskRating
+                "
+              >
+
+                @for (
+                  risk of riskRatings;
+                  track risk
+                ) {
+
+                  <option [value]="risk">
+                    {{ risk }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+          </div>
+
+
+          <div class="master-column">
+
+            <label class="master-field">
+
+              <span>
+                Description
+              </span>
+
+              <input
+                type="text"
+                name="description"
+                [(ngModel)]="
+                  form.description
+                "
+              />
+
+            </label>
+
+
+            <div class="master-field">
+
+              <span>
+                Status
+              </span>
+
+              <div class="master-radios">
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="active"
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  Active
+                </label>
+
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="inactive"
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  InActive
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="master-actions">
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Save
+          </button>
+
+
+          <button
+            type="button"
+            class="
+              master-btn
+              master-btn--secondary
+            "
+            (click)="reset()"
+          >
+            Clear
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ==================================================
+         EDIT / SEARCH FORM
+         ================================================== -->
+
+    @else {
+
+      <form (ngSubmit)="search()">
+
+        <div class="master-grid">
+
+          <!-- LEFT -->
+
+          <div class="master-column">
+
+            <label class="master-field">
+
+              <span>
+                Code
+              </span>
+
+              <input
+                type="text"
+                name="code"
+                [(ngModel)]="form.code"
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Country
+              </span>
+
+              <select
+                name="country"
+                [(ngModel)]="form.country"
+              >
+
+                <option value="All">
+                  All
+                </option>
+
+                @for (
+                  country of countries;
+                  track country
+                ) {
+
+                  <option [value]="country">
+                    {{ country }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Risk Rating
+              </span>
+
+              <select
+                name="riskRating"
+                [(ngModel)]="
+                  form.riskRating
+                "
+              >
+
+                <option value="All">
+                  All
+                </option>
+
+                @for (
+                  risk of riskRatings;
+                  track risk
+                ) {
+
+                  <option [value]="risk">
+                    {{ risk }}
+                  </option>
+
+                }
+
+              </select>
+
+            </label>
+
+
+            <div class="master-field">
+
+              <span>
+                Status
+              </span>
+
+              <div class="master-radios">
+
+                @if (
+                  activeTab === 'search'
+                ) {
+
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="all"
+                      [(ngModel)]="
+                        form.status
+                      "
+                    />
+                    All
+                  </label>
+
+                }
+
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="active"
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  Active
+                </label>
+
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="inactive"
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  InActive
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="master-column">
+
+            <label class="master-field">
+
+              <span>
+                Created By
+              </span>
+
+              <input
+                type="text"
+                name="createdBy"
+                [(ngModel)]="
+                  form.createdBy
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Created Date
+              </span>
+
+              <input
+                type="date"
+                name="createdDate"
+                [(ngModel)]="
+                  form.createdDate
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Modified By
+              </span>
+
+              <input
+                type="text"
+                name="modifiedBy"
+                [(ngModel)]="
+                  form.modifiedBy
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Modified Date
+              </span>
+
+              <input
+                type="date"
+                name="modifiedDate"
+                [(ngModel)]="
+                  form.modifiedDate
+                "
+              />
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="master-actions">
+
+          @if (
+            activeTab === 'edit' &&
+            selectedId !== null
+          ) {
+
+            <button
+              type="button"
+              class="
+                master-btn
+                master-btn--primary
+              "
+              (click)="save()"
+            >
+              Update
+            </button>
+
+
+            <button
+              type="button"
+              class="embargo-delete"
+              (click)="remove()"
+            >
+              Delete
+            </button>
+
+          }
+
+          @else {
+
+            <button
+              type="submit"
+              class="
+                master-btn
+                master-btn--primary
+              "
+            >
+              Search
+            </button>
+
+          }
+
+
+          <button
+            type="button"
+            class="
+              master-btn
+              master-btn--secondary
+            "
+            (click)="reset()"
+          >
+            Reset
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- ==================================================
+       RESULTS
+       SHOW IN BOTH EDIT + SEARCH
+       ================================================== -->
+
+  @if (
+    activeTab !== 'add' &&
+    results.length > 0
+  ) {
+
+    <section class="embargo-results">
+
+      <h2>
+        Search Results
+      </h2>
+
+
+      <div class="embargo-table-wrap">
+
+        <table class="embargo-table">
+
+          <thead>
+
+            <tr>
+
+              <th>Sl No.</th>
+              <th>Code</th>
+              <th>Country</th>
+              <th>Risk Rating</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Modified By</th>
+              <th>Modified Date</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            @for (
+              item of results;
+              track item.id;
+              let index = $index
+            ) {
+
+              <tr
+                [class.embargo-table__row--editable]="
+                  activeTab === 'edit'
+                "
+                [class.embargo-table__row--selected]="
+                  selectedId === item.id
+                "
+                (click)="editRecord(item)"
+              >
+
+                <td>
+                  <span class="embargo-sl">
+                    {{ index + 1 }}
+                  </span>
+                </td>
+
+                <td>
+                  {{ item.code }}
+                </td>
+
+                <td>
+                  {{
+                    item.country
+                      .split(' - ')[1]
+                  }}
+                </td>
+
+                <td>
+                  {{ item.riskRating }}
+                </td>
+
+                <td>
+                  {{
+                    item.status === 'active'
+                      ? 'Active'
+                      : 'InActive'
+                  }}
+                </td>
+
+                <td>
+                  {{ item.createdBy }}
+                </td>
+
+                <td>
+                  {{ item.createdDate }}
+                </td>
+
+                <td>
+                  {{ item.modifiedBy }}
+                </td>
+
+                <td>
+                  {{ item.modifiedDate }}
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      @if (
+        activeTab === 'edit'
+      ) {
+
+        <p class="embargo-edit-help">
+          Click a result row to edit the record.
+        </p>
+
+      }
+
+    </section>
+
+  }
+
+
+  <!-- NO RESULTS -->
+
+  @if (
+    activeTab !== 'add' &&
+    results.length === 0 &&
+    message() === '0 record(s) found.'
+  ) {
+
+    <section class="embargo-results">
+
+      <h2>
+        Search Results
+      </h2>
+
+      <div class="embargo-empty">
+        No data to show for now.
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- ==================================================
+       TOAST
+       ================================================== -->
+
+  @if (message()) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

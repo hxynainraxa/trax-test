@@ -1,0 +1,427 @@
+<div class="white-list-approve-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="white-list-approve-header">
+
+    <div
+      class="white-list-approve-header__content"
+    >
+
+      <h1
+        class="white-list-approve-title"
+      >
+        Approve White List
+      </h1>
+
+
+      <p
+        class="white-list-approve-description"
+      >
+        Search white list entries submitted for review and approval.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section
+    class="white-list-approve-card"
+  >
+
+    <!-- ===================================================
+         APPROVE TAB
+         =================================================== -->
+
+    <div
+      class="white-list-approve-tabs"
+    >
+
+      <div
+        class="
+          white-list-approve-tab
+          white-list-approve-tab--active
+        "
+      >
+        Approve
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         SEARCH FORM
+         =================================================== -->
+
+    <form
+      class="white-list-approve-form"
+
+      (ngSubmit)="onSearch()"
+    >
+
+      <div
+        class="white-list-approve-form-grid"
+      >
+
+        <!-- =================================================
+             NAME
+             ================================================= -->
+
+        <div
+          class="white-list-approve-field"
+        >
+
+          <label
+            for="approve-white-list-name"
+
+            class="white-list-approve-field__label"
+          >
+            Name
+          </label>
+
+
+          <input
+            id="approve-white-list-name"
+
+            name="name"
+
+            type="text"
+
+            class="white-list-approve-field__control"
+
+            placeholder="Enter name"
+
+            [(ngModel)]="
+              filters.name
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             MEMBERSHIP NUMBER
+             ================================================= -->
+
+        <div
+          class="white-list-approve-field"
+        >
+
+          <label
+            for="approve-white-list-membership"
+
+            class="white-list-approve-field__label"
+          >
+            Membership Number
+          </label>
+
+
+          <input
+            id="approve-white-list-membership"
+
+            name="membershipNo"
+
+            type="text"
+
+            class="white-list-approve-field__control"
+
+            placeholder="Enter membership number"
+
+            [(ngModel)]="
+              filters.membershipNo
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             CREATED FROM
+             ================================================= -->
+
+        <div
+          class="white-list-approve-field"
+        >
+
+          <label
+            for="approve-white-list-created-from"
+
+            class="white-list-approve-field__label"
+          >
+            Created From
+          </label>
+
+
+          <input
+            id="approve-white-list-created-from"
+
+            name="createdFrom"
+
+            type="date"
+
+            class="white-list-approve-field__control"
+
+            [(ngModel)]="
+              filters.createdFrom
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             CREATED TO
+             ================================================= -->
+
+        <div
+          class="white-list-approve-field"
+        >
+
+          <label
+            for="approve-white-list-created-to"
+
+            class="white-list-approve-field__label"
+          >
+            Created To
+          </label>
+
+
+          <input
+            id="approve-white-list-created-to"
+
+            name="createdTo"
+
+            type="date"
+
+            class="white-list-approve-field__control"
+
+            [(ngModel)]="
+              filters.createdTo
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             NAME TYPE
+             ================================================= -->
+
+        <div
+          class="white-list-approve-field"
+        >
+
+          <label
+            for="approve-white-list-name-type"
+
+            class="white-list-approve-field__label"
+          >
+            Name Type
+          </label>
+
+
+          <select
+            id="approve-white-list-name-type"
+
+            name="nameType"
+
+            class="
+              white-list-approve-field__control
+              white-list-approve-field__select
+            "
+
+            [(ngModel)]="
+              filters.nameType
+            "
+          >
+
+            <option value="all">
+              All
+            </option>
+
+            <option value="individual">
+              Individual
+            </option>
+
+            <option value="corporate">
+              Corporate
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div
+        class="white-list-approve-actions"
+      >
+
+        <button
+          type="button"
+
+          class="
+            white-list-approve-button
+            white-list-approve-button--secondary
+          "
+
+          (click)="onReset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            white-list-approve-button
+            white-list-approve-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+
+            [size]="16"
+
+            [strokeWidth]="1.8"
+
+            aria-hidden="true"
+          ></svg>
+
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       SEARCH RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section
+      class="white-list-approve-results"
+    >
+
+      <!-- =================================================
+           RESULT HEADER
+           ================================================= -->
+
+      <div
+        class="white-list-approve-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="white-list-approve-results__title"
+          >
+            Search Results
+          </h2>
+
+
+          <p
+            class="white-list-approve-results__description"
+          >
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'white list entry'
+                : 'white list entries'
+            }}
+
+            found for approval.
+          </p>
+
+        </div>
+
+
+        <span
+          class="white-list-approve-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           EXISTING THEME TABLE
+           ================================================= -->
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No white list entries found"
+
+        emptyMessage="No entries matched the selected approval search criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+</div>

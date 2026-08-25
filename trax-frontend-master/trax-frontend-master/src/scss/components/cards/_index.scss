@@ -1,0 +1,19 @@
+.theme-card {
+  width: 100%;
+  min-width: 0;
+  height: 98px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px 18px;
+
+  gap: 10px;
+
+  border: 1px solid #EAECF0;
+  border-radius: 12px;
+
+  background: #FFFFFF;
+
+  box-sizing: border-box;
+}

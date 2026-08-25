@@ -1,0 +1,479 @@
+.privilege-page {
+  width: 100%;
+  font-family: Inter, sans-serif;
+  color: #344054;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.privilege-header {
+  margin-bottom: 18px;
+}
+
+.privilege-title {
+  margin: 0;
+  color: #101828;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.privilege-description {
+  margin: 5px 0 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+
+// ==================================================
+// ROLE CARD
+// ==================================================
+
+.privilege-role-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 62px;
+  padding: 11px 16px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.privilege-role-label {
+  width: 120px;
+
+  color: #344054;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.privilege-role-label span {
+  color: #d92d20;
+}
+
+
+// ==================================================
+// DROPDOWN
+// ==================================================
+
+.privilege-select {
+  width: 250px;
+  height: 38px;
+
+  padding: 8px 38px 8px 11px;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #344054;
+  background-color: #fff;
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+    );
+
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 15px;
+
+  appearance: none;
+
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.privilege-select:hover {
+  border-color: #e0a179;
+}
+
+.privilege-select:focus {
+  border-color: #e7651c;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(231, 101, 28, 0.1);
+}
+
+.privilege-select option {
+  color: #344054;
+  background: #fff;
+
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+}
+
+
+// ==================================================
+// QUICK ACTIONS
+// ==================================================
+
+.privilege-quick {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 5px 7px;
+
+  border: 0;
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.privilege-quick--all {
+  color: #039855;
+}
+
+.privilege-quick--none {
+  color: #d92d20;
+}
+
+
+// ==================================================
+// PRIVILEGE LIST
+// ==================================================
+
+.privilege-list {
+  margin-top: 12px;
+
+  overflow: hidden;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+
+// ==================================================
+// GROUP
+// ==================================================
+
+.privilege-group {
+  display: grid;
+
+  grid-template-columns:
+    170px
+    minmax(0, 1fr);
+
+  min-height: 58px;
+
+  border-bottom: 1px solid #f2f4f7;
+}
+
+.privilege-group:last-child {
+  border-bottom: 0;
+}
+
+
+// ==================================================
+// GROUP TITLE
+// ==================================================
+
+.privilege-group__title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 13px 14px;
+
+  background: #fff7ed;
+
+  color: #344054;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+// ==================================================
+// ITEMS GRID
+// ==================================================
+
+.privilege-group__items {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap:
+    8px
+    18px;
+
+  align-content: center;
+
+  padding: 13px 16px;
+}
+
+
+// ==================================================
+// CHECKBOX
+// ==================================================
+
+.privilege-item {
+  display: flex;
+
+  min-width: 0;
+
+  align-items: flex-start;
+
+  gap: 7px;
+
+  color: #344054;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+
+  cursor: pointer;
+}
+
+.privilege-item span {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.privilege-item input,
+.privilege-group__title input {
+  width: 15px;
+  height: 15px;
+
+  flex: 0 0 15px;
+
+  margin: 0;
+
+  accent-color: #e7651c;
+
+  cursor: pointer;
+}
+
+
+// ==================================================
+// REPORTS
+// ==================================================
+
+.privilege-group:has(
+  .privilege-group__title span
+) {
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.privilege-actions {
+  position: sticky;
+
+  bottom: 0;
+
+  z-index: 10;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 14px;
+
+  border-top: 1px solid #eaecf0;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  backdrop-filter:
+    blur(8px);
+}
+
+.privilege-button {
+  min-width: 92px;
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.privilege-button--primary {
+  border: 1px solid #e7651c;
+
+  color: #fff;
+  background: #e7651c;
+}
+
+.privilege-button--primary:hover {
+  background: #d65312;
+}
+
+.privilege-button--delete {
+  border: 1px solid #e7651c;
+
+  color: #d65312;
+  background: #fff;
+}
+
+.privilege-button--delete:hover {
+  color: #fff;
+  background: #e7651c;
+}
+
+.privilege-button--secondary {
+  border: 1px solid #d0d5dd;
+
+  color: #344054;
+  background: #fff;
+}
+
+.privilege-button--secondary:hover {
+  border-color: #e7651c;
+  color: #e7651c;
+}
+
+
+// ==================================================
+// TOAST
+// ==================================================
+
+.privilege-toast {
+  position: fixed;
+
+  top: 96px;
+  right: 24px;
+
+  z-index: 3000;
+
+  min-width: 290px;
+
+  padding: 13px 16px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 9px;
+
+  background: #fff;
+
+  box-shadow:
+    0 8px 24px
+    rgba(16, 24, 40, 0.14);
+
+  color: #344054;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.privilege-toast--success {
+  border-left: 4px solid #12b76a;
+}
+
+.privilege-toast--error {
+  border-left: 4px solid #d92d20;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 1050px) {
+
+  .privilege-group__items {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .privilege-group {
+    grid-template-columns: 1fr;
+  }
+
+  .privilege-group__items {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .privilege-role-card {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .privilege-role-label {
+    width: 100%;
+  }
+
+  .privilege-select {
+    flex: 1;
+    width: auto;
+    min-width: 200px;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .privilege-title {
+    font-size: 22px;
+  }
+
+  .privilege-group__items {
+    grid-template-columns: 1fr;
+  }
+
+  .privilege-select {
+    width: 100%;
+  }
+
+  .privilege-actions {
+    flex-direction: column;
+  }
+
+  .privilege-button {
+    width: 100%;
+  }
+
+  .privilege-toast {
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+
+}

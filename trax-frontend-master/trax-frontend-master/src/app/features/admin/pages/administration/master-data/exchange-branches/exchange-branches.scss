@@ -1,0 +1,338 @@
+.branch-page {
+  width: 100%;
+  font-family: Inter, sans-serif;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.branch-header {
+  margin-bottom: 18px;
+
+  h1 {
+    margin: 0;
+    color: #101828;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #667085;
+    font-size: 13px;
+  }
+}
+
+
+// ==================================================
+// CARD / TABS
+// ==================================================
+
+.branch-card {
+  overflow: hidden;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+.branch-tabs {
+  display: flex;
+  gap: 4px;
+
+  padding: 10px 16px 0;
+
+  border-bottom: 1px solid #eaecf0;
+
+  background: #fbfaf9;
+}
+
+.branch-tab {
+  min-width: 88px;
+  height: 35px;
+
+  padding: 0 14px;
+
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+
+  color: #667085;
+  background: transparent;
+
+  font: 600 12px Inter, sans-serif;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  &--active {
+    margin-bottom: -1px;
+
+    border-color: #eaecf0;
+    border-top: 2px solid #e7651c;
+    border-bottom-color: #fff;
+
+    color: #d65312;
+    background: #fff;
+  }
+}
+
+
+// ==================================================
+// FORM
+// ==================================================
+
+.branch-form {
+  padding: 20px 22px 22px;
+}
+
+.branch-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 56px;
+}
+
+.branch-column {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.branch-field {
+  display: grid;
+
+  grid-template-columns:
+    138px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 12px;
+
+  > span {
+    color: #344054;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 38px;
+
+    padding: 8px 11px;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    outline: none;
+
+    color: #101828;
+    background: #fff;
+
+    font: 400 12px/18px Inter, sans-serif;
+
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #e7651c;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(231, 101, 28, .1);
+    }
+  }
+
+  select {
+    appearance: none;
+
+    padding-right: 38px;
+
+    background-image:
+      url(
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+      );
+
+    background-repeat: no-repeat;
+    background-position: right 11px center;
+    background-size: 15px;
+
+    cursor: pointer;
+
+    &:hover {
+      border-color: #e0a179;
+      background-color: #fffdfb;
+    }
+  }
+}
+
+
+// ==================================================
+// RADIO
+// ==================================================
+
+.branch-radios {
+  display: flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+  }
+
+  input {
+    width: 15px;
+    height: 15px;
+
+    margin: 0;
+
+    accent-color: #e7651c;
+
+    cursor: pointer;
+  }
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.branch-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 24px;
+}
+
+.branch-btn {
+  min-width: 96px;
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font: 600 13px Inter, sans-serif;
+
+  cursor: pointer;
+
+  &--primary {
+    border: 1px solid #e7651c;
+
+    color: #fff;
+    background: #e7651c;
+
+    &:hover {
+      background: #d65312;
+    }
+  }
+
+  &--secondary {
+    border: 1px solid #d0d5dd;
+
+    color: #344054;
+    background: #fff;
+
+    &:hover {
+      border-color: #e7651c;
+      color: #e7651c;
+      background: #fff7ed;
+    }
+  }
+}
+
+
+// ==================================================
+// TOAST
+// ==================================================
+
+.branch-toast {
+  position: fixed;
+
+  top: 96px;
+  right: 24px;
+
+  z-index: 3000;
+
+  padding: 13px 16px;
+
+  border: 1px solid #eaecf0;
+  border-left: 4px solid #12b76a;
+  border-radius: 9px;
+
+  color: #344054;
+  background: #fff;
+
+  box-shadow:
+    0 8px 24px
+    rgba(16, 24, 40, .14);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 800px) {
+  .branch-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+}
+
+@media (max-width: 560px) {
+  .branch-form {
+    padding: 16px 12px;
+  }
+
+  .branch-field {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .branch-actions {
+    flex-direction: column;
+  }
+
+  .branch-btn {
+    width: 100%;
+  }
+
+  .branch-toast {
+    left: 12px;
+    right: 12px;
+  }
+}

@@ -1,0 +1,162 @@
+<div class="risk-page">
+
+  <!-- HEADER -->
+
+  <div class="risk-header">
+
+    <h1>
+      Risk Occupation
+    </h1>
+
+    <p>
+      Search and manage occupation risk information.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="risk-card">
+
+    <div class="risk-tab">
+      Edit
+    </div>
+
+
+    <form
+      class="risk-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="risk-fields">
+
+        <!-- SL NO -->
+
+        <label class="risk-field">
+
+          <span>
+            SLNo.
+          </span>
+
+          <input
+            type="text"
+            name="slNo"
+            [(ngModel)]="form.slNo"
+          />
+
+        </label>
+
+
+        <!-- OCCUPATION -->
+
+        <label class="risk-field">
+
+          <span>
+            Occupation
+          </span>
+
+          <input
+            type="text"
+            name="occupation"
+            [(ngModel)]="form.occupation"
+          />
+
+        </label>
+
+
+        <!-- RISK SCORE -->
+
+        <label class="risk-field">
+
+          <span>
+            Risk Score
+          </span>
+
+          <input
+            type="number"
+            min="0"
+            name="riskScore"
+            [(ngModel)]="form.riskScore"
+          />
+
+        </label>
+
+
+        <!-- MANUAL RISK RATING -->
+
+        <label class="risk-field">
+
+          <span>
+            Manual Risk Rating
+          </span>
+
+          <select
+            name="manualRiskRating"
+            [(ngModel)]="
+              form.manualRiskRating
+            "
+          >
+
+            @for (
+              rating of ratings;
+              track rating
+            ) {
+
+              <option [value]="rating">
+                {{ rating }}
+              </option>
+
+            }
+
+          </select>
+
+        </label>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="risk-actions">
+
+        <button
+          type="submit"
+          class="
+            risk-btn
+            risk-btn--primary
+          "
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="
+            risk-btn
+            risk-btn--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

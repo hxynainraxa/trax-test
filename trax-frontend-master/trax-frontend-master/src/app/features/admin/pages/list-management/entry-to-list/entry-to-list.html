@@ -1,0 +1,1612 @@
+<div class="entry-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="entry-header">
+
+    <div class="entry-header__content">
+
+      <h1 class="entry-title">
+        Entry To List
+      </h1>
+
+      <p class="entry-description">
+        Create, update and search entries across screening lists.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="entry-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="entry-tabs">
+
+      <button
+        type="button"
+        class="entry-tab"
+
+        [class.entry-tab--active]="
+          activeTab() === 'add'
+        "
+
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="entry-tab"
+
+        [class.entry-tab--active]="
+          activeTab() === 'edit'
+        "
+
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="entry-tab"
+
+        [class.entry-tab--active]="
+          activeTab() === 'search'
+        "
+
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         FORM
+         =================================================== -->
+
+    <form
+      class="entry-form"
+
+      (ngSubmit)="
+        activeTab() === 'add'
+          ? save()
+          : activeTab() === 'edit' &&
+            editingId !== null
+            ? update()
+            : search()
+      "
+    >
+
+      <div class="entry-form-columns">
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="entry-column">
+
+          <!-- TYPE -->
+
+          <div class="entry-field">
+
+            <span class="entry-field__label">
+              Type
+            </span>
+
+
+            <div class="entry-radio-group">
+
+              @if (
+                activeTab() !== 'add'
+              ) {
+
+                <label class="entry-radio">
+
+                  <input
+                    type="radio"
+                    name="type"
+                    value="all"
+                    [(ngModel)]="form.type"
+                  />
+
+                  <span
+                    class="entry-radio__indicator"
+                  ></span>
+
+                  <span>
+                    All
+                  </span>
+
+                </label>
+
+              }
+
+
+              <label class="entry-radio">
+
+                <input
+                  type="radio"
+                  name="type"
+                  value="individual"
+                  [(ngModel)]="form.type"
+                />
+
+                <span
+                  class="entry-radio__indicator"
+                ></span>
+
+                <span>
+                  Individual
+                </span>
+
+              </label>
+
+
+              <label class="entry-radio">
+
+                <input
+                  type="radio"
+                  name="type"
+                  value="corporate"
+                  [(ngModel)]="form.type"
+                />
+
+                <span
+                  class="entry-radio__indicator"
+                ></span>
+
+                <span>
+                  Corporate
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               LIST
+               ================================================= -->
+
+          <div
+            class="entry-field"
+
+            [class.entry-field--error]="
+              !!getFieldError('list')
+            "
+          >
+
+            <label
+              for="entry-list"
+              class="entry-field__label"
+            >
+              List
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span class="entry-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="entry-field__body">
+
+              <select
+                id="entry-list"
+                name="listId"
+
+                class="
+                  entry-field__control
+                  entry-field__select
+                "
+
+                [class.entry-field__control--error]="
+                  !!getFieldError('list')
+                "
+
+                [(ngModel)]="form.listId"
+
+                (ngModelChange)="
+                  clearFieldError('list')
+                "
+              >
+
+                @if (
+                  activeTab() === 'add'
+                ) {
+
+                  <option
+                    [ngValue]="null"
+                    disabled
+                  >
+                    Select list
+                  </option>
+
+                }
+
+                @else {
+
+                  <option value="all">
+                    All
+                  </option>
+
+                }
+
+
+                @for (
+                  list of listOptions();
+                  track list.value
+                ) {
+
+                  <option
+                    [ngValue]="list.value"
+                  >
+                    {{ list.code }} - {{ list.label }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (
+                getFieldError('list')
+              ) {
+
+                <span class="entry-field__error">
+                  {{ getFieldError('list') }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- UNIFIED NO -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-unified-no"
+              class="entry-field__label"
+            >
+              Unified No.
+            </label>
+
+            <input
+              id="entry-unified-no"
+              name="unifiedNo"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter unified no."
+
+              [(ngModel)]="form.unifiedNo"
+            />
+
+          </div>
+
+
+          <!-- MEMBERSHIP -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-membership-no"
+              class="entry-field__label"
+            >
+              Membership No.
+            </label>
+
+            <input
+              id="entry-membership-no"
+              name="membershipNo"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter membership no."
+
+              [(ngModel)]="form.membershipNo"
+            />
+
+          </div>
+
+
+          <!-- =================================================
+               NAME
+               ================================================= -->
+
+          <div
+            class="entry-field"
+
+            [class.entry-field--error]="
+              !!getFieldError('name')
+            "
+          >
+
+            <label
+              for="entry-name"
+              class="entry-field__label"
+            >
+              Name
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span class="entry-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="entry-field__body">
+
+              <input
+                id="entry-name"
+                name="name"
+                type="text"
+
+                class="entry-field__control"
+
+                [class.entry-field__control--error]="
+                  !!getFieldError('name')
+                "
+
+                placeholder="Enter name"
+
+                [(ngModel)]="form.name"
+
+                (ngModelChange)="
+                  clearFieldError('name')
+                "
+              />
+
+
+              @if (
+                getFieldError('name')
+              ) {
+
+                <span class="entry-field__error">
+                  {{ getFieldError('name') }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- DOB -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-dob"
+              class="entry-field__label"
+            >
+              DoB
+            </label>
+
+            <input
+              id="entry-dob"
+              name="dob"
+              type="date"
+
+              class="entry-field__control"
+
+              [(ngModel)]="form.dob"
+            />
+
+          </div>
+
+
+          <!-- PLACE OF BIRTH -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-place-birth"
+              class="entry-field__label"
+            >
+              Place Of Birth
+            </label>
+
+            <input
+              id="entry-place-birth"
+              name="placeOfBirth"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter place of birth"
+
+              [(ngModel)]="form.placeOfBirth"
+            />
+
+          </div>
+
+
+          <!-- ADDRESS -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-address"
+              class="entry-field__label"
+            >
+              Address
+            </label>
+
+            <input
+              id="entry-address"
+              name="address"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter address"
+
+              [(ngModel)]="form.address"
+            />
+
+          </div>
+
+
+          <!-- =================================================
+               COUNTRY
+               ================================================= -->
+
+          <div
+            class="entry-field"
+
+            [class.entry-field--error]="
+              !!getFieldError('country')
+            "
+          >
+
+            <label
+              for="entry-country"
+              class="entry-field__label"
+            >
+              Country
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span class="entry-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="entry-field__body">
+
+              <select
+                id="entry-country"
+                name="country"
+
+                class="
+                  entry-field__control
+                  entry-field__select
+                "
+
+                [class.entry-field__control--error]="
+                  !!getFieldError('country')
+                "
+
+                [(ngModel)]="form.country"
+
+                (ngModelChange)="
+                  clearFieldError('country')
+                "
+              >
+
+                <option
+                  value=""
+                  [disabled]="
+                    activeTab() !== 'search'
+                  "
+                >
+                  {{
+                    activeTab() === 'search'
+                      ? 'All Countries'
+                      : 'Select country'
+                  }}
+                </option>
+
+
+                @for (
+                  country of countries;
+                  track country.code
+                ) {
+
+                  <option
+                    [value]="country.code"
+                  >
+                    {{ country.label }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (
+                getFieldError('country')
+              ) {
+
+                <span class="entry-field__error">
+                  {{ getFieldError('country') }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               NATIONALITY
+               ================================================= -->
+
+          <div
+            class="entry-field"
+
+            [class.entry-field--error]="
+              !!getFieldError('nationality')
+            "
+          >
+
+            <label
+              for="entry-nationality"
+              class="entry-field__label"
+            >
+              Nationality
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span class="entry-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="entry-field__body">
+
+              <select
+                id="entry-nationality"
+                name="nationality"
+
+                class="
+                  entry-field__control
+                  entry-field__select
+                "
+
+                [class.entry-field__control--error]="
+                  !!getFieldError('nationality')
+                "
+
+                [(ngModel)]="form.nationality"
+
+                (ngModelChange)="
+                  clearFieldError('nationality')
+                "
+              >
+
+                <option
+                  value=""
+                  [disabled]="
+                    activeTab() !== 'search'
+                  "
+                >
+                  {{
+                    activeTab() === 'search'
+                      ? 'All Nationalities'
+                      : 'Select nationality'
+                  }}
+                </option>
+
+
+                @for (
+                  nationality of nationalities;
+                  track nationality.code
+                ) {
+
+                  <option
+                    [value]="nationality.code"
+                  >
+                    {{ nationality.label }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (
+                getFieldError('nationality')
+              ) {
+
+                <span class="entry-field__error">
+                  {{ getFieldError('nationality') }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- IEMS -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-iems"
+              class="entry-field__label"
+            >
+              IEMS No.
+            </label>
+
+            <input
+              id="entry-iems"
+              name="iemsNo"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter IEMS no."
+
+              [(ngModel)]="form.iemsNo"
+            />
+
+          </div>
+
+
+          <!-- ACCOUNT NUMBER -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-account"
+              class="entry-field__label"
+            >
+              Account Number
+            </label>
+
+            <input
+              id="entry-account"
+              name="accountNumber"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter account number"
+
+              [(ngModel)]="form.accountNumber"
+            />
+
+          </div>
+
+
+          <!-- REQUEST TYPE -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-request-type"
+              class="entry-field__label"
+            >
+              Request Type
+            </label>
+
+
+            <select
+              id="entry-request-type"
+              name="requestType"
+
+              class="
+                entry-field__control
+                entry-field__select
+              "
+
+              [(ngModel)]="form.requestType"
+            >
+
+              @for (
+                option of requestTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- REMARK ON SEARCH -->
+
+          @if (
+            activeTab() === 'search'
+          ) {
+
+            <div class="entry-field">
+
+              <label
+                for="search-remark"
+                class="entry-field__label"
+              >
+                Remark
+              </label>
+
+              <textarea
+                id="search-remark"
+                name="searchRemark"
+
+                class="
+                  entry-field__control
+                  entry-field__textarea
+                "
+
+                placeholder="Enter remark"
+
+                [(ngModel)]="form.remark"
+              ></textarea>
+
+            </div>
+
+          }
+
+
+          <!-- FILE -->
+
+          @if (
+            activeTab() === 'add'
+          ) {
+
+            <div class="entry-field">
+
+              <label
+                for="blacklist-file"
+                class="entry-field__label"
+              >
+                Blacklist File
+              </label>
+
+              <input
+                id="blacklist-file"
+                type="file"
+
+                class="
+                  entry-field__control
+                  entry-field__file
+                "
+
+                (change)="
+                  onFileSelected($event)
+                "
+              />
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div class="entry-column">
+
+          <!-- PASSPORT -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-passport"
+              class="entry-field__label"
+            >
+              Passport/ID No Details
+            </label>
+
+            <div class="entry-field__body">
+
+              <input
+                id="entry-passport"
+                name="passportIdDetails"
+                type="text"
+
+                class="entry-field__control"
+
+                placeholder="Enter passport/ID details"
+
+                [(ngModel)]="
+                  form.passportIdDetails
+                "
+              />
+
+              @if (
+                activeTab() === 'add'
+              ) {
+
+                <span class="entry-field__helper">
+                  Separate multiple data with comma
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- DESIGNATION -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-designation"
+              class="entry-field__label"
+            >
+              Designation
+            </label>
+
+            <input
+              id="entry-designation"
+              name="designation"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter designation"
+
+              [(ngModel)]="form.designation"
+            />
+
+          </div>
+
+
+          <!-- ADDITIONAL ID -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-additional-id"
+              class="entry-field__label"
+            >
+              Additional ID No
+            </label>
+
+            <input
+              id="entry-additional-id"
+              name="additionalIdNo"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter additional ID no."
+
+              [(ngModel)]="form.additionalIdNo"
+            />
+
+          </div>
+
+
+          <!-- ADDITIONAL ID TYPE -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-additional-type"
+              class="entry-field__label"
+            >
+              Additional Id Type
+            </label>
+
+            <select
+              id="entry-additional-type"
+              name="additionalIdType"
+
+              class="
+                entry-field__control
+                entry-field__select
+              "
+
+              [(ngModel)]="
+                form.additionalIdType
+              "
+            >
+
+              @for (
+                option of additionalIdTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- LOW AKA -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-low-aka"
+              class="entry-field__label"
+            >
+              Low Quality AKA
+            </label>
+
+            <div class="entry-field__body">
+
+              <input
+                id="entry-low-aka"
+                name="lowQualityAka"
+                type="text"
+
+                class="entry-field__control"
+
+                placeholder="Enter low quality AKA"
+
+                [(ngModel)]="form.lowQualityAka"
+              />
+
+              @if (
+                activeTab() === 'add'
+              ) {
+
+                <span class="entry-field__helper">
+                  Separate multiple names with comma
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- GOOD AKA -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-good-aka"
+              class="entry-field__label"
+            >
+              Good Quality AKA
+            </label>
+
+            <div class="entry-field__body">
+
+              <input
+                id="entry-good-aka"
+                name="goodQualityAka"
+                type="text"
+
+                class="entry-field__control"
+
+                placeholder="Enter good quality AKA"
+
+                [(ngModel)]="form.goodQualityAka"
+              />
+
+              @if (
+                activeTab() === 'add'
+              ) {
+
+                <span class="entry-field__helper">
+                  Separate multiple names with comma
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- MOBILE -->
+
+          <div class="entry-field">
+
+            <label
+              for="entry-mobile"
+              class="entry-field__label"
+            >
+              Mobile No.
+            </label>
+
+            <input
+              id="entry-mobile"
+              name="mobileNo"
+              type="text"
+
+              class="entry-field__control"
+
+              placeholder="Enter mobile no."
+
+              [(ngModel)]="form.mobileNo"
+            />
+
+          </div>
+
+
+          <!-- =================================================
+               RELATIONSHIP
+               ================================================= -->
+
+          <div
+            class="entry-field"
+
+            [class.entry-field--error]="
+              !!getFieldError('relationship')
+            "
+          >
+
+            <label
+              for="entry-relationship"
+              class="entry-field__label"
+            >
+              Relationship
+
+              @if (
+                activeTab() !== 'search'
+              ) {
+
+                <span class="entry-required">
+                  *
+                </span>
+
+              }
+
+            </label>
+
+
+            <div class="entry-field__body">
+
+              <select
+                id="entry-relationship"
+                name="relationship"
+
+                class="
+                  entry-field__control
+                  entry-field__select
+                "
+
+                [class.entry-field__control--error]="
+                  !!getFieldError('relationship')
+                "
+
+                [(ngModel)]="form.relationship"
+
+                (ngModelChange)="
+                  clearFieldError('relationship')
+                "
+              >
+
+                <option
+                  value=""
+                  [disabled]="
+                    activeTab() !== 'search'
+                  "
+                >
+                  {{
+                    activeTab() === 'search'
+                      ? 'Select relationship'
+                      : 'Select relationship'
+                  }}
+                </option>
+
+
+                @for (
+                  option of relationships;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (
+                getFieldError(
+                  'relationship'
+                )
+              ) {
+
+                <span class="entry-field__error">
+                  {{
+                    getFieldError(
+                      'relationship'
+                    )
+                  }}
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- REMARK -->
+
+          @if (
+            activeTab() !== 'search'
+          ) {
+
+            <div class="entry-field">
+
+              <label
+                for="entry-remark"
+                class="entry-field__label"
+              >
+                Remark
+              </label>
+
+              <textarea
+                id="entry-remark"
+                name="remark"
+
+                class="
+                  entry-field__control
+                  entry-field__textarea
+                "
+
+                placeholder="Enter remark"
+
+                [(ngModel)]="form.remark"
+              ></textarea>
+
+            </div>
+
+          }
+
+
+          <!-- SEARCH DATE RANGE -->
+
+          @if (
+            activeTab() === 'search'
+          ) {
+
+            <div class="entry-field">
+
+              <label
+                for="entry-from"
+                class="entry-field__label"
+              >
+                From
+              </label>
+
+              <input
+                id="entry-from"
+                name="fromDate"
+                type="date"
+
+                class="entry-field__control"
+
+                [(ngModel)]="form.fromDate"
+              />
+
+            </div>
+
+
+            <div class="entry-field">
+
+              <label
+                for="entry-to"
+                class="entry-field__label"
+              >
+                To
+              </label>
+
+              <input
+                id="entry-to"
+                name="toDate"
+                type="date"
+
+                class="entry-field__control"
+
+                [(ngModel)]="form.toDate"
+              />
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="entry-field">
+
+              <label
+                for="entry-status"
+                class="entry-field__label"
+              >
+                Status
+              </label>
+
+              <select
+                id="entry-status"
+                name="status"
+
+                class="
+                  entry-field__control
+                  entry-field__select
+                "
+
+                [(ngModel)]="form.status"
+              >
+
+                <option value="all">
+                  All
+                </option>
+
+                <option value="active">
+                  Active
+                </option>
+
+                <option value="inactive">
+                  Inactive
+                </option>
+
+              </select>
+
+            </div>
+
+          }
+
+
+          <!-- ACTIVE -->
+
+          @if (
+            activeTab() !== 'search'
+          ) {
+
+            <label class="entry-active">
+
+              <input
+                type="checkbox"
+                name="active"
+
+                [(ngModel)]="form.active"
+              />
+
+              <span
+                class="entry-active__box"
+              ></span>
+
+              <span>
+                Active
+              </span>
+
+            </label>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="entry-actions">
+
+        <button
+          type="button"
+
+          class="
+            entry-button
+            entry-button--secondary
+          "
+
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          <span>
+            {{
+              activeTab() === 'add'
+                ? 'Clear'
+                : 'Reset'
+            }}
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            entry-button
+            entry-button--primary
+          "
+        >
+
+          @if (
+            activeTab() === 'add' ||
+            (
+              activeTab() === 'edit' &&
+              editingId !== null
+            )
+          ) {
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+          }
+
+          @else {
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+          }
+
+
+          <span>
+
+            @if (
+              activeTab() === 'add'
+            ) {
+              Save
+            }
+
+            @else if (
+              activeTab() === 'edit' &&
+              editingId !== null
+            ) {
+              Update
+            }
+
+            @else {
+              Search
+            }
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="entry-results">
+
+      <div class="entry-results__header">
+
+        <div>
+
+          <h2 class="entry-results__title">
+            Entry Results
+          </h2>
+
+          <p class="entry-results__description">
+            {{ results.length }}
+            matching
+            {{
+              results.length === 1
+                ? 'entry'
+                : 'entries'
+            }}
+            found.
+          </p>
+
+        </div>
+
+
+        <span class="entry-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showActions]="false"
+
+        [showFooter]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No entries found"
+
+        emptyMessage="No entries matched the selected search criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (toast()) {
+
+    <div
+      class="entry-toast"
+
+      [class.entry-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.entry-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="entry-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="entry-toast__content">
+
+        <span class="entry-toast__title">
+          {{
+            toast()?.type ===
+            'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+        </span>
+
+        <span class="entry-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="entry-toast__close"
+
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

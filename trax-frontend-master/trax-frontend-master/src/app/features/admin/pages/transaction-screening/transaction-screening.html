@@ -1,0 +1,362 @@
+<div class="transaction-screening-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="transaction-screening-header">
+
+    <div
+      class="transaction-screening-header__content"
+    >
+
+      <h1
+        class="transaction-screening-title"
+      >
+        Transaction Screening
+      </h1>
+
+
+      <p
+        class="transaction-screening-description"
+      >
+        Search transactions and run the selected screening checks.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <form
+    class="transaction-screening-card"
+
+    (ngSubmit)="onSearch()"
+  >
+
+    <!-- ===================================================
+         REFERENCE NUMBER
+         =================================================== -->
+
+    <div
+      class="transaction-screening-row"
+    >
+
+      <div
+        class="transaction-screening-field"
+      >
+
+        <label
+          for="transaction-reference"
+          class="transaction-screening-label"
+        >
+          Reference Number
+        </label>
+
+
+        <input
+          id="transaction-reference"
+
+          name="referenceNumber"
+
+          type="text"
+
+          class="transaction-screening-control"
+
+          placeholder="Enter reference number"
+
+          [(ngModel)]="
+            filters.referenceNumber
+          "
+        />
+
+      </div>
+
+
+      <!-- =================================================
+           SCAN TYPES
+           ================================================= -->
+
+      <div
+        class="transaction-screening-field"
+      >
+
+        <span
+          class="transaction-screening-label"
+        >
+          Select Scan Types
+        </span>
+
+
+        <div
+          class="transaction-screening-checks"
+        >
+
+          <!-- NAME CHECKER -->
+
+          <label
+            class="transaction-screening-checkbox"
+          >
+
+            <input
+              type="checkbox"
+
+              name="nameChecker"
+
+              [(ngModel)]="
+                filters.scanTypes.nameChecker
+              "
+            />
+
+
+            <span
+              class="transaction-screening-checkbox__box"
+            ></span>
+
+
+            <span>
+              Name Checker
+            </span>
+
+          </label>
+
+
+          <!-- RULE CHECK -->
+
+          <label
+            class="transaction-screening-checkbox"
+          >
+
+            <input
+              type="checkbox"
+
+              name="ruleCheck"
+
+              [(ngModel)]="
+                filters.scanTypes.ruleCheck
+              "
+            />
+
+
+            <span
+              class="transaction-screening-checkbox__box"
+            ></span>
+
+
+            <span>
+              Rule Check
+            </span>
+
+          </label>
+
+
+          <!-- CASE CHECK -->
+
+          <label
+            class="transaction-screening-checkbox"
+          >
+
+            <input
+              type="checkbox"
+
+              name="caseCheck"
+
+              [(ngModel)]="
+                filters.scanTypes.caseCheck
+              "
+            />
+
+
+            <span
+              class="transaction-screening-checkbox__box"
+            ></span>
+
+
+            <span>
+              Case Check
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         VALIDATION
+         =================================================== -->
+
+    @if (validationMessage) {
+
+      <div
+        class="transaction-screening-message"
+      >
+        {{ validationMessage }}
+      </div>
+
+    }
+
+
+    <!-- ===================================================
+         BUTTONS
+         =================================================== -->
+
+    <div
+      class="transaction-screening-actions"
+    >
+
+      <button
+        type="button"
+
+        class="
+          transaction-screening-button
+          transaction-screening-button--secondary
+        "
+
+        (click)="onReset()"
+      >
+
+        <svg
+          [lucideIcon]="resetIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+
+        <span>
+          Reset
+        </span>
+
+      </button>
+
+
+      <button
+        type="submit"
+
+        class="
+          transaction-screening-button
+          transaction-screening-button--primary
+        "
+      >
+
+        <svg
+          [lucideIcon]="searchIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+
+          aria-hidden="true"
+        ></svg>
+
+
+        <span>
+          Search
+        </span>
+
+      </button>
+
+    </div>
+
+  </form>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section
+      class="transaction-screening-results"
+    >
+
+      <!-- =================================================
+           RESULTS HEADER
+           ================================================= -->
+
+      <div
+        class="transaction-screening-results__header"
+      >
+
+        <div>
+
+          <h2
+            class="transaction-screening-results__title"
+          >
+            Screening Results
+          </h2>
+
+
+          <p
+            class="transaction-screening-results__description"
+          >
+
+            @if (
+              results.length === 1
+            ) {
+              1 matching transaction found.
+            }
+            @else {
+              {{ results.length }}
+              matching transactions found.
+            }
+
+          </p>
+
+        </div>
+
+
+        <span
+          class="transaction-screening-results__count"
+        >
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           EXISTING SHARED TABLE
+           ================================================= -->
+
+      <theme-table
+        [rows]="results"
+
+        [columns]="columns"
+
+        rowKey="id"
+
+        [compact]="true"
+
+        [searchable]="false"
+
+        [showFilterButton]="false"
+
+        [showFooter]="false"
+
+        [showActions]="false"
+
+        [hoverable]="true"
+
+        [striped]="false"
+
+        emptyTitle="No transactions found"
+
+        emptyMessage="No transaction records matched the selected screening criteria."
+      >
+      </theme-table>
+
+    </section>
+
+  }
+
+</div>

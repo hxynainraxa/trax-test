@@ -1,0 +1,402 @@
+<div class="weightage-page">
+
+  <!-- HEADER -->
+
+  <div class="weightage-header">
+
+    <h1>
+      Score Weightage Settings
+    </h1>
+
+    <p>
+      Configure sender and beneficiary weightage scores.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="weightage-card">
+
+    <!-- TABS -->
+
+    <div class="weightage-tabs">
+
+      @for (
+        tab of ['add', 'edit', 'search'];
+        track tab
+      ) {
+
+        <button
+          type="button"
+          class="weightage-tab"
+          [class.weightage-tab--active]="
+            activeTab() === tab
+          "
+          (click)="setTab($any(tab))"
+        >
+          {{ tab }}
+        </button>
+
+      }
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div class="weightage-form">
+
+      <p class="weightage-help">
+        {{
+          activeTab() === 'add'
+            ? 'Please fill the Weightage score (0 - 1) for each parameter'
+            : 'Please search the fields with Weightage'
+        }}
+      </p>
+
+
+      <div class="weightage-grid">
+
+        <!-- SENDER -->
+
+        <div class="weightage-column">
+
+          @for (
+            field of senderFields;
+            track field[0]
+          ) {
+
+            <label class="weightage-field">
+
+              <span>
+                {{ field[1] }}
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                inputmode="decimal"
+                [(ngModel)]="
+                  form[field[0]]
+                "
+              />
+
+            </label>
+
+          }
+
+        </div>
+
+
+        <!-- BENEFICIARY -->
+
+        <div class="weightage-column">
+
+          @for (
+            field of beneficiaryFields;
+            track field[0]
+          ) {
+
+            <label class="weightage-field">
+
+              <span>
+                {{ field[1] }}
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                inputmode="decimal"
+                [(ngModel)]="
+                  form[field[0]]
+                "
+              />
+
+            </label>
+
+          }
+
+
+          <!-- ADD SCREEN ONLY -->
+
+          @if (
+            activeTab() === 'add'
+          ) {
+
+            <label class="weightage-field">
+
+              <span>
+                Beneficiary Bank Name
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                inputmode="decimal"
+                [(ngModel)]="
+                  form['beneficiaryBankName']
+                "
+              />
+
+            </label>
+
+          }
+
+
+          <!-- THRESHOLDS -->
+
+          <div class="threshold-box">
+
+            @for (
+              field of thresholdFields;
+              track field[0]
+            ) {
+
+              <label class="weightage-field">
+
+                <span>
+                  {{ field[1] }}
+                </span>
+
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  [(ngModel)]="
+                    form[field[0]]
+                  "
+                />
+
+              </label>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="weightage-actions">
+
+        @if (
+          activeTab() === 'add'
+        ) {
+
+          <button
+            class="btn btn--primary"
+            (click)="save()"
+          >
+            Save
+          </button>
+
+          <button
+            class="btn btn--secondary"
+            (click)="reset()"
+          >
+            Clear
+          </button>
+
+        }
+
+
+        @if (
+          activeTab() === 'search'
+        ) {
+
+          <button
+            class="btn btn--primary"
+            (click)="search()"
+          >
+            Search
+          </button>
+
+          <button
+            class="btn btn--secondary"
+            (click)="reset()"
+          >
+            Reset
+          </button>
+
+        }
+
+
+        @if (
+          activeTab() === 'edit'
+        ) {
+
+          @if (
+            selectedId === null
+          ) {
+
+            <button
+              class="btn btn--primary"
+              (click)="search()"
+            >
+              Search
+            </button>
+
+            <button
+              class="btn btn--secondary"
+              (click)="reset()"
+            >
+              Reset
+            </button>
+
+          }
+
+          @else {
+
+            <button
+              class="btn btn--primary"
+              (click)="update()"
+            >
+              Update
+            </button>
+
+            <button
+              class="btn btn--delete"
+              (click)="remove()"
+            >
+              Delete
+            </button>
+
+            <button
+              class="btn btn--secondary"
+              (click)="reset()"
+            >
+              Clear
+            </button>
+
+          }
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EDIT SEARCH RESULTS -->
+
+  @if (
+    activeTab() === 'edit' &&
+    selectedId === null &&
+    results.length
+  ) {
+
+    <section class="weightage-results">
+
+      <h2>
+        Search Results
+      </h2>
+
+      @for (
+        record of results;
+        track record.id
+      ) {
+
+        <button
+          type="button"
+          class="weightage-result"
+          (click)="loadForEdit(record)"
+        >
+          Weightage Setting #{{ record.id }}
+        </button>
+
+      }
+
+    </section>
+
+  }
+
+
+  <!-- SEARCH RESULTS -->
+
+  @if (
+    activeTab() === 'search' &&
+    results.length
+  ) {
+
+    <section class="weightage-results">
+
+      <h2>
+        Search Results
+      </h2>
+
+      <div class="weightage-result-grid">
+
+        @for (
+          record of results;
+          track record.id
+        ) {
+
+          <div class="weightage-result-card">
+
+            <strong>
+              Setting #{{ $index + 1 }}
+            </strong>
+
+            <span>
+              Sender Name:
+              {{ record.data['senderName'] }}
+            </span>
+
+            <span>
+              Beneficiary Name:
+              {{ record.data['beneficiaryName'] }}
+            </span>
+
+            <span>
+              Threshold:
+              {{ record.data['threshold'] }}
+            </span>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- TOAST -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="weightage-toast"
+
+      [class.weightage-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.weightage-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+      {{ toast()?.text }}
+    </div>
+
+  }
+
+</div>

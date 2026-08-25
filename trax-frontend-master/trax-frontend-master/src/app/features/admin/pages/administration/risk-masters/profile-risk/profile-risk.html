@@ -1,0 +1,105 @@
+<div class="risk-page">
+
+  <!-- HEADER -->
+
+  <div class="risk-header">
+    <h1>Profile Risk</h1>
+
+    <p>
+      Configure profile risk criteria by customer and transaction type.
+    </p>
+  </div>
+
+
+  <!-- FORM CARD -->
+
+  <section class="risk-card profile-card">
+
+    <div class="risk-fields profile-fields">
+
+      <!-- CUSTOMER TYPE -->
+
+      <label class="risk-field">
+
+        <span>
+          Customer Type
+          <b class="required">*</b>
+        </span>
+
+        <select
+          name="customerType"
+          [(ngModel)]="form.customerType"
+        >
+          @for (
+            option of customerTypes;
+            track option
+          ) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+          }
+        </select>
+
+      </label>
+
+
+      <!-- PROFILE -->
+
+      <label class="risk-field">
+
+        <span>
+          Profile
+          <b class="required">*</b>
+        </span>
+
+        <select
+          name="profile"
+          [(ngModel)]="form.profile"
+        >
+          <option value="">
+            --Select--
+          </option>
+
+          @for (
+            option of profiles;
+            track option
+          ) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+          }
+        </select>
+
+      </label>
+
+
+      <!-- TRANSACTION TYPE -->
+
+      <label class="risk-field">
+
+        <span>
+          Tran. Type
+          <b class="required">*</b>
+        </span>
+
+        <select
+          name="transactionType"
+          [(ngModel)]="form.transactionType"
+        >
+          @for (
+            option of transactionTypes;
+            track option
+          ) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+          }
+        </select>
+
+      </label>
+
+    </div>
+
+  </section>
+
+</div>

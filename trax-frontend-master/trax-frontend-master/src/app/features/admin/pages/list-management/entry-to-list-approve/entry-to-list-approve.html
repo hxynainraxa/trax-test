@@ -1,0 +1,986 @@
+<div class="approve-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="approve-header">
+
+    <div class="approve-header__content">
+
+      <h1 class="approve-title">
+        Entry To List Approve
+      </h1>
+
+      <p class="approve-description">
+        Search entries submitted to screening lists for review and approval.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section class="approve-card">
+
+    <!-- ===================================================
+         TAB TITLE
+         =================================================== -->
+
+    <div class="approve-tabs">
+
+      <div
+        class="
+          approve-tab
+          approve-tab--active
+        "
+      >
+        Approve
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         FORM
+         =================================================== -->
+
+    <form
+      class="approve-form"
+
+      (ngSubmit)="onSearch()"
+    >
+
+      <div class="approve-form-columns">
+
+        <!-- =================================================
+             LEFT
+             ================================================= -->
+
+        <div class="approve-column">
+
+          <!-- TYPE -->
+
+          <div class="approve-field">
+
+            <span class="approve-field__label">
+              Type
+            </span>
+
+
+            <div class="approve-radio-group">
+
+              <label class="approve-radio">
+
+                <input
+                  type="radio"
+                  name="approveType"
+                  value="all"
+
+                  [(ngModel)]="
+                    filters.type
+                  "
+                />
+
+                <span
+                  class="approve-radio__indicator"
+                ></span>
+
+                <span>
+                  All
+                </span>
+
+              </label>
+
+
+              <label class="approve-radio">
+
+                <input
+                  type="radio"
+                  name="approveType"
+                  value="individual"
+
+                  [(ngModel)]="
+                    filters.type
+                  "
+                />
+
+                <span
+                  class="approve-radio__indicator"
+                ></span>
+
+                <span>
+                  Individual
+                </span>
+
+              </label>
+
+
+              <label class="approve-radio">
+
+                <input
+                  type="radio"
+                  name="approveType"
+                  value="corporate"
+
+                  [(ngModel)]="
+                    filters.type
+                  "
+                />
+
+                <span
+                  class="approve-radio__indicator"
+                ></span>
+
+                <span>
+                  Corporate
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+          <!-- LIST -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-list"
+              class="approve-field__label"
+            >
+              List
+            </label>
+
+
+            <select
+              id="approve-list"
+              name="approveList"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.listId
+              "
+            >
+
+              <option value="all">
+                All
+              </option>
+
+
+              @for (
+                list of listOptions();
+                track list.value
+              ) {
+
+                <option
+                  [ngValue]="list.value"
+                >
+                  {{ list.code }} - {{ list.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- UNIFIED NO -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-unified-no"
+              class="approve-field__label"
+            >
+              Unified No.
+            </label>
+
+
+            <input
+              id="approve-unified-no"
+              name="approveUnifiedNo"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter unified no."
+
+              [(ngModel)]="
+                filters.unifiedNo
+              "
+            />
+
+          </div>
+
+
+          <!-- NAME -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-name"
+              class="approve-field__label"
+            >
+              Name
+            </label>
+
+
+            <input
+              id="approve-name"
+              name="approveName"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter name"
+
+              [(ngModel)]="
+                filters.name
+              "
+            />
+
+          </div>
+
+
+          <!-- DOB -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-dob"
+              class="approve-field__label"
+            >
+              DoB
+            </label>
+
+
+            <input
+              id="approve-dob"
+              name="approveDob"
+              type="date"
+
+              class="approve-field__control"
+
+              [(ngModel)]="
+                filters.dob
+              "
+            />
+
+          </div>
+
+
+          <!-- PLACE OF BIRTH -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-place-birth"
+              class="approve-field__label"
+            >
+              Place Of Birth
+            </label>
+
+
+            <input
+              id="approve-place-birth"
+              name="approvePlaceBirth"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter place of birth"
+
+              [(ngModel)]="
+                filters.placeOfBirth
+              "
+            />
+
+          </div>
+
+
+          <!-- ADDRESS -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-address"
+              class="approve-field__label"
+            >
+              Address
+            </label>
+
+
+            <input
+              id="approve-address"
+              name="approveAddress"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter address"
+
+              [(ngModel)]="
+                filters.address
+              "
+            />
+
+          </div>
+
+
+          <!-- COUNTRY -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-country"
+              class="approve-field__label"
+            >
+              Country
+            </label>
+
+
+            <select
+              id="approve-country"
+              name="approveCountry"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.country
+              "
+            >
+
+              <option value="">
+                All Countries
+              </option>
+
+
+              @for (
+                country of countries;
+                track country.code
+              ) {
+
+                <option
+                  [value]="country.code"
+                >
+                  {{ country.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- NATIONALITY -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-nationality"
+              class="approve-field__label"
+            >
+              Nationality
+            </label>
+
+
+            <select
+              id="approve-nationality"
+              name="approveNationality"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.nationality
+              "
+            >
+
+              <option value="">
+                All Nationalities
+              </option>
+
+
+              @for (
+                nationality of nationalities;
+                track nationality.code
+              ) {
+
+                <option
+                  [value]="nationality.code"
+                >
+                  {{ nationality.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- IEMS -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-iems"
+              class="approve-field__label"
+            >
+              IEMS No.
+            </label>
+
+
+            <input
+              id="approve-iems"
+              name="approveIems"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter IEMS no."
+
+              [(ngModel)]="
+                filters.iemsNo
+              "
+            />
+
+          </div>
+
+
+          <!-- ACCOUNT NUMBER -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-account"
+              class="approve-field__label"
+            >
+              Account Number
+            </label>
+
+
+            <input
+              id="approve-account"
+              name="approveAccount"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter account number"
+
+              [(ngModel)]="
+                filters.accountNumber
+              "
+            />
+
+          </div>
+
+
+          <!-- REQUEST TYPE -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-request-type"
+              class="approve-field__label"
+            >
+              Request Type
+            </label>
+
+
+            <select
+              id="approve-request-type"
+              name="approveRequestType"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.requestType
+              "
+            >
+
+              @for (
+                option of requestTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT
+             ================================================= -->
+
+        <div class="approve-column">
+
+          <!-- PASSPORT / ID -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-passport"
+              class="approve-field__label"
+            >
+              Passport/ID No Details
+            </label>
+
+
+            <input
+              id="approve-passport"
+              name="approvePassport"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter passport/ID details"
+
+              [(ngModel)]="
+                filters.passportIdDetails
+              "
+            />
+
+          </div>
+
+
+          <!-- DESIGNATION -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-designation"
+              class="approve-field__label"
+            >
+              Designation
+            </label>
+
+
+            <input
+              id="approve-designation"
+              name="approveDesignation"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter designation"
+
+              [(ngModel)]="
+                filters.designation
+              "
+            />
+
+          </div>
+
+
+          <!-- ADDITIONAL ID -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-additional-id"
+              class="approve-field__label"
+            >
+              Additional ID No
+            </label>
+
+
+            <input
+              id="approve-additional-id"
+              name="approveAdditionalId"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter additional ID no."
+
+              [(ngModel)]="
+                filters.additionalIdNo
+              "
+            />
+
+          </div>
+
+
+          <!-- ADDITIONAL ID TYPE -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-additional-type"
+              class="approve-field__label"
+            >
+              Additional Id Type
+            </label>
+
+
+            <select
+              id="approve-additional-type"
+              name="approveAdditionalType"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.additionalIdType
+              "
+            >
+
+              @for (
+                option of additionalIdTypes;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- LOW QUALITY AKA -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-low-aka"
+              class="approve-field__label"
+            >
+              Low Quality AKA
+            </label>
+
+
+            <input
+              id="approve-low-aka"
+              name="approveLowAka"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter low quality AKA"
+
+              [(ngModel)]="
+                filters.lowQualityAka
+              "
+            />
+
+          </div>
+
+
+          <!-- GOOD QUALITY AKA -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-good-aka"
+              class="approve-field__label"
+            >
+              Good Quality AKA
+            </label>
+
+
+            <input
+              id="approve-good-aka"
+              name="approveGoodAka"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter good quality AKA"
+
+              [(ngModel)]="
+                filters.goodQualityAka
+              "
+            />
+
+          </div>
+
+
+          <!-- MOBILE -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-mobile"
+              class="approve-field__label"
+            >
+              Mobile No.
+            </label>
+
+
+            <input
+              id="approve-mobile"
+              name="approveMobile"
+              type="text"
+
+              class="approve-field__control"
+
+              placeholder="Enter mobile no."
+
+              [(ngModel)]="
+                filters.mobileNo
+              "
+            />
+
+          </div>
+
+
+          <!-- RELATIONSHIP -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-relationship"
+              class="approve-field__label"
+            >
+              Relationship
+            </label>
+
+
+            <select
+              id="approve-relationship"
+              name="approveRelationship"
+
+              class="
+                approve-field__control
+                approve-field__select
+              "
+
+              [(ngModel)]="
+                filters.relationship
+              "
+            >
+
+              <option value="">
+                All Relationships
+              </option>
+
+
+              @for (
+                option of relationships;
+                track option.value
+              ) {
+
+                <option
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- REMARK -->
+
+          <div class="approve-field">
+
+            <label
+              for="approve-remark"
+              class="approve-field__label"
+            >
+              Remark
+            </label>
+
+
+            <textarea
+              id="approve-remark"
+              name="approveRemark"
+
+              class="
+                approve-field__control
+                approve-field__textarea
+              "
+
+              placeholder="Enter remark"
+
+              [(ngModel)]="
+                filters.remark
+              "
+            ></textarea>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           BUTTONS
+           ================================================= -->
+
+      <div class="approve-actions">
+
+        <button
+          type="button"
+
+          class="
+            approve-button
+            approve-button--secondary
+          "
+
+          (click)="onReset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+
+          class="
+            approve-button
+            approve-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="approve-results">
+
+      <div class="approve-results__header">
+
+        <div>
+
+          <h2 class="approve-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="approve-results__description">
+            {{ results.length }}
+            matching
+            {{
+              results.length === 1
+                ? 'entry'
+                : 'entries'
+            }}
+            found for approval.
+          </p>
+
+        </div>
+
+
+        <span class="approve-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="approve-results__table">
+
+        <theme-table
+          [rows]="results"
+
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No entries found"
+
+          emptyMessage="No Entry To List records matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

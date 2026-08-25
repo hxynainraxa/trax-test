@@ -1,0 +1,488 @@
+<div class="master-page">
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+
+  <div class="master-header">
+
+    <h1>
+      Drug Trafficking Countries
+    </h1>
+
+    <p>
+      Add, edit and search drug trafficking country records.
+    </p>
+
+  </div>
+
+
+  <!-- ==================================================
+       CARD
+       ================================================== -->
+
+  <section class="master-card drug-card">
+
+    <!-- TABS -->
+
+    <div class="drug-tabs">
+
+      @for (
+        tab of ['add', 'edit', 'search'];
+        track tab
+      ) {
+
+        <button
+          type="button"
+          class="drug-tab"
+          [class.drug-tab--active]="
+            activeTab === tab
+          "
+          (click)="setTab($any(tab))"
+        >
+          {{ tab }}
+        </button>
+
+      }
+
+    </div>
+
+
+    <form
+      (ngSubmit)="
+        activeTab === 'add' ||
+        selectedId !== null
+          ? save()
+          : search()
+      "
+    >
+
+      <div class="master-grid">
+
+        <!-- ==================================================
+             LEFT
+             ================================================== -->
+
+        <div class="master-column">
+
+          <!-- CODE - EDIT / SEARCH -->
+
+          @if (
+            activeTab !== 'add'
+          ) {
+
+            <label class="master-field">
+
+              <span>
+                Code
+              </span>
+
+              <input
+                type="text"
+                name="code"
+                [(ngModel)]="form.code"
+              />
+
+            </label>
+
+          }
+
+
+          <!-- COUNTRY -->
+
+          <label class="master-field">
+
+            <span>
+              Country
+            </span>
+
+            <select
+              name="country"
+              [(ngModel)]="form.country"
+            >
+
+              @if (
+                activeTab === 'add'
+              ) {
+
+                <option value="">
+                  --Select--
+                </option>
+
+              }
+
+              @else {
+
+                <option value="All">
+                  All
+                </option>
+
+              }
+
+
+              @for (
+                country of countries;
+                track country
+              ) {
+
+                <option [value]="country">
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <!-- DESCRIPTION - ADD ONLY -->
+
+          @if (
+            activeTab === 'add'
+          ) {
+
+            <label class="master-field">
+
+              <span>
+                Description
+              </span>
+
+              <input
+                type="text"
+                name="description"
+                [(ngModel)]="
+                  form.description
+                "
+              />
+
+            </label>
+
+          }
+
+
+          <!-- RISK -->
+
+          <label class="master-field">
+
+            <span>
+              Risk Rating
+            </span>
+
+            <select
+              name="riskRating"
+              [(ngModel)]="
+                form.riskRating
+              "
+            >
+
+              @if (
+                activeTab !== 'add'
+              ) {
+
+                <option value="All">
+                  All
+                </option>
+
+              }
+
+              @for (
+                risk of riskRatings;
+                track risk
+              ) {
+
+                <option [value]="risk">
+                  {{ risk }}
+                </option>
+
+              }
+
+            </select>
+
+          </label>
+
+
+          <!-- STATUS -->
+
+          <div class="master-field">
+
+            <span>
+              Status
+            </span>
+
+            <div class="master-radios">
+
+              @if (
+                activeTab !== 'add'
+              ) {
+
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="all"
+                    [(ngModel)]="
+                      form.status
+                    "
+                  />
+                  All
+                </label>
+
+              }
+
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+                Active
+              </label>
+
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="
+                    form.status
+                  "
+                />
+                InActive
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             RIGHT - EDIT / SEARCH
+             ================================================== -->
+
+        @if (
+          activeTab !== 'add'
+        ) {
+
+          <div class="master-column">
+
+            <label class="master-field">
+
+              <span>
+                Created By
+              </span>
+
+              <input
+                type="text"
+                name="createdBy"
+                [(ngModel)]="
+                  form.createdBy
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Created Date
+              </span>
+
+              <input
+                type="date"
+                name="createdDate"
+                [(ngModel)]="
+                  form.createdDate
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Modified By
+              </span>
+
+              <input
+                type="text"
+                name="modifiedBy"
+                [(ngModel)]="
+                  form.modifiedBy
+                "
+              />
+
+            </label>
+
+
+            <label class="master-field">
+
+              <span>
+                Modified Date
+              </span>
+
+              <input
+                type="date"
+                name="modifiedDate"
+                [(ngModel)]="
+                  form.modifiedDate
+                "
+              />
+
+            </label>
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- ==================================================
+           ACTIONS
+           ================================================== -->
+
+      <div class="master-actions">
+
+        @if (
+          activeTab === 'add'
+        ) {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Save
+          </button>
+
+        }
+
+
+        @else if (
+          activeTab === 'edit' &&
+          selectedId !== null
+        ) {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Update
+          </button>
+
+
+          <button
+            type="button"
+            class="drug-delete"
+            (click)="remove()"
+          >
+            Delete
+          </button>
+
+        }
+
+
+        @else {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Search
+          </button>
+
+        }
+
+
+        <button
+          type="button"
+          class="
+            master-btn
+            master-btn--secondary
+          "
+          (click)="reset()"
+        >
+          {{
+            activeTab === 'add'
+              ? 'Clear'
+              : 'Reset'
+          }}
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <!-- ==================================================
+         EDIT SEARCH RESULTS
+         ================================================== -->
+
+    @if (
+      activeTab === 'edit' &&
+      selectedId === null &&
+      results.length > 0
+    ) {
+
+      <div class="drug-results">
+
+        <span>
+          Select record to edit:
+        </span>
+
+        @for (
+          item of results;
+          track item.id
+        ) {
+
+          <button
+            type="button"
+            (click)="loadForEdit(item)"
+          >
+            {{ item.code }}
+            -
+            {{ item.country }}
+          </button>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ==================================================
+       TOAST
+       ================================================== -->
+
+  @if (
+    message()
+  ) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,1488 @@
+<div class="user-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="user-header">
+
+    <div class="user-header__content">
+
+      <h1 class="user-title">
+        User
+      </h1>
+
+      <p class="user-description">
+        Create, update, delete and search system users.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="user-card">
+
+    <!-- ===================================================
+         TABS
+         =================================================== -->
+
+    <div class="user-tabs">
+
+      <button
+        type="button"
+        class="user-tab"
+        [class.user-tab--active]="
+          activeTab() === 'add'
+        "
+        (click)="setTab('add')"
+      >
+        Add
+      </button>
+
+
+      <button
+        type="button"
+        class="user-tab"
+        [class.user-tab--active]="
+          activeTab() === 'edit'
+        "
+        (click)="setTab('edit')"
+      >
+        Edit
+      </button>
+
+
+      <button
+        type="button"
+        class="user-tab"
+        [class.user-tab--active]="
+          activeTab() === 'search'
+        "
+        (click)="setTab('search')"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ADD
+         =================================================== -->
+
+    @if (
+      activeTab() === 'add'
+    ) {
+
+      <form
+        class="user-form"
+        (ngSubmit)="save()"
+      >
+
+        <div class="user-grid">
+
+          <!-- =============================================
+               LEFT
+               ============================================= -->
+
+          <div class="user-column">
+
+            <div class="user-field">
+
+              <label
+                for="add-first-name"
+                class="user-field__label"
+              >
+                First Name
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-first-name"
+                name="firstName"
+                type="text"
+                class="user-field__control"
+                placeholder="Enter first name"
+                [(ngModel)]="addForm.firstName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label
+                for="add-last-name"
+                class="user-field__label"
+              >
+                Last Name
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-last-name"
+                name="lastName"
+                type="text"
+                class="user-field__control"
+                placeholder="Enter last name"
+                [(ngModel)]="addForm.lastName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label
+                for="add-username"
+                class="user-field__label"
+              >
+                User Name
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-username"
+                name="username"
+                type="text"
+                class="user-field__control"
+                placeholder="Enter user name"
+                [(ngModel)]="addForm.username"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label
+                for="add-password"
+                class="user-field__label"
+              >
+                Password
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-password"
+                name="password"
+                type="password"
+                class="user-field__control"
+                placeholder="Enter password"
+                [(ngModel)]="addForm.password"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label
+                for="add-confirm-password"
+                class="user-field__label"
+              >
+                Re type Password
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-confirm-password"
+                name="confirmPassword"
+                type="password"
+                class="user-field__control"
+                placeholder="Re-enter password"
+                [(ngModel)]="addForm.confirmPassword"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label
+                for="add-email"
+                class="user-field__label"
+              >
+                Email Id
+                <span class="user-required">*</span>
+              </label>
+
+              <input
+                id="add-email"
+                name="email"
+                type="email"
+                class="user-field__control"
+                placeholder="Enter email"
+                [(ngModel)]="addForm.email"
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- =============================================
+               RIGHT
+               ============================================= -->
+
+          <div class="user-column">
+
+            <!-- DEPARTMENT -->
+
+            <div class="user-field">
+
+              <label
+                for="add-department"
+                class="user-field__label"
+              >
+                Department
+                <span class="user-required">*</span>
+              </label>
+
+              <select
+                id="add-department"
+                name="department"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="addForm.departmentCode"
+                (ngModelChange)="onAddDepartmentChange()"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- DESIGNATION -->
+
+            <div class="user-field">
+
+              <label
+                for="add-designation"
+                class="user-field__label"
+              >
+                Designation
+                <span class="user-required">*</span>
+              </label>
+
+              <select
+                id="add-designation"
+                name="designation"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="addForm.designationCode"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of designationOptionsFor(
+                    addForm.departmentCode
+                  );
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- ROLE -->
+
+            <div class="user-field">
+
+              <label
+                for="add-role"
+                class="user-field__label"
+              >
+                Role
+                <span class="user-required">*</span>
+              </label>
+
+              <select
+                id="add-role"
+                name="role"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="addForm.roleId"
+              >
+
+                <option [ngValue]="null">
+                  --Select--
+                </option>
+
+                @for (
+                  option of roles();
+                  track option.value
+                ) {
+
+                  <option
+                    [ngValue]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div
+              class="
+                user-field
+                user-field--status
+              "
+            >
+
+              <span class="user-field__label">
+                Status
+              </span>
+
+
+              <div class="user-radio-group">
+
+                @for (
+                  status of statuses;
+                  track status.value
+                ) {
+
+                  <label class="user-radio">
+
+                    <input
+                      type="radio"
+                      name="addStatus"
+                      [value]="status.value"
+                      [(ngModel)]="addForm.status"
+                    />
+
+                    <span
+                      class="user-radio__indicator"
+                    ></span>
+
+                    <span>
+                      {{ status.label }}
+                    </span>
+
+                  </label>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- BRANCH -->
+
+            <div class="user-field">
+
+              <label
+                for="add-branch"
+                class="user-field__label"
+              >
+                Branch
+                <span class="user-required">*</span>
+              </label>
+
+              <select
+                id="add-branch"
+                name="branch"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="addForm.branch"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of branches;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="user-field">
+
+              <label
+                for="add-description"
+                class="user-field__label"
+              >
+                Description
+              </label>
+
+              <input
+                id="add-description"
+                name="description"
+                type="text"
+                class="user-field__control"
+                placeholder="Enter description"
+                [(ngModel)]="addForm.description"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="user-actions">
+
+          <button
+            type="button"
+            class="
+              user-button
+              user-button--secondary
+            "
+            (click)="clearAdd()"
+          >
+            Clear
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              user-button
+              user-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Save
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         EDIT
+         =================================================== -->
+
+    @if (
+      activeTab() === 'edit'
+    ) {
+
+      <form
+        class="user-form"
+        (ngSubmit)="update()"
+      >
+
+        <!-- USER SELECT -->
+
+        <div class="user-edit-selector">
+
+          <div class="user-field">
+
+            <label
+              for="edit-user"
+              class="user-field__label"
+            >
+              User
+              <span class="user-required">*</span>
+            </label>
+
+            <select
+              id="edit-user"
+              name="selectedUser"
+              class="
+                user-field__control
+                user-field__select
+              "
+              [ngModel]="selectedUserId"
+              (ngModelChange)="
+                onUserSelected($event)
+              "
+            >
+
+              <option [ngValue]="null">
+                --Select User--
+              </option>
+
+              @for (
+                option of userOptions();
+                track option.value
+              ) {
+
+                <option
+                  [ngValue]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="user-grid">
+
+          <!-- LEFT -->
+
+          <div class="user-column">
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                First Name
+              </label>
+
+              <input
+                name="editFirstName"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="editForm.firstName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Last Name
+              </label>
+
+              <input
+                name="editLastName"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="editForm.lastName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                User Name
+              </label>
+
+              <input
+                name="editUsername"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="editForm.username"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Email Id
+              </label>
+
+              <input
+                name="editEmail"
+                type="email"
+                class="user-field__control"
+                [(ngModel)]="editForm.email"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                New Password
+              </label>
+
+              <input
+                name="editPassword"
+                type="password"
+                class="user-field__control"
+                placeholder="Leave blank to keep current"
+                [(ngModel)]="editForm.password"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Re type Password
+              </label>
+
+              <input
+                name="editConfirmPassword"
+                type="password"
+                class="user-field__control"
+                [(ngModel)]="editForm.confirmPassword"
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="user-column">
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Department
+              </label>
+
+              <select
+                name="editDepartment"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="editForm.departmentCode"
+                (ngModelChange)="
+                  onEditDepartmentChange()
+                "
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Designation
+              </label>
+
+              <select
+                name="editDesignation"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="editForm.designationCode"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of designationOptionsFor(
+                    editForm.departmentCode
+                  );
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Role
+              </label>
+
+              <select
+                name="editRole"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="editForm.roleId"
+              >
+
+                <option [ngValue]="null">
+                  --Select--
+                </option>
+
+                @for (
+                  option of roles();
+                  track option.value
+                ) {
+
+                  <option
+                    [ngValue]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div
+              class="
+                user-field
+                user-field--status
+              "
+            >
+
+              <span class="user-field__label">
+                Status
+              </span>
+
+              <div class="user-radio-group">
+
+                @for (
+                  status of statuses;
+                  track status.value
+                ) {
+
+                  <label class="user-radio">
+
+                    <input
+                      type="radio"
+                      name="editStatus"
+                      [value]="status.value"
+                      [(ngModel)]="editForm.status"
+                    />
+
+                    <span
+                      class="user-radio__indicator"
+                    ></span>
+
+                    {{ status.label }}
+
+                  </label>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Branch
+              </label>
+
+              <select
+                name="editBranch"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="editForm.branch"
+              >
+
+                <option value="">
+                  --Select--
+                </option>
+
+                @for (
+                  option of branches;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Description
+              </label>
+
+              <input
+                name="editDescription"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="editForm.description"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="user-actions">
+
+          <button
+            type="button"
+            class="
+              user-button
+              user-button--secondary
+            "
+            (click)="clearEdit()"
+          >
+            Clear
+          </button>
+
+
+          <button
+            type="button"
+            class="
+              user-button
+              user-button--delete
+            "
+            [disabled]="selectedUserId === null"
+            (click)="deleteUser()"
+          >
+
+            <svg
+              [lucideIcon]="deleteIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Delete
+
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              user-button
+              user-button--primary
+            "
+            [disabled]="selectedUserId === null"
+          >
+
+            <svg
+              [lucideIcon]="saveIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Update
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    @if (
+      activeTab() === 'search'
+    ) {
+
+      <form
+        class="user-form"
+        (ngSubmit)="search()"
+      >
+
+        <div class="user-grid">
+
+          <!-- LEFT -->
+
+          <div class="user-column">
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                First Name
+              </label>
+
+              <input
+                name="searchFirstName"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="searchFilters.firstName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Last Name
+              </label>
+
+              <input
+                name="searchLastName"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="searchFilters.lastName"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                User Name
+              </label>
+
+              <input
+                name="searchUsername"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="searchFilters.username"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Email Id
+              </label>
+
+              <input
+                name="searchEmail"
+                type="email"
+                class="user-field__control"
+                [(ngModel)]="searchFilters.email"
+              />
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Description
+              </label>
+
+              <input
+                name="searchDescription"
+                type="text"
+                class="user-field__control"
+                [(ngModel)]="searchFilters.description"
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="user-column">
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Department
+              </label>
+
+              <select
+                name="searchDepartment"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="
+                  searchFilters.departmentCode
+                "
+                (ngModelChange)="
+                  onSearchDepartmentChange()
+                "
+              >
+
+                <option value="all">
+                  --All--
+                </option>
+
+                @for (
+                  option of departments();
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Designation
+              </label>
+
+              <select
+                name="searchDesignation"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="
+                  searchFilters.designationCode
+                "
+              >
+
+                <option value="all">
+                  --All--
+                </option>
+
+                @for (
+                  option of designationOptionsFor(
+                    searchFilters.departmentCode
+                  );
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Role
+              </label>
+
+              <select
+                name="searchRole"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="searchFilters.roleId"
+              >
+
+                <option [ngValue]="null">
+                  --All--
+                </option>
+
+                @for (
+                  option of roles();
+                  track option.value
+                ) {
+
+                  <option
+                    [ngValue]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <div
+              class="
+                user-field
+                user-field--status
+              "
+            >
+
+              <span class="user-field__label">
+                Status
+              </span>
+
+              <div class="user-radio-group">
+
+                @for (
+                  status of statuses;
+                  track status.value
+                ) {
+
+                  <label class="user-radio">
+
+                    <input
+                      type="radio"
+                      name="searchStatus"
+                      [value]="status.value"
+                      [(ngModel)]="searchFilters.status"
+                    />
+
+                    <span
+                      class="user-radio__indicator"
+                    ></span>
+
+                    {{ status.label }}
+
+                  </label>
+
+                }
+
+              </div>
+
+            </div>
+
+
+            <div class="user-field">
+
+              <label class="user-field__label">
+                Branch
+              </label>
+
+              <select
+                name="searchBranch"
+                class="
+                  user-field__control
+                  user-field__select
+                "
+                [(ngModel)]="searchFilters.branch"
+              >
+
+                <option value="all">
+                  --All--
+                </option>
+
+                @for (
+                  option of branches;
+                  track option.value
+                ) {
+
+                  <option
+                    [value]="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="user-actions">
+
+          <button
+            type="button"
+            class="
+              user-button
+              user-button--secondary
+            "
+            (click)="resetSearch()"
+          >
+
+            <svg
+              [lucideIcon]="resetIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Reset
+
+          </button>
+
+
+          <button
+            type="submit"
+            class="
+              user-button
+              user-button--primary
+            "
+          >
+
+            <svg
+              [lucideIcon]="searchIcon"
+              [size]="16"
+              [strokeWidth]="1.8"
+            ></svg>
+
+            Search
+
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    activeTab() === 'search' &&
+    hasSearched
+  ) {
+
+    <section class="user-results">
+
+      <div class="user-results__header">
+
+        <div>
+
+          <h2 class="user-results__title">
+            Search Results
+          </h2>
+
+          <p class="user-results__description">
+            {{ results.length }}
+            matching
+            {{
+              results.length === 1
+                ? 'user'
+                : 'users'
+            }}
+            found.
+          </p>
+
+        </div>
+
+
+        <span class="user-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="user-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+          rowKey="id"
+
+          [compact]="true"
+          [searchable]="false"
+          [showFilterButton]="false"
+          [showActions]="false"
+          [showFooter]="false"
+          [hoverable]="true"
+          [striped]="false"
+
+          emptyTitle="No users found"
+          emptyMessage="No users matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  @if (
+    toast()
+  ) {
+
+    <div
+      class="user-toast"
+
+      [class.user-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.user-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+
+      <span class="user-toast__icon">
+
+        @if (
+          toast()?.type === 'success'
+        ) {
+
+          <svg
+            [lucideIcon]="successIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+        @else {
+
+          <svg
+            [lucideIcon]="errorIcon"
+            [size]="20"
+            [strokeWidth]="1.8"
+          ></svg>
+
+        }
+
+      </span>
+
+
+      <div class="user-toast__content">
+
+        <span class="user-toast__title">
+
+          {{
+            toast()?.type === 'success'
+              ? 'Success'
+              : 'Unable to continue'
+          }}
+
+        </span>
+
+
+        <span class="user-toast__message">
+          {{ toast()?.message }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="user-toast__close"
+        (click)="closeToast()"
+      >
+
+        <svg
+          [lucideIcon]="closeIcon"
+          [size]="16"
+          [strokeWidth]="1.8"
+        ></svg>
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,211 @@
+<div class="scheduler-page">
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+
+  <div class="scheduler-header">
+
+    <h1 class="scheduler-title">
+      Scheduler
+    </h1>
+
+    <p class="scheduler-description">
+      Configure blacklist update scheduling and Watch-List source URLs.
+    </p>
+
+  </div>
+
+
+  <!-- ==================================================
+       CARD
+       ================================================== -->
+
+  <section class="scheduler-card">
+
+    <!-- UPLOAD TIME -->
+
+    <div class="scheduler-field scheduler-field--time">
+
+      <label for="uploadTime">
+        Black List Upload Time
+        <span>*</span>
+      </label>
+
+      <input
+        id="uploadTime"
+        name="uploadTime"
+        type="time"
+        class="scheduler-control scheduler-time"
+        [(ngModel)]="form.uploadTime"
+      />
+
+    </div>
+
+
+    <!-- ==================================================
+         WATCH LIST LINKS
+         ================================================== -->
+
+    <div class="scheduler-section">
+
+      <div class="scheduler-section__title">
+        URL Links to Watch-Lists
+      </div>
+
+
+      <div class="scheduler-fields">
+
+        <!-- OFAC -->
+
+        <div class="scheduler-field">
+
+          <label for="ofacUrl">
+            OFAC List
+            <span>*</span>
+          </label>
+
+          <input
+            id="ofacUrl"
+            name="ofacUrl"
+            type="url"
+            class="scheduler-control"
+            [(ngModel)]="form.ofacUrl"
+          />
+
+        </div>
+
+
+        <!-- EU -->
+
+        <div class="scheduler-field">
+
+          <label for="euUrl">
+            European Union List
+            <span>*</span>
+          </label>
+
+          <input
+            id="euUrl"
+            name="euUrl"
+            type="url"
+            class="scheduler-control"
+            [(ngModel)]="form.euUrl"
+          />
+
+        </div>
+
+
+        <!-- UN -->
+
+        <div class="scheduler-field">
+
+          <label for="unUrl">
+            UN List
+            <span>*</span>
+          </label>
+
+          <input
+            id="unUrl"
+            name="unUrl"
+            type="url"
+            class="scheduler-control"
+            [(ngModel)]="form.unUrl"
+          />
+
+        </div>
+
+
+        <!-- UK -->
+
+        <div class="scheduler-field">
+
+          <label for="ukUrl">
+            UK List
+            <span>*</span>
+          </label>
+
+          <input
+            id="ukUrl"
+            name="ukUrl"
+            type="url"
+            class="scheduler-control"
+            [(ngModel)]="form.ukUrl"
+          />
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         ACTIONS
+         ================================================== -->
+
+    <div class="scheduler-actions">
+
+      <button
+        type="button"
+        class="
+          scheduler-button
+          scheduler-button--outline
+        "
+        (click)="updateNow()"
+      >
+        Update Now
+      </button>
+
+
+      <button
+        type="button"
+        class="
+          scheduler-button
+          scheduler-button--primary
+        "
+        (click)="save()"
+      >
+        Save
+      </button>
+
+
+      <button
+        type="button"
+        class="
+          scheduler-button
+          scheduler-button--secondary
+        "
+        (click)="clear()"
+      >
+        Clear
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       TOAST
+       ================================================== -->
+
+  @if (toast()) {
+
+    <div
+      class="scheduler-toast"
+
+      [class.scheduler-toast--success]="
+        toast()?.type === 'success'
+      "
+
+      [class.scheduler-toast--error]="
+        toast()?.type === 'error'
+      "
+    >
+      {{ toast()?.text }}
+    </div>
+
+  }
+
+</div>

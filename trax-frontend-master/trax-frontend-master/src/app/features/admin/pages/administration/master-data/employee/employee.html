@@ -1,0 +1,192 @@
+<div class="employee-page">
+
+  <!-- HEADER -->
+
+  <div class="employee-header">
+
+    <h1 class="employee-title">
+      Employee
+    </h1>
+
+    <p class="employee-description">
+      Search employee information and membership details.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="employee-card">
+
+    <div class="employee-tab">
+      Personal
+    </div>
+
+
+    <form
+      class="employee-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="employee-grid">
+
+        <!-- LEFT COLUMN -->
+
+        <div class="employee-column">
+
+          @for (
+            field of leftFields;
+            track field.key
+          ) {
+
+            <ng-container
+              [ngTemplateOutlet]="fieldTemplate"
+              [ngTemplateOutletContext]="{
+                $implicit: field
+              }"
+            ></ng-container>
+
+          }
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+
+        <div class="employee-column">
+
+          @for (
+            field of rightFields;
+            track field.key
+          ) {
+
+            <ng-container
+              [ngTemplateOutlet]="fieldTemplate"
+              [ngTemplateOutletContext]="{
+                $implicit: field
+              }"
+            ></ng-container>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="employee-actions">
+
+        <button
+          type="button"
+          class="
+            employee-button
+            employee-button--secondary
+          "
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+
+        <button
+          type="submit"
+          class="
+            employee-button
+            employee-button--primary
+          "
+        >
+          Search
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- TOAST -->
+
+  @if (message()) {
+
+    <div class="employee-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>
+
+
+<!-- ==================================================
+     REUSABLE FIELD
+     ================================================== -->
+
+<ng-template
+  #fieldTemplate
+  let-field
+>
+
+  <label class="employee-field">
+
+    <span class="employee-field__label">
+      {{ field.label }}
+    </span>
+
+
+    @if (
+      field.type === 'select'
+    ) {
+
+      <select
+        class="
+          employee-control
+          employee-select
+        "
+        [(ngModel)]="form[field.key]"
+        [name]="field.key"
+      >
+
+        @for (
+          option of field.options;
+          track option
+        ) {
+
+          <option [value]="option">
+            {{ option }}
+          </option>
+
+        }
+
+      </select>
+
+    }
+
+    @else {
+
+      <input
+        class="employee-control"
+
+        [type]="
+          field.type === 'number'
+            ? 'number'
+            : field.type === 'date'
+              ? 'date'
+              : 'text'
+        "
+
+        [name]="field.key"
+
+        [(ngModel)]="
+          form[field.key]
+        "
+      />
+
+    }
+
+  </label>
+
+</ng-template>

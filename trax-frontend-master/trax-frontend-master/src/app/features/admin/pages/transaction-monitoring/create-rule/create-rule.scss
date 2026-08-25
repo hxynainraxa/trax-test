@@ -1,0 +1,1772 @@
+// ==================================================
+// PAGE
+// ==================================================
+
+.rule-page {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  font-family: Inter, sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.rule-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+
+  margin-bottom: 18px;
+}
+
+
+.rule-header__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+.rule-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 100%;
+}
+
+
+.rule-description {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.rule-card {
+  width: 100%;
+
+  overflow: visible;
+
+  border: 1px solid #eaecf0;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// TABS
+// ==================================================
+
+.rule-tabs {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-end;
+
+  gap: 4px;
+
+  padding:
+    10px
+    16px
+    0;
+
+  border-bottom:
+    1px solid #eaecf0;
+
+  border-radius:
+    12px
+    12px
+    0
+    0;
+
+  background: #fbfaf9;
+
+  box-sizing: border-box;
+}
+
+
+.rule-tab {
+  position: relative;
+
+  display: inline-flex;
+
+  min-width: 88px;
+  height: 36px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    0
+    16px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-bottom: 0;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  outline: none;
+
+  color: #667085;
+
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+
+.rule-tab:hover {
+  color: #e7651c;
+
+  background: #fff7ed;
+}
+
+
+.rule-tab--active {
+  margin-bottom: -1px;
+
+  border-color: #eaecf0;
+
+  border-top-color: #e7651c;
+
+  color: #d65312;
+
+  background: #ffffff;
+}
+
+
+.rule-tab--active::before {
+  content: '';
+
+  position: absolute;
+
+  top: -1px;
+  left: 8px;
+  right: 8px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: #e7651c;
+}
+
+
+// ==================================================
+// FORM
+// ==================================================
+
+.rule-form {
+  width: 100%;
+
+  padding:
+    18px
+    20px
+    20px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// MAIN GRID
+// ==================================================
+
+.rule-main-grid,
+.rule-search-grid {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  align-items: start;
+
+  gap: 18px;
+}
+
+
+// ==================================================
+// PANEL
+// ==================================================
+
+.rule-panel {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 11px;
+
+  padding: 16px;
+
+  border: 1px solid #eaecf0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// COLUMN
+// ==================================================
+
+.rule-column {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 11px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.rule-field {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    135px
+    minmax(0, 1fr);
+
+  align-items: start;
+
+  column-gap: 12px;
+
+  box-sizing: border-box;
+}
+
+
+.rule-field__body {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 4px;
+}
+
+
+// ==================================================
+// LABEL
+// ==================================================
+
+.rule-field__label {
+  display: flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// REQUIRED
+// ==================================================
+
+.rule-required {
+  margin-left: 3px;
+
+  color: #d92d20;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+// ==================================================
+// INPUT / CONTROL
+// ==================================================
+
+.rule-field__control {
+  width: 100%;
+  height: 38px;
+
+  min-width: 0;
+
+  padding:
+    8px
+    11px;
+
+  border: 1px solid #d0d5dd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #101828;
+
+  background: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+
+.rule-field__control::placeholder {
+  color: #98a2b3;
+}
+
+
+.rule-field__control:hover {
+  border-color: #b8bdc5;
+}
+
+
+.rule-field__control:focus {
+  border-color: #e7651c;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// STANDARD TRAX DROPDOWN
+//
+// USED FOR:
+// - Add Services
+// - Edit Rule Type
+// - Edit Search Rule
+// - Edit Services
+// - Edit Rule Category
+// - Search Services
+// - Search Rule Status
+// - Search Rule Type
+// - Search Profile Risk
+// ==================================================
+
+.rule-field__select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  height: 38px;
+
+  min-width: 0;
+
+  padding:
+    8px
+    38px
+    8px
+    11px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #344054;
+
+  background-color: #ffffff;
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+    );
+
+  background-repeat: no-repeat;
+
+  background-position:
+    right 11px center;
+
+  background-size: 15px;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+
+// ==================================================
+// SELECT HOVER
+// ==================================================
+
+.rule-field__select:hover {
+  border-color: #e0a179;
+
+  background-color: #fffdfb;
+}
+
+
+// ==================================================
+// SELECT FOCUS
+// ==================================================
+
+.rule-field__select:focus {
+  border-color: #e7651c;
+
+  background-color: #ffffff;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// SELECT DISABLED
+// ==================================================
+
+.rule-field__select:disabled {
+  border-color: #eaecf0;
+
+  color: #98a2b3;
+
+  background-color: #f9fafb;
+
+  cursor: not-allowed;
+}
+
+
+// ==================================================
+// SELECT OPTIONS
+// ==================================================
+
+.rule-field__select option {
+  min-height: 34px;
+
+  padding:
+    8px
+    12px;
+
+  color: #344054;
+
+  background: #ffffff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// SELECTED OPTION
+// ==================================================
+
+.rule-field__select option:checked {
+  color: #d65312;
+
+  background: #fff0e7;
+
+  font-weight: 600;
+}
+
+
+// ==================================================
+// EMPTY / SELECT PLACEHOLDER
+// ==================================================
+
+.rule-field__select option[value=''] {
+  color: #98a2b3;
+}
+
+
+// ==================================================
+// TEXTAREA
+// ==================================================
+
+.rule-field__textarea {
+  height: 72px;
+
+  min-height: 72px;
+
+  resize: vertical;
+}
+
+
+// ==================================================
+// INPUT ERROR
+// ==================================================
+
+.rule-field__control--error {
+  border-color: #d92d20;
+}
+
+
+.rule-field__control--error:hover {
+  border-color: #d92d20;
+}
+
+
+.rule-field__control--error:focus {
+  border-color: #d92d20;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      217,
+      45,
+      32,
+      0.1
+    );
+}
+
+
+.rule-field__error {
+  display: block;
+
+  color: #d92d20;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 14px;
+}
+
+
+// ==================================================
+// CHECKBOX
+// ==================================================
+
+.rule-checkbox {
+  position: relative;
+
+  display: inline-flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+
+  cursor: pointer;
+}
+
+
+.rule-checkbox input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+}
+
+
+.rule-checkbox__box {
+  position: relative;
+
+  display: flex;
+
+  width: 16px;
+  height: 16px;
+
+  flex:
+    0
+    0
+    16px;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+.rule-checkbox:hover
+.rule-checkbox__box {
+  border-color: #e7651c;
+}
+
+
+.rule-checkbox
+input:focus
++
+.rule-checkbox__box {
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+.rule-checkbox
+input:checked
++
+.rule-checkbox__box {
+  border-color: #e7651c;
+
+  background: #e7651c;
+}
+
+
+.rule-checkbox
+input:checked
++
+.rule-checkbox__box::after {
+  content: '';
+
+  width: 7px;
+  height: 4px;
+
+  margin-top: -2px;
+
+  border-left:
+    2px solid #ffffff;
+
+  border-bottom:
+    2px solid #ffffff;
+
+  transform:
+    rotate(-45deg);
+}
+
+
+// ==================================================
+// RADIO GROUP
+// ==================================================
+
+.rule-radio-group {
+  display: flex;
+
+  min-height: 38px;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap:
+    8px
+    14px;
+}
+
+
+// ==================================================
+// RADIO
+// ==================================================
+
+.rule-radio {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+
+  cursor: pointer;
+}
+
+
+.rule-radio input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+}
+
+
+.rule-radio__indicator {
+  display: flex;
+
+  width: 15px;
+  height: 15px;
+
+  flex:
+    0
+    0
+    15px;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+
+.rule-radio:hover
+.rule-radio__indicator {
+  border-color: #e7651c;
+}
+
+
+.rule-radio
+input:focus
++
+.rule-radio__indicator {
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+.rule-radio
+input:checked
++
+.rule-radio__indicator {
+  border-color: #e7651c;
+}
+
+
+.rule-radio
+input:checked
++
+.rule-radio__indicator::after {
+  content: '';
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #e7651c;
+}
+
+
+// ==================================================
+// REPORT VIOLATION HELPER
+// ==================================================
+
+.rule-helper-inline {
+  color: #667085;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 14px;
+}
+
+
+// ==================================================
+// EDIT LOOKUP
+// ==================================================
+
+.rule-edit-lookup {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 18px;
+
+  margin-bottom: 16px;
+
+  padding: 16px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 10px;
+
+  background: #fbfaf9;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// RULE CONDITIONS
+// ==================================================
+
+.rule-conditions {
+  width: 100%;
+
+  margin-top: 16px;
+
+  padding: 16px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+.rule-conditions__title {
+  margin:
+    0
+    0
+    10px;
+
+  color: #d65312;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+}
+
+
+.rule-conditions__textarea {
+  width:
+    min(
+      100%,
+      520px
+    );
+
+  height: 78px;
+
+  min-height: 78px;
+
+  resize: vertical;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.rule-actions {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+
+// ==================================================
+// BUTTON
+// ==================================================
+
+.rule-button {
+  display: inline-flex;
+
+  min-width: 96px;
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    8px
+    16px;
+
+  border-radius: 8px;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease,
+    opacity 150ms ease;
+}
+
+
+// ==================================================
+// DISABLED BUTTON
+// ==================================================
+
+.rule-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+// ==================================================
+// PRIMARY BUTTON
+// ==================================================
+
+.rule-button--primary {
+  border:
+    1px solid
+    #e7651c;
+
+  color: #ffffff;
+
+  background: #e7651c;
+}
+
+
+.rule-button--primary:not(:disabled):hover {
+  border-color: #d65312;
+
+  background: #d65312;
+}
+
+
+// ==================================================
+// SECONDARY BUTTON
+// ==================================================
+
+.rule-button--secondary {
+  border:
+    1px solid
+    #d0d5dd;
+
+  color: #344054;
+
+  background: #ffffff;
+}
+
+
+.rule-button--secondary:not(:disabled):hover {
+  border-color: #e7651c;
+
+  color: #e7651c;
+
+  background: #fff7ed;
+}
+
+
+// ==================================================
+// DELETE BUTTON
+// ==================================================
+
+.rule-button--danger {
+  border:
+    1px solid
+    #d92d20;
+
+  color: #d92d20;
+
+  background: #ffffff;
+}
+
+
+.rule-button--danger:not(:disabled):hover {
+  color: #ffffff;
+
+  background: #d92d20;
+}
+
+
+// ==================================================
+// RESULTS
+// ==================================================
+
+.rule-results {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding:
+    16px
+    14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// RESULTS HEADER
+// ==================================================
+
+.rule-results__header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 12px;
+}
+
+
+.rule-results__title {
+  margin: 0;
+
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  line-height: 20px;
+}
+
+
+.rule-results__description {
+  margin:
+    2px
+    0
+    0;
+
+  color: #667085;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 16px;
+}
+
+
+.rule-results__count {
+  display: inline-flex;
+
+  min-height: 24px;
+
+  flex:
+    0
+    0
+    auto;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    3px
+    9px;
+
+  border-radius: 999px;
+
+  color: #d65312;
+
+  background: #fff0e7;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// RESULTS TABLE
+// ==================================================
+
+.rule-results__table {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+}
+
+
+.rule-results__table::-webkit-scrollbar {
+  height: 5px;
+}
+
+
+.rule-results__table::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.rule-results__table::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #d0d5dd;
+}
+
+
+.rule-results__table
+theme-table {
+  display: block;
+
+  min-width: 950px;
+}
+
+
+// ==================================================
+// TOAST
+// ==================================================
+
+.rule-toast {
+  position: fixed;
+
+  top: 96px;
+  right: 24px;
+
+  z-index: 3000;
+
+  display: flex;
+
+  width: 360px;
+
+  max-width:
+    calc(
+      100vw - 48px
+    );
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    8px
+    24px
+    rgba(
+      16,
+      24,
+      40,
+      0.14
+    );
+
+  box-sizing: border-box;
+
+  animation:
+    rule-toast-in
+    180ms
+    ease-out;
+}
+
+
+// ==================================================
+// TOAST SUCCESS
+// ==================================================
+
+.rule-toast--success {
+  border-left:
+    4px solid
+    #12b76a;
+}
+
+
+// ==================================================
+// TOAST ERROR
+// ==================================================
+
+.rule-toast--error {
+  border-left:
+    4px solid
+    #d92d20;
+}
+
+
+// ==================================================
+// TOAST ICON
+// ==================================================
+
+.rule-toast__icon {
+  display: flex;
+
+  width: 32px;
+  height: 32px;
+
+  flex:
+    0
+    0
+    32px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+
+.rule-toast--success
+.rule-toast__icon {
+  color: #039855;
+
+  background: #ecfdf3;
+}
+
+
+.rule-toast--error
+.rule-toast__icon {
+  color: #d92d20;
+
+  background: #fef3f2;
+}
+
+
+// ==================================================
+// TOAST CONTENT
+// ==================================================
+
+.rule-toast__content {
+  display: flex;
+
+  flex: 1;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 2px;
+}
+
+
+.rule-toast__title {
+  color: #344054;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 18px;
+}
+
+
+.rule-toast__message {
+  color: #667085;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+}
+
+
+// ==================================================
+// TOAST CLOSE
+// ==================================================
+
+.rule-toast__close {
+  display: flex;
+
+  width: 26px;
+  height: 26px;
+
+  flex:
+    0
+    0
+    26px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  color: #98a2b3;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+
+.rule-toast__close:hover {
+  color: #344054;
+
+  background: #f2f4f7;
+}
+
+
+// ==================================================
+// TOAST ANIMATION
+// ==================================================
+
+@keyframes rule-toast-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(
+        16px
+      );
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(
+        0
+      );
+  }
+
+}
+
+
+// ==================================================
+// LARGE TABLET
+// ==================================================
+
+@media (
+  max-width: 1100px
+) {
+
+  .rule-main-grid,
+  .rule-search-grid {
+    gap: 14px;
+  }
+
+
+  .rule-field {
+    grid-template-columns:
+      115px
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+
+  .rule-panel {
+    padding: 14px;
+  }
+
+
+  .rule-edit-lookup {
+    gap: 14px;
+  }
+
+}
+
+
+// ==================================================
+// TABLET
+// ==================================================
+
+@media (
+  max-width: 900px
+) {
+
+  .rule-main-grid,
+  .rule-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .rule-edit-lookup {
+    grid-template-columns: 1fr;
+  }
+
+
+  .rule-field {
+    grid-template-columns:
+      135px
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+
+  .rule-conditions__textarea {
+    width: 100%;
+  }
+
+}
+
+
+// ==================================================
+// MOBILE
+// ==================================================
+
+@media (
+  max-width: 650px
+) {
+
+  .rule-header {
+    margin-bottom: 14px;
+  }
+
+
+  .rule-title {
+    font-size: 22px;
+
+    line-height: 28px;
+  }
+
+
+  .rule-description {
+    font-size: 13px;
+  }
+
+
+  .rule-tabs {
+    overflow-x: auto;
+
+    padding:
+      8px
+      10px
+      0;
+  }
+
+
+  .rule-tab {
+    min-width: 82px;
+
+    padding:
+      0
+      12px;
+  }
+
+
+  .rule-form {
+    padding:
+      14px
+      12px
+      16px;
+  }
+
+
+  .rule-main-grid,
+  .rule-search-grid,
+  .rule-edit-lookup {
+    grid-template-columns: 1fr;
+  }
+
+
+  .rule-field {
+    grid-template-columns: 1fr;
+
+    row-gap: 5px;
+  }
+
+
+  .rule-field__label {
+    min-height: auto;
+
+    margin-top: 4px;
+  }
+
+
+  .rule-panel {
+    padding: 12px;
+
+    gap: 13px;
+  }
+
+
+  .rule-radio-group {
+    min-height: 34px;
+  }
+
+
+  .rule-checkbox {
+    min-height: 34px;
+  }
+
+
+  .rule-conditions {
+    padding: 12px;
+  }
+
+
+  .rule-conditions__textarea {
+    width: 100%;
+  }
+
+
+  .rule-actions {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+
+
+  .rule-button {
+    width: 100%;
+  }
+
+
+  .rule-results {
+    padding: 12px;
+  }
+
+
+  .rule-results__header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .rule-toast {
+    top: 84px;
+
+    right: 12px;
+    left: 12px;
+
+    width: auto;
+
+    max-width: none;
+  }
+
+}
+
+
+// ==================================================
+// VERY SMALL MOBILE
+// ==================================================
+
+@media (
+  max-width: 420px
+) {
+
+  .rule-radio-group {
+    gap:
+      8px
+      12px;
+  }
+
+
+  .rule-helper-inline {
+    display: block;
+
+    width: 100%;
+
+    margin-left: 21px;
+  }
+
+
+  .rule-field__control,
+  .rule-field__select {
+    height: 38px;
+
+    font-size: 12px;
+  }
+
+}

@@ -1,0 +1,15 @@
+// Custom component classes
+@layer components {
+  .theme-input {
+    @apply px-[18px] py-[15px] border rounded-[100px] transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500;
+  }
+
+  .theme-checkbox {
+    @apply w-5 h-5 rounded-[4px] border border-gray-300 transition-all duration-200 cursor-pointer;
+    accent-color: #00897b;
+  }
+
+  .theme-label {
+    @apply font-inter font-medium text-sm leading-5 tracking-normal text-[#344054];
+  }
+}

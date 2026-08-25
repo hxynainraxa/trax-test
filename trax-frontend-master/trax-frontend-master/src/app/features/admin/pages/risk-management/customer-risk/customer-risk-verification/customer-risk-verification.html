@@ -1,0 +1,809 @@
+<div class="customer-risk-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="customer-risk-header">
+
+    <div class="customer-risk-header__content">
+
+      <h1 class="customer-risk-title">
+        Customer Risk Verification
+      </h1>
+
+      <p class="customer-risk-description">
+        Search customer records using personal, membership and current risk information.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CARD
+       ===================================================== -->
+
+  <section class="customer-risk-card">
+
+    <!-- ===================================================
+         TAB
+         =================================================== -->
+
+    <div class="customer-risk-tabs">
+
+      <div
+        class="
+          customer-risk-tab
+          customer-risk-tab--active
+        "
+      >
+        Personal
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         SEARCH FORM
+         =================================================== -->
+
+    <form
+      class="customer-risk-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="customer-risk-grid">
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="customer-risk-column">
+
+          <!-- FIRST NAME -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-first-name"
+              class="customer-field__label"
+            >
+              First Name
+            </label>
+
+            <input
+              id="risk-first-name"
+              name="firstName"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter first name"
+              [(ngModel)]="filters.firstName"
+            />
+
+          </div>
+
+
+          <!-- MIDDLE NAME -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-middle-name"
+              class="customer-field__label"
+            >
+              Middle Name
+            </label>
+
+            <input
+              id="risk-middle-name"
+              name="middleName"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter middle name"
+              [(ngModel)]="filters.middleName"
+            />
+
+          </div>
+
+
+          <!-- LAST NAME -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-last-name"
+              class="customer-field__label"
+            >
+              Last Name
+            </label>
+
+            <input
+              id="risk-last-name"
+              name="lastName"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter last name"
+              [(ngModel)]="filters.lastName"
+            />
+
+          </div>
+
+
+          <!-- SHORT NAME -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-short-name"
+              class="customer-field__label"
+            >
+              Short Name
+            </label>
+
+            <input
+              id="risk-short-name"
+              name="shortName"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter short name"
+              [(ngModel)]="filters.shortName"
+            />
+
+          </div>
+
+
+          <!-- FULL NAME -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-full-name"
+              class="customer-field__label"
+            >
+              Full Name
+            </label>
+
+            <input
+              id="risk-full-name"
+              name="fullName"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter full name"
+              [(ngModel)]="filters.fullName"
+            />
+
+          </div>
+
+
+          <!-- GENDER -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-gender"
+              class="customer-field__label"
+            >
+              Gender
+            </label>
+
+            <select
+              id="risk-gender"
+              name="gender"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.gender"
+            >
+
+              @for (
+                option of genders;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- DOB -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-dob"
+              class="customer-field__label"
+            >
+              DOB
+            </label>
+
+            <input
+              id="risk-dob"
+              name="dob"
+              type="date"
+              class="customer-field__control"
+              [(ngModel)]="filters.dob"
+            />
+
+          </div>
+
+
+          <!-- BIRTH PLACE -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-birth-place"
+              class="customer-field__label"
+            >
+              Birth Place
+            </label>
+
+            <input
+              id="risk-birth-place"
+              name="birthPlace"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter birth place"
+              [(ngModel)]="filters.birthPlace"
+            />
+
+          </div>
+
+
+          <!-- MOBILE -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-mobile"
+              class="customer-field__label"
+            >
+              Mobile Num.
+            </label>
+
+            <input
+              id="risk-mobile"
+              name="mobileNumber"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter mobile number"
+              [(ngModel)]="filters.mobileNumber"
+            />
+
+          </div>
+
+
+          <!-- RESIDENT TELEPHONE -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-resident-phone"
+              class="customer-field__label"
+            >
+              Resident Tel Num.
+            </label>
+
+            <input
+              id="risk-resident-phone"
+              name="residentTelephone"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter telephone number"
+              [(ngModel)]="filters.residentTelephone"
+            />
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-email"
+              class="customer-field__label"
+            >
+              Email Id
+            </label>
+
+            <input
+              id="risk-email"
+              name="email"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter email address"
+              [(ngModel)]="filters.email"
+            />
+
+          </div>
+
+
+          <!-- ID NUMBER -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-id-number"
+              class="customer-field__label"
+            >
+              ID Number
+            </label>
+
+            <input
+              id="risk-id-number"
+              name="idNumber"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter ID number"
+              [(ngModel)]="filters.idNumber"
+            />
+
+          </div>
+
+
+          <!-- STATE -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-state"
+              class="customer-field__label"
+            >
+              State
+            </label>
+
+            <input
+              id="risk-state"
+              name="state"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter state"
+              [(ngModel)]="filters.state"
+            />
+
+          </div>
+
+
+          <!-- COUNTRY -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-country"
+              class="customer-field__label"
+            >
+              Country
+            </label>
+
+            <select
+              id="risk-country"
+              name="country"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.country"
+            >
+
+              @for (
+                option of countries;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- NATIONALITY -->
+
+          <div class="customer-field">
+
+            <label
+              for="risk-nationality"
+              class="customer-field__label"
+            >
+              Nationality
+            </label>
+
+            <select
+              id="risk-nationality"
+              name="nationality"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.nationality"
+            >
+
+              @for (
+                option of nationalities;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div class="customer-risk-column">
+
+          <!-- MEMBERSHIP NUMBER -->
+
+          <div class="customer-field">
+
+            <label
+              for="membership-number"
+              class="customer-field__label"
+            >
+              Membership Number
+            </label>
+
+            <input
+              id="membership-number"
+              name="membershipNumber"
+              type="text"
+              class="customer-field__control"
+              placeholder="Enter membership number"
+              [(ngModel)]="filters.membershipNumber"
+            />
+
+          </div>
+
+
+          <!-- MEMBERSHIP OPENED -->
+
+          <div class="customer-field">
+
+            <label
+              for="membership-opened-date"
+              class="customer-field__label"
+            >
+              Membership Opened Date
+            </label>
+
+            <input
+              id="membership-opened-date"
+              name="membershipOpenedDate"
+              type="date"
+              class="customer-field__control"
+              [(ngModel)]="filters.membershipOpenedDate"
+            />
+
+          </div>
+
+
+          <!-- CUSTOMER TYPE -->
+
+          <div class="customer-field">
+
+            <label
+              for="customer-type"
+              class="customer-field__label"
+            >
+              Customer Type
+            </label>
+
+            <select
+              id="customer-type"
+              name="customerType"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.customerType"
+            >
+
+              @for (
+                option of customerTypes;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- CURRENT RISK RATING -->
+
+          <div class="customer-field">
+
+            <label
+              for="current-risk-rating"
+              class="customer-field__label"
+            >
+              Current Risk Rating
+            </label>
+
+            <select
+              id="current-risk-rating"
+              name="currentRiskRating"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.currentRiskRating"
+            >
+
+              @for (
+                option of riskRatings;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- RESIDENT STATUS -->
+
+          <div class="customer-field">
+
+            <label
+              for="resident-status"
+              class="customer-field__label"
+            >
+              Resident Status
+            </label>
+
+            <select
+              id="resident-status"
+              name="residentStatus"
+              class="
+                customer-field__control
+                customer-field__select
+              "
+              [(ngModel)]="filters.residentStatus"
+            >
+
+              @for (
+                option of residentStatuses;
+                track option.value
+              ) {
+
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <!-- MANUAL RISK -->
+
+          <div class="customer-field">
+
+            <span class="customer-field__label">
+              Manual Risk
+            </span>
+
+            <label class="customer-checkbox">
+
+              <input
+                type="checkbox"
+                name="manualRisk"
+                [(ngModel)]="filters.manualRisk"
+              />
+
+              <span class="customer-checkbox__box"></span>
+
+              <span>
+                Manual Risk
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <!-- WATCH LIST -->
+
+          <div class="customer-field">
+
+            <span class="customer-field__label">
+              Watch List
+            </span>
+
+            <label class="customer-checkbox">
+
+              <input
+                type="checkbox"
+                name="watchList"
+                [(ngModel)]="filters.watchList"
+              />
+
+              <span class="customer-checkbox__box"></span>
+
+              <span>
+                Watch List
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="customer-risk-actions">
+
+        <button
+          type="button"
+          class="
+            customer-risk-button
+            customer-risk-button--secondary
+          "
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="
+            customer-risk-button
+            customer-risk-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section class="customer-risk-results">
+
+      <div class="customer-risk-results__header">
+
+        <div>
+
+          <h2 class="customer-risk-results__title">
+            Search Results
+          </h2>
+
+          <p class="customer-risk-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'customer'
+                : 'customers'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="customer-risk-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="customer-risk-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No customers found"
+
+          emptyMessage="No customers matched the selected risk verification criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

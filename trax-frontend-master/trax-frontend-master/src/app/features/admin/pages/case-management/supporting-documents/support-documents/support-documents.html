@@ -1,0 +1,463 @@
+<div class="support-documents-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="support-documents-header">
+
+    <div class="support-documents-header__content">
+
+      <h1 class="support-documents-title">
+        Support Documents
+      </h1>
+
+      <p class="support-documents-description">
+        Search supporting documents associated with blacklist, rule and case violations.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section class="support-documents-card">
+
+    <form
+      class="support-documents-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="support-documents-fields">
+
+        <!-- =================================================
+             BRANCH
+             ================================================= -->
+
+        <div class="support-field">
+
+          <label
+            for="support-branch"
+            class="support-field__label"
+          >
+            Branch
+          </label>
+
+
+          <select
+            id="support-branch"
+            name="branch"
+            class="
+              support-field__control
+              support-field__select
+            "
+            [(ngModel)]="filters.branch"
+          >
+
+            @for (
+              option of branches;
+              track option.value
+            ) {
+
+              <option
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- =================================================
+             REFERENCE NUMBER
+             ================================================= -->
+
+        <div class="support-field">
+
+          <label
+            for="support-reference"
+            class="support-field__label"
+          >
+            Reference Number
+          </label>
+
+
+          <input
+            id="support-reference"
+            name="referenceNumber"
+            type="text"
+            class="support-field__control"
+            placeholder="Enter reference number"
+            [(ngModel)]="
+              filters.referenceNumber
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             FROM DATE
+             ================================================= -->
+
+        <div class="support-field">
+
+          <label
+            for="support-from-date"
+            class="support-field__label"
+          >
+            From Date
+          </label>
+
+
+          <input
+            id="support-from-date"
+            name="fromDate"
+            type="date"
+            class="support-field__control"
+            [(ngModel)]="
+              filters.fromDate
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             TO DATE
+             ================================================= -->
+
+        <div class="support-field">
+
+          <label
+            for="support-to-date"
+            class="support-field__label"
+          >
+            To Date
+          </label>
+
+
+          <input
+            id="support-to-date"
+            name="toDate"
+            type="date"
+            class="support-field__control"
+            [(ngModel)]="
+              filters.toDate
+            "
+          />
+
+        </div>
+
+
+        <!-- =================================================
+             TRANSACTION TYPE
+             ================================================= -->
+
+        <div class="support-field">
+
+          <label
+            for="support-transaction-type"
+            class="support-field__label"
+          >
+            Transaction Type
+          </label>
+
+
+          <select
+            id="support-transaction-type"
+            name="transactionType"
+            class="
+              support-field__control
+              support-field__select
+            "
+            [(ngModel)]="
+              filters.transactionType
+            "
+          >
+
+            @for (
+              option of transactionTypes;
+              track option.value
+            ) {
+
+              <option
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- =================================================
+             VIOLATION TYPE
+             ================================================= -->
+
+        <div
+          class="
+            support-field
+            support-field--radios
+          "
+        >
+
+          <span class="support-field__label">
+            Violation Type
+          </span>
+
+
+          <div class="support-radio-group">
+
+            <!-- BLACK LIST -->
+
+            <label class="support-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="blacklist"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+
+              <span
+                class="support-radio__indicator"
+              ></span>
+
+
+              <span>
+                Black List Violation
+              </span>
+
+            </label>
+
+
+            <!-- RULE -->
+
+            <label class="support-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="rule"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+
+              <span
+                class="support-radio__indicator"
+              ></span>
+
+
+              <span>
+                Rule Violation
+              </span>
+
+            </label>
+
+
+            <!-- CASE -->
+
+            <label class="support-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="case"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+
+              <span
+                class="support-radio__indicator"
+              ></span>
+
+
+              <span>
+                Case Violation
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           DATE ERROR
+           ================================================= -->
+
+      @if (
+        dateError
+      ) {
+
+        <div class="support-date-error">
+          {{ dateError }}
+        </div>
+
+      }
+
+
+      <!-- =================================================
+           ACTIONS
+           ================================================= -->
+
+      <div class="support-documents-actions">
+
+        <button
+          type="button"
+          class="
+            support-button
+            support-button--secondary
+          "
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Reset
+          </span>
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="
+            support-button
+            support-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Search
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (
+    hasSearched
+  ) {
+
+    <section class="support-results">
+
+      <!-- RESULTS HEADER -->
+
+      <div class="support-results__header">
+
+        <div>
+
+          <h2 class="support-results__title">
+            Search Results
+          </h2>
+
+
+          <p class="support-results__description">
+
+            {{ results.length }}
+
+            matching
+
+            {{
+              results.length === 1
+                ? 'document'
+                : 'documents'
+            }}
+
+            found.
+
+          </p>
+
+        </div>
+
+
+        <span class="support-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <!-- EXISTING TABLE -->
+
+      <div class="support-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showActions]="false"
+
+          [showFooter]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+
+          emptyTitle="No support documents found"
+
+          emptyMessage="No support documents matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

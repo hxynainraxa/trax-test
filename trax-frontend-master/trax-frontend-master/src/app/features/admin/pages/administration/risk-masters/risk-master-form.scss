@@ -1,0 +1,438 @@
+.risk-page {
+  width: 100%;
+  font-family: Inter, sans-serif;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.risk-header {
+  margin-bottom: 18px;
+
+  h1 {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+  }
+
+  p {
+    margin: 5px 0 0;
+
+    color: #667085;
+
+    font-size: 13px;
+    line-height: 19px;
+  }
+}
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.risk-card {
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    54px
+    22px
+    22px;
+
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+
+  background: #fff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// EDIT TAB
+// ==================================================
+
+.risk-tab {
+  position: absolute;
+
+  top: -1px;
+  left: 0;
+
+  display: flex;
+
+  min-width: 86px;
+  height: 36px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 14px;
+
+  border: 1px solid #eaecf0;
+  border-top: 2px solid #e7651c;
+  border-bottom-color: #fff;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  color: #d65312;
+
+  background: #fff;
+
+  font:
+    600
+    12px
+    Inter,
+    sans-serif;
+
+  text-transform: uppercase;
+}
+
+
+// ==================================================
+// FORM
+// ==================================================
+
+.risk-form {
+  width: 100%;
+}
+
+.risk-fields {
+  display: flex;
+
+  width: min(560px, 100%);
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.risk-field {
+  display: grid;
+
+  grid-template-columns:
+    138px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 12px;
+
+  > span {
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 38px;
+
+    min-width: 0;
+
+    padding:
+      8px
+      11px;
+
+    border:
+      1px solid
+      #d0d5dd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    color: #101828;
+
+    background: #fff;
+
+    font:
+      400
+      12px/18px
+      Inter,
+      sans-serif;
+
+    box-sizing: border-box;
+
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      background-color 150ms ease;
+
+    &:hover {
+      border-color: #b8bdc5;
+    }
+
+    &:focus {
+      border-color: #e7651c;
+
+      box-shadow:
+        0
+        0
+        0
+        3px
+        rgba(231, 101, 28, .1);
+    }
+  }
+}
+
+
+// ==================================================
+// DROPDOWN
+// SAME PROJECT DESIGN
+// ==================================================
+
+.risk-field select {
+  appearance: none;
+
+  padding-right: 38px;
+
+  color: #344054;
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+    );
+
+  background-repeat: no-repeat;
+
+  background-position:
+    right 11px center;
+
+  background-size: 15px;
+
+  cursor: pointer;
+
+  &:hover {
+    border-color: #e0a179;
+
+    background-color: #fffdfb;
+  }
+
+  option {
+    color: #344054;
+
+    background: #fff;
+
+    font:
+      400
+      12px
+      Inter,
+      sans-serif;
+  }
+
+  option:checked {
+    color: #d65312;
+
+    background: #fff0e7;
+
+    font-weight: 600;
+  }
+}
+
+
+// ==================================================
+// NUMBER
+// ==================================================
+
+.risk-field
+input[type='number'] {
+  appearance: textfield;
+}
+
+.risk-field
+input[type='number']
+::-webkit-inner-spin-button,
+.risk-field
+input[type='number']
+::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.risk-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 24px;
+}
+
+.risk-btn {
+  min-width: 96px;
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font:
+    600
+    13px
+    Inter,
+    sans-serif;
+
+  cursor: pointer;
+
+  &--primary {
+    border: 1px solid #e7651c;
+
+    color: #fff;
+
+    background: #e7651c;
+
+    &:hover {
+      background: #d65312;
+    }
+  }
+
+  &--secondary {
+    border: 1px solid #d0d5dd;
+
+    color: #344054;
+
+    background: #fff;
+
+    &:hover {
+      border-color: #e7651c;
+
+      color: #e7651c;
+
+      background: #fff7ed;
+    }
+  }
+}
+
+
+// ==================================================
+// TOAST
+// ==================================================
+
+.risk-toast {
+  position: fixed;
+
+  top: 96px;
+  right: 24px;
+
+  z-index: 3000;
+
+  padding: 13px 16px;
+
+  border: 1px solid #eaecf0;
+  border-left: 4px solid #12b76a;
+
+  border-radius: 9px;
+
+  color: #344054;
+
+  background: #fff;
+
+  box-shadow:
+    0
+    8px
+    24px
+    rgba(16, 24, 40, .14);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+// ==================================================
+// RESPONSIVE
+// ==================================================
+
+@media (max-width: 560px) {
+
+  .risk-card {
+    padding:
+      52px
+      12px
+      16px;
+  }
+
+  .risk-field {
+    grid-template-columns: 1fr;
+
+    gap: 5px;
+  }
+
+  .risk-actions {
+    flex-direction: column;
+  }
+
+  .risk-btn {
+    width: 100%;
+  }
+
+  .risk-toast {
+    left: 12px;
+    right: 12px;
+  }
+// ==================================================
+// TWO COLUMN RISK MASTER FORM
+// ==================================================
+
+.transaction-type-card {
+  padding: 22px;
+}
+
+.transaction-type-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 56px;
+
+  width: 100%;
+}
+
+.transaction-type-grid .risk-fields {
+  width: 100%;
+}
+
+
+@media (max-width: 800px) {
+
+  .transaction-type-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+}
+
+
+@media (max-width: 560px) {
+
+  .transaction-type-card {
+    padding: 16px 12px;
+  }
+
+}
+}

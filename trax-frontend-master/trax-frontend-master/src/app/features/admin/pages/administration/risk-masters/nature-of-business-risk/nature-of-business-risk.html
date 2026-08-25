@@ -1,0 +1,122 @@
+<div class="risk-page">
+
+  <div class="risk-header">
+    <h1>
+      Risk Nature of Business
+    </h1>
+
+    <p>
+      Search and manage nature of business risk information.
+    </p>
+  </div>
+
+
+  <section class="risk-card">
+
+    <div class="risk-tab">
+      Edit
+    </div>
+
+
+    <form
+      class="risk-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="risk-fields">
+
+        <label class="risk-field">
+          <span>SLNo.</span>
+
+          <input
+            type="text"
+            name="slNo"
+            [(ngModel)]="form.slNo"
+          />
+        </label>
+
+
+        <label class="risk-field">
+          <span>Nature of Business</span>
+
+          <input
+            type="text"
+            name="natureOfBusiness"
+            [(ngModel)]="
+              form.natureOfBusiness
+            "
+          />
+        </label>
+
+
+        <label class="risk-field">
+          <span>Risk Score</span>
+
+          <input
+            type="number"
+            min="0"
+            name="riskScore"
+            [(ngModel)]="form.riskScore"
+          />
+        </label>
+
+
+        <label class="risk-field">
+          <span>Manual Risk Rating</span>
+
+          <select
+            name="manualRiskRating"
+            [(ngModel)]="
+              form.manualRiskRating
+            "
+          >
+
+            @for (
+              rating of ratings;
+              track rating
+            ) {
+
+              <option [value]="rating">
+                {{ rating }}
+              </option>
+
+            }
+
+          </select>
+        </label>
+
+      </div>
+
+
+      <div class="risk-actions">
+
+        <button
+          type="submit"
+          class="risk-btn risk-btn--primary"
+        >
+          Search
+        </button>
+
+
+        <button
+          type="button"
+          class="risk-btn risk-btn--secondary"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  @if (message()) {
+    <div class="risk-toast">
+      {{ message() }}
+    </div>
+  }
+
+</div>

@@ -1,0 +1,332 @@
+<div class="dashboard-page service-monitor">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="dashboard-header">
+
+    <div class="dashboard-header__content">
+
+      <h1 class="dashboard-title">
+        Service Monitor
+      </h1>
+
+      <p class="dashboard-description">
+        Monitor service availability and review service logs.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SERVICE STATUS CARDS
+       ===================================================== -->
+
+  <div class="service-monitor__services">
+
+    @for (
+      service of services;
+      track service.id
+    ) {
+
+      <!--
+        Existing Dashboard card treatment is reused.
+      -->
+      <article
+        class="
+          dashboard-table-card
+          service-monitor__service-card
+        "
+      >
+
+        <!-- ===============================================
+             SERVICE ICON
+             =============================================== -->
+
+        <div
+          class="service-monitor__service-icon"
+        >
+
+          <svg
+            [lucideIcon]="serviceIcon"
+            [size]="24"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+        </div>
+
+
+        <!-- ===============================================
+             SERVICE DETAILS
+             =============================================== -->
+
+        <div
+          class="service-monitor__service-content"
+        >
+
+          <span
+            class="service-monitor__service-name"
+          >
+            {{ service.name }}
+          </span>
+
+
+          <!-- =============================================
+               STATUS TOGGLE
+               ============================================= -->
+
+          <button
+            type="button"
+
+            class="service-monitor__toggle"
+
+            [class.service-monitor__toggle--up]="
+              service.isUp
+            "
+
+            [class.service-monitor__toggle--down]="
+              !service.isUp
+            "
+
+            [attr.aria-pressed]="
+              service.isUp
+            "
+
+            [attr.aria-label]="
+              'Toggle ' + service.name
+            "
+
+            (click)="
+              toggleService(service)
+            "
+          >
+
+            <!-- STATUS TEXT -->
+
+            <span
+              class="service-monitor__toggle-label"
+            >
+              {{
+                service.isUp
+                  ? 'UP'
+                  : 'DOWN'
+              }}
+            </span>
+
+
+            <!-- POWER ICON KNOB -->
+
+            <span
+              class="service-monitor__toggle-knob"
+            >
+
+              <svg
+                [lucideIcon]="powerIcon"
+                [size]="12"
+                [strokeWidth]="2"
+                aria-hidden="true"
+              ></svg>
+
+            </span>
+
+          </button>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+
+  <!-- =====================================================
+       LOG TABLES
+       ===================================================== -->
+
+  <div class="service-monitor__logs">
+
+    <!-- ===================================================
+         AML SERVICE LOG
+         =================================================== -->
+
+    <section
+      class="
+        dashboard-table-card
+        service-monitor__log-card
+      "
+    >
+
+      <!-- ===============================================
+           HEADER
+           =============================================== -->
+
+      <div
+        class="dashboard-table-card__header"
+      >
+
+        <h2
+          class="dashboard-table-card__title"
+        >
+          AML Service Log
+        </h2>
+
+
+        <button
+          type="button"
+
+          class="dashboard-table-card__refresh"
+
+          (click)="refreshAmlLogs()"
+        >
+
+          <svg
+            [lucideIcon]="refreshIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Refresh
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- ===============================================
+           TABLE
+           =============================================== -->
+
+      <div
+        class="
+          service-monitor__table-container
+          service-monitor__table-container--aml
+        "
+      >
+
+        <theme-table
+          [rows]="amlServiceLogs"
+          [columns]="logColumns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showFooter]="false"
+
+          [showActions]="false"
+
+          [hoverable]="true"
+
+          [striped]="false"
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BLACKLIST SERVICE LOG
+         =================================================== -->
+
+    <section
+      class="
+        dashboard-table-card
+        service-monitor__log-card
+      "
+    >
+
+      <!-- ===============================================
+           HEADER
+           =============================================== -->
+
+      <div
+        class="dashboard-table-card__header"
+      >
+
+        <h2
+          class="dashboard-table-card__title"
+        >
+          Blacklist Service Log
+        </h2>
+
+
+        <button
+          type="button"
+
+          class="dashboard-table-card__refresh"
+
+          (click)="refreshBlacklistLogs()"
+        >
+
+          <svg
+            [lucideIcon]="refreshIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+            aria-hidden="true"
+          ></svg>
+
+          <span>
+            Refresh
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- ===============================================
+           EMPTY TABLE
+           =============================================== -->
+
+      <div
+        class="service-monitor__table-container"
+      >
+
+        <theme-table
+          [rows]="blacklistServiceLogs"
+
+          [columns]="logColumns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+
+          [showFilterButton]="false"
+
+          [showFooter]="false"
+
+          [showActions]="false"
+
+          [hoverable]="false"
+
+          [striped]="false"
+
+          emptyTitle="NO DATA TO SHOW FOR NOW"
+
+          emptyMessage=""
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

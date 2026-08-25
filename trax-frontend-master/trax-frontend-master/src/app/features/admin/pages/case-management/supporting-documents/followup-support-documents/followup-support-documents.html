@@ -1,0 +1,514 @@
+<div class="followup-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="followup-header">
+
+    <div class="followup-header__content">
+
+      <h1 class="followup-title">
+        Followup Support Documents
+      </h1>
+
+      <p class="followup-description">
+        Search followup supporting documents using customer,
+        transaction and violation information.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SEARCH CARD
+       ===================================================== -->
+
+  <section class="followup-card">
+
+    <form
+      class="followup-form"
+      (ngSubmit)="search()"
+    >
+
+      <div class="followup-fields">
+
+        <!-- BRANCH -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-branch"
+            class="followup-field__label"
+          >
+            Branch
+          </label>
+
+          <select
+            id="followup-branch"
+            name="branch"
+            class="
+              followup-field__control
+              followup-field__select
+            "
+            [(ngModel)]="filters.branch"
+          >
+
+            @for (
+              option of branches;
+              track option.value
+            ) {
+
+              <option [value]="option.value">
+                {{ option.label }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- REFERENCE -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-reference"
+            class="followup-field__label"
+          >
+            Reference Number
+          </label>
+
+          <input
+            id="followup-reference"
+            name="referenceNumber"
+            type="text"
+            class="followup-field__control"
+            placeholder="Enter reference number"
+            [(ngModel)]="
+              filters.referenceNumber
+            "
+          />
+
+        </div>
+
+
+        <!-- MEMBERSHIP -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-membership"
+            class="followup-field__label"
+          >
+            Membership Card
+          </label>
+
+          <input
+            id="followup-membership"
+            name="membershipCard"
+            type="text"
+            class="followup-field__control"
+            placeholder="Enter membership card"
+            [(ngModel)]="
+              filters.membershipCard
+            "
+          />
+
+        </div>
+
+
+        <!-- MEMBER ID -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-member-id"
+            class="followup-field__label"
+          >
+            Member ID
+          </label>
+
+          <input
+            id="followup-member-id"
+            name="memberId"
+            type="text"
+            class="followup-field__control"
+            placeholder="Enter member ID"
+            [(ngModel)]="
+              filters.memberId
+            "
+          />
+
+        </div>
+
+
+        <!-- NATIONALITY -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-nationality"
+            class="followup-field__label"
+          >
+            Nationality
+          </label>
+
+          <select
+            id="followup-nationality"
+            name="nationality"
+            class="
+              followup-field__control
+              followup-field__select
+            "
+            [(ngModel)]="
+              filters.nationality
+            "
+          >
+
+            @for (
+              option of nationalities;
+              track option.value
+            ) {
+
+              <option [value]="option.value">
+                {{ option.label }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- FROM DATE + VALUE DATE -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-from-date"
+            class="followup-field__label"
+          >
+            From Date
+          </label>
+
+
+          <div class="followup-date-row">
+
+            <input
+              id="followup-from-date"
+              name="fromDate"
+              type="date"
+              class="followup-field__control"
+              [(ngModel)]="
+                filters.fromDate
+              "
+            />
+
+
+            <label class="followup-checkbox">
+
+              <input
+                type="checkbox"
+                name="useValueDate"
+                [(ngModel)]="
+                  filters.useValueDate
+                "
+              />
+
+              <span
+                class="followup-checkbox__box"
+              ></span>
+
+              <span>
+                Value Date
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- TO DATE -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-to-date"
+            class="followup-field__label"
+          >
+            To Date
+          </label>
+
+          <input
+            id="followup-to-date"
+            name="toDate"
+            type="date"
+            class="followup-field__control"
+            [(ngModel)]="
+              filters.toDate
+            "
+          />
+
+        </div>
+
+
+        <!-- TRANSACTION TYPE -->
+
+        <div class="followup-field">
+
+          <label
+            for="followup-transaction"
+            class="followup-field__label"
+          >
+            Transaction Type
+          </label>
+
+          <select
+            id="followup-transaction"
+            name="transactionType"
+            class="
+              followup-field__control
+              followup-field__select
+            "
+            [(ngModel)]="
+              filters.transactionType
+            "
+          >
+
+            @for (
+              option of transactionTypes;
+              track option.value
+            ) {
+
+              <option [value]="option.value">
+                {{ option.label }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- VIOLATION TYPE -->
+
+        <div
+          class="
+            followup-field
+            followup-field--radios
+          "
+        >
+
+          <span class="followup-field__label">
+            Violation Type
+          </span>
+
+
+          <div class="followup-radio-group">
+
+            <label class="followup-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="blacklist"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+              <span
+                class="followup-radio__indicator"
+              ></span>
+
+              <span>
+                Black List Violation
+              </span>
+
+            </label>
+
+
+            <label class="followup-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="rule"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+              <span
+                class="followup-radio__indicator"
+              ></span>
+
+              <span>
+                Rule Violation
+              </span>
+
+            </label>
+
+
+            <label class="followup-radio">
+
+              <input
+                type="radio"
+                name="violationType"
+                value="case"
+                [(ngModel)]="
+                  filters.violationType
+                "
+              />
+
+              <span
+                class="followup-radio__indicator"
+              ></span>
+
+              <span>
+                Case Violation
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      @if (dateError) {
+
+        <div class="followup-date-error">
+          {{ dateError }}
+        </div>
+
+      }
+
+
+      <div class="followup-actions">
+
+        <button
+          type="button"
+          class="
+            followup-button
+            followup-button--secondary
+          "
+          (click)="reset()"
+        >
+
+          <svg
+            [lucideIcon]="resetIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          Reset
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="
+            followup-button
+            followup-button--primary
+          "
+        >
+
+          <svg
+            [lucideIcon]="searchIcon"
+            [size]="16"
+            [strokeWidth]="1.8"
+          ></svg>
+
+          Search
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESULTS
+       ===================================================== -->
+
+  @if (hasSearched) {
+
+    <section class="followup-results">
+
+      <div class="followup-results__header">
+
+        <div>
+
+          <h2 class="followup-results__title">
+            Search Results
+          </h2>
+
+          <p class="followup-results__description">
+            {{ results.length }}
+            matching
+            {{
+              results.length === 1
+                ? 'record'
+                : 'records'
+            }}
+            found.
+          </p>
+
+        </div>
+
+
+        <span class="followup-results__count">
+          {{ results.length }}
+          Results
+        </span>
+
+      </div>
+
+
+      <div class="followup-results__table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+
+          [searchable]="false"
+          [showFilterButton]="false"
+          [showActions]="false"
+          [showFooter]="false"
+
+          [hoverable]="true"
+          [striped]="false"
+
+          emptyTitle="No followup documents found"
+
+          emptyMessage="No followup supporting documents matched the selected search criteria."
+        >
+        </theme-table>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

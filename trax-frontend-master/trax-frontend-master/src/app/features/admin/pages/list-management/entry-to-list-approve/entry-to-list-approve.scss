@@ -1,0 +1,1049 @@
+// ==================================================
+// PAGE
+// ==================================================
+
+.approve-page {
+  width: 100%;
+
+  min-width: 0;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// HEADER
+// ==================================================
+
+.approve-header {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-start;
+
+  margin-bottom: 18px;
+}
+
+
+.approve-header__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+.approve-title {
+  margin: 0;
+
+  color: #101828;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 100%;
+}
+
+
+.approve-description {
+  margin: 0;
+
+  color: #6b6b6b;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 20px;
+}
+
+
+// ==================================================
+// CARD
+// ==================================================
+
+.approve-card {
+  width: 100%;
+
+  overflow: visible;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// TAB
+// ==================================================
+
+.approve-tabs {
+  display: flex;
+
+  width: 100%;
+
+  align-items: flex-end;
+
+  padding:
+    10px
+    16px
+    0;
+
+  border-bottom:
+    1px solid
+    #eaecf0;
+
+  border-radius:
+    12px
+    12px
+    0
+    0;
+
+  background: #fbfaf9;
+
+  box-sizing: border-box;
+}
+
+
+.approve-tab {
+  position: relative;
+
+  display: inline-flex;
+
+  min-width: 96px;
+  height: 36px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    0
+    16px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-bottom: 0;
+
+  border-radius:
+    8px
+    8px
+    0
+    0;
+
+  color: #667085;
+
+  background: #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 18px;
+
+  box-sizing: border-box;
+}
+
+
+.approve-tab--active {
+  margin-bottom: -1px;
+
+  border-top-color:
+    #e7651c;
+
+  color:
+    #d65312;
+}
+
+
+.approve-tab--active::before {
+  content: '';
+
+  position: absolute;
+
+  top: -1px;
+  left: 8px;
+  right: 8px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    #e7651c;
+}
+
+
+// ==================================================
+// FORM
+// ==================================================
+
+.approve-form {
+  width: 100%;
+
+  padding:
+    18px
+    20px
+    20px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// TWO COLUMNS
+// ==================================================
+
+.approve-form-columns {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  align-items: start;
+
+  gap: 42px;
+}
+
+
+// ==================================================
+// COLUMN
+// ==================================================
+
+.approve-column {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 10px;
+}
+
+
+// ==================================================
+// FIELD
+// ==================================================
+
+.approve-field {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    150px
+    minmax(
+      0,
+      1fr
+    );
+
+  align-items: start;
+
+  column-gap: 12px;
+
+  box-sizing: border-box;
+}
+
+
+// ==================================================
+// LABEL
+// ==================================================
+
+.approve-field__label {
+  display: flex;
+
+  min-height: 36px;
+
+  align-items: center;
+
+  color: #344054;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 16px;
+}
+
+
+// ==================================================
+// INPUT
+// ==================================================
+
+.approve-field__control {
+  width: 100%;
+  height: 36px;
+
+  padding:
+    7px
+    11px;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #101828;
+
+  background: #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 18px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color
+    150ms
+    ease,
+    box-shadow
+    150ms
+    ease,
+    background-color
+    150ms
+    ease;
+}
+
+
+.approve-field__control::placeholder {
+  color:
+    #98a2b3;
+}
+
+
+.approve-field__control:hover {
+  border-color:
+    #b8bdc5;
+}
+
+
+.approve-field__control:focus {
+  border-color:
+    #e7651c;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+// ==================================================
+// CONSISTENT DROPDOWN DESIGN
+// ==================================================
+
+.approve-field__select {
+  appearance: none;
+
+  -webkit-appearance:
+    none;
+
+  -moz-appearance:
+    none;
+
+  padding:
+    7px
+    38px
+    7px
+    11px;
+
+  color:
+    #344054;
+
+  background-color:
+    #ffffff;
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"
+    );
+
+  background-repeat:
+    no-repeat;
+
+  background-position:
+    right 11px center;
+
+  background-size:
+    15px;
+
+  cursor:
+    pointer;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+.approve-field__select:hover {
+  border-color:
+    #e0a179;
+
+  background-color:
+    #fffdfb;
+}
+
+
+.approve-field__select:focus {
+  border-color:
+    #e7651c;
+
+  background-color:
+    #ffffff;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(
+      231,
+      101,
+      28,
+      0.1
+    );
+}
+
+
+.approve-field__select option {
+  color:
+    #344054;
+
+  background:
+    #ffffff;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    12px;
+}
+
+
+.approve-field__select option:checked {
+  color:
+    #d65312;
+
+  background:
+    #fff0e7;
+
+  font-weight:
+    600;
+}
+
+
+// ==================================================
+// TEXTAREA
+// ==================================================
+
+.approve-field__textarea {
+  height:
+    76px;
+
+  min-height:
+    76px;
+
+  resize:
+    vertical;
+}
+
+
+// ==================================================
+// RADIO
+// ==================================================
+
+.approve-radio-group {
+  display: flex;
+
+  min-height:
+    36px;
+
+  align-items:
+    center;
+
+  gap:
+    16px;
+}
+
+
+.approve-radio {
+  position:
+    relative;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap:
+    6px;
+
+  color:
+    #344054;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    11px;
+
+  font-weight:
+    500;
+
+  cursor:
+    pointer;
+}
+
+
+.approve-radio input {
+  position:
+    absolute;
+
+  width:
+    1px;
+
+  height:
+    1px;
+
+  opacity:
+    0;
+}
+
+
+.approve-radio__indicator {
+  display:
+    flex;
+
+  width:
+    15px;
+
+  height:
+    15px;
+
+  flex:
+    0 0 15px;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid
+    #d0d5dd;
+
+  border-radius:
+    50%;
+
+  background:
+    #ffffff;
+
+  box-sizing:
+    border-box;
+}
+
+
+.approve-radio
+input:checked
++
+.approve-radio__indicator {
+  border-color:
+    #e7651c;
+}
+
+
+.approve-radio
+input:checked
++
+.approve-radio__indicator::after {
+  content:
+    '';
+
+  width:
+    7px;
+
+  height:
+    7px;
+
+  border-radius:
+    50%;
+
+  background:
+    #e7651c;
+}
+
+
+// ==================================================
+// ACTIONS
+// ==================================================
+
+.approve-actions {
+  display:
+    flex;
+
+  width:
+    100%;
+
+  align-items:
+    center;
+
+  justify-content:
+    flex-end;
+
+  gap:
+    10px;
+
+  margin-top:
+    20px;
+}
+
+
+// ==================================================
+// BUTTON
+// ==================================================
+
+.approve-button {
+  display:
+    inline-flex;
+
+  min-width:
+    96px;
+
+  height:
+    38px;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+
+  padding:
+    8px
+    16px;
+
+  border-radius:
+    8px;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    13px;
+
+  font-weight:
+    600;
+
+  line-height:
+    18px;
+
+  cursor:
+    pointer;
+
+  box-sizing:
+    border-box;
+
+  transition:
+    color
+    150ms
+    ease,
+    border-color
+    150ms
+    ease,
+    background-color
+    150ms
+    ease;
+}
+
+
+.approve-button--primary {
+  border:
+    1px solid
+    #e7651c;
+
+  color:
+    #ffffff;
+
+  background:
+    #e7651c;
+}
+
+
+.approve-button--primary:hover {
+  border-color:
+    #d65312;
+
+  background:
+    #d65312;
+}
+
+
+.approve-button--secondary {
+  border:
+    1px solid
+    #d0d5dd;
+
+  color:
+    #344054;
+
+  background:
+    #ffffff;
+}
+
+
+.approve-button--secondary:hover {
+  border-color:
+    #e7651c;
+
+  color:
+    #e7651c;
+
+  background:
+    #fff7ed;
+}
+
+
+// ==================================================
+// RESULTS
+// ==================================================
+
+.approve-results {
+  width:
+    100%;
+
+  margin-top:
+    18px;
+
+  padding:
+    16px
+    14px;
+
+  border:
+    1px solid
+    #eaecf0;
+
+  border-radius:
+    12px;
+
+  background:
+    #ffffff;
+
+  box-sizing:
+    border-box;
+}
+
+
+.approve-results__header {
+  display:
+    flex;
+
+  width:
+    100%;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    16px;
+
+  margin-bottom:
+    12px;
+}
+
+
+.approve-results__title {
+  margin:
+    0;
+
+  color:
+    #344054;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    14px;
+
+  font-weight:
+    600;
+
+  line-height:
+    20px;
+}
+
+
+.approve-results__description {
+  margin:
+    2px
+    0
+    0;
+
+  color:
+    #667085;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    11px;
+
+  font-weight:
+    400;
+
+  line-height:
+    16px;
+}
+
+
+.approve-results__count {
+  display:
+    inline-flex;
+
+  min-height:
+    24px;
+
+  flex:
+    0
+    0
+    auto;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    3px
+    9px;
+
+  border-radius:
+    999px;
+
+  color:
+    #d65312;
+
+  background:
+    #fff0e7;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size:
+    11px;
+
+  font-weight:
+    600;
+
+  line-height:
+    16px;
+}
+
+
+// ==================================================
+// TABLE WRAPPER
+//
+// Because this approval table has many columns,
+// allow only the table area to scroll horizontally.
+// ==================================================
+
+.approve-results__table {
+  width:
+    100%;
+
+  min-width:
+    0;
+
+  overflow-x:
+    auto;
+
+  overflow-y:
+    hidden;
+
+  scrollbar-width:
+    thin;
+
+  scrollbar-color:
+    #d0d5dd
+    transparent;
+}
+
+
+.approve-results__table::-webkit-scrollbar {
+  height:
+    5px;
+}
+
+
+.approve-results__table::-webkit-scrollbar-track {
+  background:
+    transparent;
+}
+
+
+.approve-results__table::-webkit-scrollbar-thumb {
+  border-radius:
+    999px;
+
+  background:
+    #d0d5dd;
+}
+
+
+.approve-results__table
+theme-table {
+  display:
+    block;
+
+  min-width:
+    1100px;
+}
+
+
+// ==================================================
+// TABLET
+// ==================================================
+
+@media (
+  max-width: 1000px
+) {
+
+  .approve-form-columns {
+    gap:
+      24px;
+  }
+
+
+  .approve-field {
+    grid-template-columns:
+      120px
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+}
+
+
+// ==================================================
+// MOBILE
+// ==================================================
+
+@media (
+  max-width: 760px
+) {
+
+  .approve-form-columns {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .approve-field {
+    grid-template-columns:
+      1fr;
+
+    row-gap:
+      5px;
+  }
+
+
+  .approve-field__label {
+    min-height:
+      auto;
+  }
+
+
+  .approve-radio-group {
+    flex-wrap:
+      wrap;
+  }
+
+
+  .approve-actions {
+    flex-direction:
+      column-reverse;
+
+    align-items:
+      stretch;
+  }
+
+
+  .approve-button {
+    width:
+      100%;
+  }
+
+
+  .approve-results__header {
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+}

@@ -1,0 +1,502 @@
+<div class="master-page">
+
+  <!-- HEADER -->
+
+  <div class="master-header">
+    <h1>Goods List</h1>
+
+    <p>
+      Add, edit and search controlled goods information.
+    </p>
+  </div>
+
+
+  <!-- CARD -->
+
+  <section class="master-card goods-card">
+
+    <!-- TABS -->
+
+    <div class="goods-tabs">
+
+      @for (
+        tab of ['add', 'edit', 'search'];
+        track tab
+      ) {
+        <button
+          type="button"
+          class="goods-tab"
+          [class.goods-tab--active]="
+            activeTab === tab
+          "
+          (click)="setTab($any(tab))"
+        >
+          {{ tab }}
+        </button>
+      }
+
+    </div>
+
+
+    <form
+      (ngSubmit)="
+        activeTab === 'add' ||
+        selectedId !== null
+          ? save()
+          : search()
+      "
+    >
+
+      <div class="master-grid">
+
+        <!-- LEFT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Goods Type</span>
+
+            <select
+              name="goodsType"
+              [(ngModel)]="form.goodsType"
+            >
+              @for (
+                type of goodsTypes;
+                track type
+              ) {
+                <option [value]="type">
+                  {{ type }}
+                </option>
+              }
+            </select>
+          </label>
+
+
+          <label class="master-field">
+            <span>Goods Name</span>
+
+            <input
+              name="goodsName"
+              [(ngModel)]="form.goodsName"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>CAS Number</span>
+
+            <input
+              name="casNumber"
+              [(ngModel)]="form.casNumber"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Product Name</span>
+
+            <input
+              name="productName"
+              [(ngModel)]="form.productName"
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>Reference Number</span>
+
+            <input
+              name="referenceNumber"
+              [(ngModel)]="
+                form.referenceNumber
+              "
+            />
+          </label>
+
+
+          <label class="master-field">
+            <span>HS Code</span>
+
+            <input
+              name="hsCode"
+              [(ngModel)]="form.hsCode"
+            />
+          </label>
+
+
+          <div class="master-field">
+            <span>Status</span>
+
+            <div class="master-radios">
+
+              @if (
+                activeTab !== 'add'
+              ) {
+                <label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="all"
+                    [(ngModel)]="form.status"
+                  />
+                  All
+                </label>
+              }
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="active"
+                  [(ngModel)]="form.status"
+                />
+                Active
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  [(ngModel)]="form.status"
+                />
+                InActive
+              </label>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="master-column">
+
+          <label class="master-field">
+            <span>Controlled Goods</span>
+
+            <select
+              name="controlledGoods"
+              [(ngModel)]="
+                form.controlledGoods
+              "
+            >
+              @for (
+                option of yesNo;
+                track option
+              ) {
+                <option [value]="option">
+                  {{ option }}
+                </option>
+              }
+            </select>
+          </label>
+
+
+          <label class="master-field">
+            <span>Need Declaration</span>
+
+            <select
+              name="needDeclaration"
+              [(ngModel)]="
+                form.needDeclaration
+              "
+            >
+              @for (
+                option of yesNo;
+                track option
+              ) {
+                <option [value]="option">
+                  {{ option }}
+                </option>
+              }
+            </select>
+          </label>
+
+
+          <label class="master-field">
+            <span>Under List of</span>
+
+            <input
+              name="underListOf"
+              [(ngModel)]="
+                form.underListOf
+              "
+            />
+          </label>
+
+
+          @if (
+            activeTab !== 'add'
+          ) {
+
+            <label class="master-field">
+              <span>Created By</span>
+
+              <input
+                name="createdBy"
+                [(ngModel)]="
+                  form.createdBy
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Created Date</span>
+
+              <input
+                type="date"
+                name="createdDate"
+                [(ngModel)]="
+                  form.createdDate
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Modified By</span>
+
+              <input
+                name="modifiedBy"
+                [(ngModel)]="
+                  form.modifiedBy
+                "
+              />
+            </label>
+
+
+            <label class="master-field">
+              <span>Modified Date</span>
+
+              <input
+                type="date"
+                name="modifiedDate"
+                [(ngModel)]="
+                  form.modifiedDate
+                "
+              />
+            </label>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="master-actions">
+
+        @if (
+          activeTab === 'add'
+        ) {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Save
+          </button>
+
+        }
+
+        @else if (
+          activeTab === 'edit' &&
+          selectedId !== null
+        ) {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Update
+          </button>
+
+          <button
+            type="button"
+            class="goods-delete"
+            (click)="remove()"
+          >
+            Delete
+          </button>
+
+        }
+
+        @else {
+
+          <button
+            type="submit"
+            class="
+              master-btn
+              master-btn--primary
+            "
+          >
+            Search
+          </button>
+
+        }
+
+
+        <button
+          type="button"
+          class="
+            master-btn
+            master-btn--secondary
+          "
+          (click)="reset()"
+        >
+          {{
+            activeTab === 'add'
+              ? 'Clear'
+              : 'Reset'
+          }}
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <!-- DOWNLOAD / UPLOAD -->
+
+    @if (
+      activeTab === 'add'
+    ) {
+
+      <div class="goods-files">
+
+        <button
+          type="button"
+          class="goods-download"
+          (click)="download()"
+        >
+          Download
+        </button>
+
+
+        <label class="goods-upload">
+
+          <span>
+            Goods List
+          </span>
+
+          <input
+            type="file"
+            accept=".csv,.txt"
+            (change)="uploadFile($event)"
+          />
+
+        </label>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- RESULTS -->
+
+  @if (
+    activeTab !== 'add' &&
+    results.length
+  ) {
+
+    <section class="goods-results">
+
+      <h2>
+        Search Results
+      </h2>
+
+      <div class="goods-table-wrap">
+
+        <table class="goods-table">
+
+          <thead>
+            <tr>
+              <th>Sl No.</th>
+              <th>Goods Type</th>
+              <th>Goods Name</th>
+              <th>CAS Number</th>
+              <th>Product Name</th>
+              <th>HS Code</th>
+              <th>Controlled</th>
+              <th>Declaration</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @for (
+              item of results;
+              track item.id;
+              let i = $index
+            ) {
+
+              <tr
+                [class.goods-table__editable]="
+                  activeTab === 'edit'
+                "
+                [class.goods-table__selected]="
+                  selectedId === item.id
+                "
+                (click)="editRecord(item)"
+              >
+
+                <td>
+                  <span class="goods-sl">
+                    {{ i + 1 }}
+                  </span>
+                </td>
+
+                <td>{{ item.goodsType }}</td>
+                <td>{{ item.goodsName }}</td>
+                <td>{{ item.casNumber }}</td>
+                <td>{{ item.productName }}</td>
+                <td>{{ item.hsCode }}</td>
+                <td>{{ item.controlledGoods }}</td>
+                <td>{{ item.needDeclaration }}</td>
+
+                <td>
+                  {{
+                    item.status === 'active'
+                      ? 'Active'
+                      : 'InActive'
+                  }}
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  @if (message()) {
+
+    <div class="master-toast">
+      {{ message() }}
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,239 @@
+<div class="param-page">
+
+  <!-- HEADER -->
+
+  <div class="param-header">
+
+    <h1>
+      Param Master
+    </h1>
+
+    <p>
+      Search, review and update system parameters.
+    </p>
+
+  </div>
+
+
+  <!-- SEARCH / EDIT CARD -->
+
+  <section class="param-card">
+
+    <div class="param-fields">
+
+      <label class="param-field">
+
+        <span>
+          Code
+        </span>
+
+        <input
+          type="number"
+          inputmode="numeric"
+          [(ngModel)]="form.code"
+          placeholder="Enter code"
+        />
+
+      </label>
+
+
+      <label class="param-field">
+
+        <span>
+          Description
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="
+            form.description
+          "
+          placeholder="Enter description"
+        />
+
+      </label>
+
+
+      <label class="param-field">
+
+        <span>
+          Value
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="form.value"
+          placeholder="Enter value"
+        />
+
+      </label>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="param-actions">
+
+      @if (
+        selectedId === null
+      ) {
+
+        <button
+          type="button"
+          class="
+            param-button
+            param-button--primary
+          "
+          (click)="search()"
+        >
+          Search
+        </button>
+
+      }
+
+      @else {
+
+        <button
+          type="button"
+          class="
+            param-button
+            param-button--primary
+          "
+          (click)="update()"
+        >
+          Update
+        </button>
+
+      }
+
+
+      <button
+        type="button"
+        class="
+          param-button
+          param-button--secondary
+        "
+        (click)="reset()"
+      >
+        Clear
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- RESULTS -->
+
+  @if (hasSearched) {
+
+    <section class="param-results">
+
+      <div class="param-results__header">
+
+        <div>
+
+          <h2>
+            Search Results
+          </h2>
+
+          <span>
+            {{ results.length }}
+            result(s) found
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="param-export"
+          [disabled]="!results.length"
+          (click)="exportExcel()"
+        >
+
+          <span class="param-export__icon">
+            X
+          </span>
+
+          Export Excel
+
+        </button>
+
+      </div>
+
+
+      <!--
+        Existing shared Trax table.
+      -->
+
+      <div class="param-table">
+
+        <theme-table
+          [rows]="results"
+          [columns]="columns"
+
+          rowKey="id"
+
+          [compact]="true"
+          [searchable]="false"
+          [showFilterButton]="false"
+          [showActions]="false"
+          [showFooter]="false"
+          [hoverable]="true"
+          [striped]="false"
+
+          emptyTitle="No parameters found"
+
+          emptyMessage="
+            No parameters matched the selected search criteria.
+          "
+        >
+        </theme-table>
+
+      </div>
+
+
+      <!-- QUICK EDIT SELECT -->
+
+      @if (
+        results.length > 1
+      ) {
+
+        <div class="param-result-buttons">
+
+          @for (
+            record of results;
+            track record.id
+          ) {
+
+            <button
+              type="button"
+              (click)="selectRecord(record)"
+            >
+              Edit {{ record.code }}
+            </button>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+  }
+
+
+  <!-- TOAST -->
+
+  @if (toast()) {
+
+    <div class="param-toast">
+      {{ toast() }}
+    </div>
+
+  }
+
+</div>
